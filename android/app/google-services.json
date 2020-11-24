@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "524945486875",
+    "firebase_url": "https://sphinx-a2784.firebaseio.com",
+    "project_id": "sphinx-a2784",
+    "storage_bucket": "sphinx-a2784.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:524945486875:android:f107a126eb4b2a483134be",
+        "android_client_info": {
+          "package_name": "com.example.sphinx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "524945486875-c4bk40nfph87a3c34itf39pma8jv66h0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTh1w_x9r36LGZ-BaF0PwKRYO_KcZvPps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "524945486875-c4bk40nfph87a3c34itf39pma8jv66h0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
