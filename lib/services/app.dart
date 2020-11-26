@@ -1,6 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sphinx/models/connectivity_status.dart';
 import 'package:sphinx/screens/noConnection.dart';
@@ -18,12 +19,49 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   FirebaseUser user;
+  CollectionReference userdata = Firestore.instance.collection('users');
+  final fbm = FirebaseMessaging();
 
   @override
   void initState() {
-    super.initState();
-    initOneSignal();
     getCurrentUser();
+
+    fbmConfigureation();
+    getDeviceToken();
+    fbm.subscribeToTopic('Admin');
+    fbm.requestNotificationPermissions();
+
+    print('///////////////////////////////////////////////////////////////');
+    print('///////////////////////////////////////////////////////////////');
+    print('///////////////////////////////////////////////////////////////');
+
+    super.initState();
+  }
+
+  void getDeviceToken() async {
+    String deviceToken = await fbm.getToken();
+
+    print('Device Token : $deviceToken');
+  }
+
+  void fbmConfigureation() async {
+    fbm.configure(
+      onMessage: (msg) {
+        print('onMessage: $msg');
+
+        return;
+      },
+      onLaunch: (msg) {
+        print('onLanch: $msg');
+
+        return;
+      },
+      onResume: (msg) {
+        print('onResume: $msg');
+
+        return;
+      },
+    );
   }
 
   void getCurrentUser() async {
@@ -58,9 +96,5 @@ class _AppState extends State<App> {
     } else {
       return LoadingScreen();
     }
-  }
-
-  void initOneSignal() {
-    OneSignal.shared.init('e866c6d2-bf1a-4a1d-a2c4-a8084fe5505a');
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/components/constants.dart';
 import 'package:sphinx/components/fadeAnimation.dart';
 
@@ -40,7 +41,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                           )),
                       Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: Text('Loading'),
+                        child: Text(translator.translate('loading')),
                       ),
                     ],
                   ),
