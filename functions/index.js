@@ -16,7 +16,6 @@ exports.orderTrigger = functions.firestore.document('requests/{requestId}').onCr
 exports.specialorderTrigger = functions.firestore.document('appointments/{appointmentsId}').onCreate
 (
     
-    
     async (snapshot,context)=>
     {
         var tokens=[];
@@ -26,6 +25,5 @@ exports.specialorderTrigger = functions.firestore.document('appointments/{appoin
 
          const respond = await admin.messaging().sendToDevice(tokens,payload);  
     }
-
 
 );
