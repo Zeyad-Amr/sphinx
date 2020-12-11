@@ -24,8 +24,8 @@ class _AppState extends State<App> {
 
   @override
   void initState() {
+    super.initState();
     getCurrentUser();
-
     fbmConfigureation();
     getDeviceToken();
     fbm.subscribeToTopic('Admin');
@@ -34,8 +34,6 @@ class _AppState extends State<App> {
     print('///////////////////////////////////////////////////////////////');
     print('///////////////////////////////////////////////////////////////');
     print('///////////////////////////////////////////////////////////////');
-
-    super.initState();
   }
 
   void getDeviceToken() async {
