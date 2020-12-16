@@ -186,6 +186,8 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                             builder: (context) => ChatRoom(
                                               chatRoomId:
                                                   '${widget.doctorPhone}_${widget.pateintPhone}',
+                                              sendTo: widget.doctorPhone,
+                                              sendToName: widget.doctorName,
                                             ),
                                           ),
                                         );

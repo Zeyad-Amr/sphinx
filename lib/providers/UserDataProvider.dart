@@ -176,8 +176,12 @@ class User with ChangeNotifier {
 
   signOut() {
     final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+    CollectionReference user = Firestore.instance.collection('users');
+
     _firebaseAuth.signOut();
     Future.delayed(Duration(seconds: 2), () => resetUserData());
+
+    return user.document(this._mobile).updateData({'token': ''});
   }
 
   resetUserData() {

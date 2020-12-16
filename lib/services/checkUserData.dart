@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sphinx/adminApp/accountPageAdmin.dart';
@@ -25,6 +26,9 @@ class _CheckUserDataState extends State<CheckUserData> {
   FirebaseUser user;
   String type;
   String userType;
+
+  CollectionReference userdata = Firestore.instance.collection('users');
+  final fbm = FirebaseMessaging();
 
   @override
   void initState() {
@@ -66,6 +70,13 @@ class _CheckUserDataState extends State<CheckUserData> {
     }
   }
 
+  void getDeviceToken() async {
+    FirebaseUser _user = await _firebaseAuth.currentUser();
+    String deviceToken = await fbm.getToken();
+    userdata.document(_user.phoneNumber).updateData({'token': deviceToken});
+    print('Device Token : $deviceToken');
+  }
+
   @override
   Widget build(BuildContext context) {
     User model;
@@ -86,6 +97,8 @@ class _CheckUserDataState extends State<CheckUserData> {
           print('Error ${snapshot.error}');
           return LoadingScreen();
         } else {
+          getDeviceToken();
+
           if (type == 'old') {
             if (userType == 'admin') {
               return AccountPageAdmin(

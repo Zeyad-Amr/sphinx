@@ -18,6 +18,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   FirebaseUser user;
   CollectionReference userdata = Firestore.instance.collection('users');
   final fbm = FirebaseMessaging();

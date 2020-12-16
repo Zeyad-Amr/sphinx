@@ -9,8 +9,15 @@ import '../components/constants.dart';
 
 class ChatRoom extends StatefulWidget {
   final String chatRoomId;
+  final String sendTo;
+  final String sendToName;
 
-  const ChatRoom({Key key, @required this.chatRoomId}) : super(key: key);
+  const ChatRoom(
+      {Key key,
+      @required this.chatRoomId,
+      @required this.sendTo,
+      @required this.sendToName})
+      : super(key: key);
   @override
   _ChatRoomState createState() => _ChatRoomState();
 }
@@ -123,6 +130,9 @@ class _ChatRoomState extends State<ChatRoom> {
                                 if (messageEditingController.text.isNotEmpty) {
                                   Map<String, dynamic> chatMessageMap = {
                                     "sendBy": user.mobile,
+                                    "sendByName": user.name,
+                                    "sendToName": widget.sendToName,
+                                    "sendTo": widget.sendTo,
                                     "message": messageEditingController.text,
                                     'time': DateTime.now(),
                                   };

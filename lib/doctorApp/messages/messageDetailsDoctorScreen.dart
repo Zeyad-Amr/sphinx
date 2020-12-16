@@ -241,6 +241,8 @@ class _MessageDetailsDoctorScreenState
                                             builder: (context) => ChatRoom(
                                               chatRoomId:
                                                   '${widget.doctorPhone}_${widget.pateintPhone}',
+                                              sendTo: widget.pateintPhone,
+                                              sendToName: widget.patientName,
                                             ),
                                           ),
                                         );

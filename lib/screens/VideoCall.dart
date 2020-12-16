@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:jitsi_meet/feature_flag/feature_flag_enum.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
 import 'package:jitsi_meet/jitsi_meeting_listener.dart';
-import 'package:sphinx/components/constants.dart';
 
 class VideoCall extends StatefulWidget {
   final String roomText, subjectText, nameText, emailText;
@@ -21,10 +20,10 @@ class VideoCall extends StatefulWidget {
 
 class _VideoCallState extends State<VideoCall> {
   final serverText = TextEditingController();
-  var isAudioOnly = true;
-  var isAudioMuted = true;
-  var isVideoMuted = true;
-
+/*   var isAudioOnly = false;
+  var isAudioMuted = false;
+  var isVideoMuted = false;
+ */
   @override
   void initState() {
     super.initState();
@@ -33,6 +32,7 @@ class _VideoCallState extends State<VideoCall> {
         onConferenceJoined: _onConferenceJoined,
         onConferenceTerminated: _onConferenceTerminated,
         onError: _onError));
+    _joinMeeting();
   }
 
   @override
@@ -43,13 +43,12 @@ class _VideoCallState extends State<VideoCall> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
-        child: SingleChildScrollView(
+          /* child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              SizedBox(
+              /*  SizedBox(
                 height: size.height * 0.1,
               ),
               CheckboxListTile(
@@ -72,7 +71,7 @@ class _VideoCallState extends State<VideoCall> {
                 title: Text("Video Muted"),
                 value: isVideoMuted,
                 onChanged: _onVideoMutedChanged,
-              ),
+              ), */
               Divider(
                 height: 48.0,
                 thickness: 2.0,
@@ -94,9 +93,7 @@ class _VideoCallState extends State<VideoCall> {
                   ),
                   color: kPrimaryColor,
                   textColor: Colors.white,
-                  onPressed: () {
-                    _joinMeeting();
-                  },
+                  onPressed: () {},
                 ),
               ),
               SizedBox(
@@ -104,12 +101,12 @@ class _VideoCallState extends State<VideoCall> {
               ),
             ],
           ),
-        ),
-      ),
+        ), */
+          ),
     );
   }
 
-  _onAudioOnlyChanged(bool value) {
+/*   _onAudioOnlyChanged(bool value) {
     setState(() {
       isAudioOnly = value;
     });
@@ -125,7 +122,7 @@ class _VideoCallState extends State<VideoCall> {
     setState(() {
       isVideoMuted = value;
     });
-  }
+  } */
 
   _joinMeeting() async {
     String serverUrl =
@@ -155,9 +152,9 @@ class _VideoCallState extends State<VideoCall> {
         ..subject = widget.subjectText
         ..userDisplayName = widget.nameText
         ..userEmail = widget.emailText
-        ..audioOnly = isAudioOnly
-        ..audioMuted = isAudioMuted
-        ..videoMuted = isVideoMuted
+        ..audioOnly = false
+        ..audioMuted = false
+        ..videoMuted = false
         ..featureFlags.addAll(featureFlags);
 
       debugPrint("JitsiMeetingOptions: $options");
@@ -197,6 +194,7 @@ class _VideoCallState extends State<VideoCall> {
 
   void _onConferenceJoined({message}) {
     debugPrint("_onConferenceJoined broadcasted with message: $message");
+    Navigator.of(context).pop();
   }
 
   void _onConferenceTerminated({message}) {
