@@ -61,7 +61,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                     );
                   },
                   child: Container(
-                    height: size.height * 0.15,
+                    height: size.width * 0.3,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20.0),
@@ -145,7 +145,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   },
                   splashColor: Colors.grey,
                   child: Container(
-                    height: size.height * 0.15,
+                    height: size.width * 0.3,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20.0),

@@ -96,8 +96,7 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                             MessageDetailsScreen(
                                           doctorName:
                                               documentSnapshot['DoctorName'],
-                                          imageUrl:
-                                              documentSnapshot['imgUrl'],
+                                          imageUrl: documentSnapshot['imgUrl'],
                                           doctorPhone:
                                               documentSnapshot['DoctorPhone'],
                                           pateintPhone:
@@ -241,7 +240,7 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              "You haven't any appointments",
+                              "You haven't any messages",
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6

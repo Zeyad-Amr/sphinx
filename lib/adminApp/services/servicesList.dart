@@ -3,22 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/components/constants.dart';
 
-import 'laBs.dart';
-import 'radiology.dart';
-import 'medication.dart';
-import 'renal_biopsy.dart';
-import 'other_services.dart';
-import 'intervetion_radiology.dart';
 
+import 'addService.dart';
 
-
-
-class ServiceList extends StatefulWidget {
+class ServicesList extends StatefulWidget {
   @override
-  _ServiceListState createState() => _ServiceListState();
+  _ServicesListState createState() => _ServicesListState();
 }
 
-class _ServiceListState extends State<ServiceList> {
+class _ServicesListState extends State<ServicesList> {
   TextEditingController editingController = TextEditingController();
   FirebaseUser user;
   String userNation;
@@ -53,7 +46,7 @@ class _ServiceListState extends State<ServiceList> {
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => LabsList(),
+                                  builder: (context) => AddService(collection:'labs' ,services:'labs' ,),
                                 ),
                               );
                             },
@@ -134,7 +127,7 @@ class _ServiceListState extends State<ServiceList> {
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => RadiologyList(),
+                                  builder: (context) => AddService(collection:'radiology' ,services:'radiology' ,),
                                 ),
                               );
                             },
@@ -216,7 +209,7 @@ class _ServiceListState extends State<ServiceList> {
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => MedicationList(),
+                                  builder: (context) => AddService(collection:'medication' ,services:'medication' ,),
                                 ),
                               );
                             },
@@ -298,7 +291,7 @@ class _ServiceListState extends State<ServiceList> {
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => RenalBiopsyList(),
+                                  builder: (context) => AddService(collection:'renalBiopsy' ,services:'renalBiopsy' ,),
                                 ),
                               );
                             },
@@ -380,7 +373,7 @@ class _ServiceListState extends State<ServiceList> {
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => IntRadiologyList(),
+                                  builder: (context) => AddService(collection:'int_radiology' ,services:'int_radiology' ,),
                                 ),
                               );
                             },
@@ -462,7 +455,7 @@ class _ServiceListState extends State<ServiceList> {
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => OtherServicesList(),
+                                  builder: (context) => AddService(collection:'otherServices' ,services:'otherServices' ,),
                                 ),
                               );
                             },

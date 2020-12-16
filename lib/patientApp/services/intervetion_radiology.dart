@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/components/constants.dart';
 
-class ServiceList extends StatefulWidget {
+class IntRadiologyList extends StatefulWidget {
   @override
-  _ServiceListState createState() => _ServiceListState();
+  _IntRadiologyListState createState() => _IntRadiologyListState();
 }
 
-class _ServiceListState extends State<ServiceList> {
+class _IntRadiologyListState extends State<IntRadiologyList> {
   TextEditingController editingController = TextEditingController();
   FirebaseUser user;
   String userNation;
@@ -23,7 +23,7 @@ class _ServiceListState extends State<ServiceList> {
   initState() {
     if (translator.currentLanguage == 'en') {
       Firestore.instance
-          .collection('services')
+          .collection('services_collections/collections/int_radiology')
           .orderBy('name_en')
           .getDocuments()
           .then((QuerySnapshot docs) {
@@ -38,7 +38,7 @@ class _ServiceListState extends State<ServiceList> {
       });
     } else {
       Firestore.instance
-          .collection('services')
+          .collection('services_collections/collections/int_radiology')
           .orderBy('name_ar')
           .getDocuments()
           .then((QuerySnapshot docs) {
@@ -80,7 +80,7 @@ class _ServiceListState extends State<ServiceList> {
 
     if (translator.currentLanguage == 'en') {
       await Firestore.instance
-          .collection('services')
+          .collection('services_collections/collections/int_radiology')
           .orderBy('name_en')
           .getDocuments()
           .then((QuerySnapshot docs) {
@@ -100,7 +100,7 @@ class _ServiceListState extends State<ServiceList> {
       });
     } else if (translator.currentLanguage == 'ar') {
       await Firestore.instance
-          .collection('services')
+          .collection('services_collections/collections/int_radiology')
           .orderBy('name_ar')
           .getDocuments()
           .then((QuerySnapshot docs) {
@@ -129,7 +129,7 @@ class _ServiceListState extends State<ServiceList> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(translator.translate('book_services')),
+        title: Text(translator.translate('int_radiology')),
       ),
       body: Container(
         height: size.height,

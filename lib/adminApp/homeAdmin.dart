@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:sphinx/adminApp/services/addService.dart';
 import 'package:sphinx/components/constants.dart';
-
+import 'services/servicesList.dart';
 import 'doctors/addDoctor.dart';
 
 class HomeWidgetAdmin extends StatefulWidget {
@@ -83,7 +82,7 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
                             translator.translate('services')) {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => AddService(),
+                              builder: (context) => ServicesList(),
                             ),
                           );
                         }

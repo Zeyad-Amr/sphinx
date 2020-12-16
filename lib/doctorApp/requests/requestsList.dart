@@ -13,7 +13,7 @@ class RequestsList extends StatefulWidget {
 
 class _RequestsListState extends State<RequestsList> {
   DateTime fullselectedDate;
-  final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm');
+  final DateFormat dateFormat = DateFormat('yyyy-MM-dd K:mm a');
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -373,8 +373,8 @@ class _RequestsListState extends State<RequestsList> {
                                                           });
                                                           print(selectedDate
                                                               .weekday);
-                                                          print(
-                                                              fullselectedDate);
+                                                          print(dateFormat.format(
+                                                              fullselectedDate));
 
                                                           return showDialog(
                                                             context: context,
@@ -464,7 +464,7 @@ class _RequestsListState extends State<RequestsList> {
                                                                               'DoctorPhone': documentSnapshot['DoctorPhone'],
                                                                               'DoctorName': documentSnapshot['DoctorName'],
                                                                               'state': 0,
-                                                                              'imgUrl':documentSnapshot['imgUrl'],
+                                                                              'imgUrl': documentSnapshot['imgUrl'],
                                                                             });
                                                                             Firestore.instance.collection('requests').document(documentSnapshot.documentID).updateData({
                                                                               'state': 1
@@ -528,7 +528,16 @@ class _RequestsListState extends State<RequestsList> {
 
     return showTimePicker(
       context: context,
-      initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
+      initialTime: TimeOfDay(
+        hour: now.hour,
+        minute: now.minute,
+      ),
+      builder: (BuildContext context, Widget child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: child,
+        );
+      },
     );
   }
 

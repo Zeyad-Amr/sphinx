@@ -101,7 +101,15 @@
     "homepd1":"Book your appointment",
     "homepd2":"with best doctors",
     "homeps1":"Book your appointment",
-    "homeps2":"with best services"
+    "homeps2":"with best services",
+
+
+    "radiology":"Radiology",
+    "medication":"Medication",
+    "renalBiopsy":"Renal Biopsy",
+    "int_radiology":"Intervetion Radiology",
+    "otherServices":"Other Services",
+    "labs":"Labs"
     
     
 

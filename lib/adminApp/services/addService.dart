@@ -6,6 +6,15 @@ import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/components/constants.dart';
 
 class AddService extends StatefulWidget {
+  final String collection;
+  final String services;
+
+   const AddService(
+      {Key key,
+      @required this.collection,
+      @required this.services})
+      : super(key: key);
+
   @override
   _AddServiceState createState() => _AddServiceState();
 }
@@ -15,7 +24,7 @@ class _AddServiceState extends State<AddService> {
   int pe, pf;
 
   Future<void> addServices({String nameEn, String nameAr, int pE, int pF}) {
-    CollectionReference service = Firestore.instance.collection('services');
+    CollectionReference service = Firestore.instance.collection('services_collections/collections/${widget.collection}');
     return service
         .document(nameEn)
         .setData({
@@ -30,8 +39,8 @@ class _AddServiceState extends State<AddService> {
 
   Future<void> updateServices(
       {String oldName, String nameEn, String nameAr, int pE, int pF}) {
-    CollectionReference service = Firestore.instance.collection('services');
-    Firestore.instance.collection("services").document(oldName).delete();
+    CollectionReference service = Firestore.instance.collection('services_collections/collections/${widget.collection}');
+    Firestore.instance.collection("services_collections/collections/${widget.collection}").document(oldName).delete();
     return service
         .document(nameEn)
         .setData({
@@ -46,7 +55,7 @@ class _AddServiceState extends State<AddService> {
 
   deleteData(String name) {
     DocumentReference documentReference =
-        Firestore.instance.collection("services").document(name);
+        Firestore.instance.collection("services_collections/collections/${widget.collection}").document(name);
 
     documentReference.delete().whenComplete(() {
       return Fluttertoast.showToast(
@@ -66,7 +75,7 @@ class _AddServiceState extends State<AddService> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(translator.translate('services')),
+        title: Text(translator.translate('${widget.services}')),
       ),
       body: Container(
           height: size.height,
@@ -245,7 +254,7 @@ class _AddServiceState extends State<AddService> {
               Expanded(
                 child: StreamBuilder(
                   stream: Firestore.instance
-                      .collection("services")
+                      .collection("services_collections/collections/${widget.collection}")
                       .orderBy('name_en')
                       .snapshots(),
                   builder: (context, snapshot) {
