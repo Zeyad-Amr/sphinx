@@ -137,22 +137,6 @@ class _ServiceListState extends State<ServiceList> {
         color: Colors.grey[200],
         child: Column(
           children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
-              child: TextField(
-                onChanged: (value) {
-                  initiateSearch(value);
-                },
-                controller: editingController,
-                decoration: InputDecoration(
-                    labelText: translator.translate('search'),
-                    hintText: translator.translate('search'),
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-              ),
-            ),
             Expanded(
               child: Container(
                 child: Column(
@@ -161,118 +145,91 @@ class _ServiceListState extends State<ServiceList> {
                     // List of Services...............................................................
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: tempSearchStore.length,
-                          itemBuilder: (context, index) {
-                            var documentSnapshot = tempSearchStore[index];
-
-                            return Padding(
-                              padding: const EdgeInsets.all(1.0),
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: ListTile(
-                                    subtitle: userNation == 'مصر‎'
-                                        ? Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8.0),
-                                            child: Text(
-                                                translator.translate('cost') +
-                                                    ' ' +
-                                                    documentSnapshot['costEgy']
-                                                        .toString() +
-                                                    ' ' +
-                                                    translator.translate('L.E'),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText2),
-                                          )
-                                        : Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8.0),
-                                            child: Text(
-                                              translator.translate('cost') +
-                                                  ' ' +
-                                                  documentSnapshot['costForg']
-                                                      .toString() +
-                                                  ' ' +
-                                                  translator.translate('L.E'),
-                                            ),
-                                          ),
-                                    title: translator.currentLanguage == 'en'
-                                        ? Text(
-                                            documentSnapshot['name_en'],
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline6,
-                                          )
-                                        : Text(
-                                            documentSnapshot['name_ar'],
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline6,
-                                          ),
-                                    leading: Container(
-                                      width: size.width * 0.08,
-                                      height: size.height,
-                                      color: kPrimaryColor,
-                                    ),
-                                    trailing: FlatButton(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      color: kPrimaryColor,
-                                      textColor: Colors.white,
-                                      child: Text(
-                                        translator.translate('book'),
-                                      ),
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) =>
-                                              FancyDialog(
-                                            theme: 1,
-                                            descreption: userNation == 'مصر‎'
-                                                ? translator.translate('cost') +
-                                                    ' ' +
-                                                    documentSnapshot['costEgy']
-                                                        .toString() +
-                                                    ' ' +
-                                                    translator.translate('L.E')
-                                                : translator.translate('cost') +
-                                                    ' ' +
-                                                    documentSnapshot['costForg']
-                                                        .toString() +
-                                                    ' ' +
-                                                    translator.translate('L.E'),
-                                            title: translator.currentLanguage ==
-                                                    'en'
-                                                ? documentSnapshot['name_en']
-                                                : documentSnapshot['name_ar'],
-                                            gifPath:
-                                                'assets/images/serviceList.png',
-                                            ok: translator.translate('book'),
-                                            cancel:
-                                                translator.translate('cancel'),
-                                            cancelColor: Colors.black,
-                                            okColor: kPrimaryColor,
-                                            okFun: () {},
-                                            animationType:
-                                                FancyAnimation.TOP_BOTTOM,
-                                          ),
-                                        );
-                                      },
-                                    ),
+                        padding: const EdgeInsets.only(
+                            top: 10.0, left: 5, right: 5, bottom: 10),
+                        child: Column(
+                          children: [
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => ServiceList(),
                                   ),
+                                );
+                              },
+                              splashColor: Colors.grey,
+                              child: Container(
+                                height: size.height * 0.15,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      offset: Offset(0.0, 2.0),
+                                      blurRadius: 6.0,
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Image(
+                                        width: size.width * 0.2,
+                                        image: AssetImage(
+                                          'assets/icons/services.png',
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 15.0, bottom: 8),
+                                          child: Text(
+                                              translator.translate('services'),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline5
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                translator.translate('homeps1'),
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              Text(
+                                                translator.translate('homeps2'),
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
-                            );
-                          },
+                            ),
+                          ],
                         ),
                       ),
                     ),
