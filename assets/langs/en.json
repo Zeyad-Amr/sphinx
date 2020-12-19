@@ -45,7 +45,7 @@
     "reject":"Reject",
     "accept":"Accept",
     "back":"Back",
-    "loading":"Loading your informations ..",
+    "loading":"Loading your information ..",
     
     
     "sphinx":"Sphinx Kcc",
@@ -103,16 +103,35 @@
     "homeps1":"Book your appointment",
     "homeps2":"with best services",
 
+    "appointments":"Appointments",
+    "bookedSerives":"Booked Services",
+    "EndedConsult":"Ended Consultations",
+    "noItems":"No Items",
+
 
     "radiology":"Radiology",
     "medication":"Medication",
     "renalBiopsy":"Renal Biopsy",
     "int_radiology":"Intervetion Radiology",
     "otherServices":"Other Services",
-    "labs":"Labs"
+    "labs":"Labs",
+   
+
+    "messages":"Messages",
+    "typeMessage":"Type a message",
+    "photouploaded":"Image is uploaded successfully",
+    "photouploading":"Uploading the image ....",
+    "loadingDots":"loading ...",
+
+    "patientName":"Patient Name",
+    "doctorName":"Doctor Name",
+    "message":"Message",
+    "videoCall":"Video Call",
+    "open":"Open",
+    "calldocnow":"Call your\ndoctor Now"
     
     
 
     
-   
+    
 }

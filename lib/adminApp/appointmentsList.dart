@@ -1,38 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/components/constants.dart';
-import 'package:sphinx/doctorApp/messages/messageDetailsDoctorScreen.dart';
-import 'package:sphinx/providers/UserDataProvider.dart';
 
-class MessegesWidgetDoctor extends StatelessWidget {
-  const MessegesWidgetDoctor({
-    Key key,
-  }) : super(key: key);
+class AppointmentsList extends StatefulWidget {
+  @override
+  _AppointmentsListState createState() => _AppointmentsListState();
+}
 
+class _AppointmentsListState extends State<AppointmentsList> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Container(
-        height: size.height,
-        width: double.infinity,
-        color: Colors.grey[200],
-        child: ListView(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-              child: Text('My Messages',
-                  style: Theme.of(context).textTheme.headline6),
-            ),
-            Consumer<User>(
-              builder: (context, currentUser, child) => StreamBuilder(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(translator.translate('appointments')),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          height: size.height,
+          width: double.infinity,
+          color: Colors.grey[200],
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              StreamBuilder(
                 stream: Firestore.instance
                     .collection("appointments")
-                    .where('DoctorPhone', isEqualTo: currentUser.mobile)
                     .where('state', isEqualTo: 0)
                     .snapshots(),
                 builder: (context, snapshot) {
@@ -49,7 +45,7 @@ class MessegesWidgetDoctor extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Text(
-                                "You haven't any messages",
+                                "No items",
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6
@@ -80,35 +76,6 @@ class MessegesWidgetDoctor extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: ListTile(
-                                  trailing: RaisedButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                        builder: (context) =>
-                                            MessageDetailsDoctorScreen(
-                                          documentId:
-                                              documentSnapshot.documentID,
-                                          age: documentSnapshot['age'],
-                                          country: documentSnapshot['country'],
-                                          gender: documentSnapshot['gender'],
-                                          doctorName:
-                                              documentSnapshot['DoctorName'],
-                                          doctorPhone:
-                                              documentSnapshot['DoctorPhone'],
-                                          pateintPhone:
-                                              documentSnapshot['patientPhone'],
-                                          patientName:
-                                              documentSnapshot['patientName'],
-                                        ),
-                                      ));
-                                    },
-                                    child: Text('Open'),
-                                    color: kPrimaryColor,
-                                    textColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                  ),
                                   title: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -120,22 +87,25 @@ class MessegesWidgetDoctor extends StatelessWidget {
                                             .textTheme
                                             .headline5,
                                       ),
-                                      Text(
-                                        'Date: ' +
-                                            documentSnapshot['AppointmentDate'],
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6
-                                            .copyWith(
-                                                color: kPrimaryLightColor),
-                                      ),
                                     ],
                                   ),
-                                  /* subtitle: Column(
+                                  subtitle: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      
+                                      Text(
+                                        documentSnapshot['doctorName'],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6,
+                                      ),
+                                      Text(
+                                        documentSnapshot['cost'] +
+                                            translator.translate('L.E'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6,
+                                      ),
                                       Text(
                                         translator.translate('mob') +
                                             ': ' +
@@ -164,36 +134,54 @@ class MessegesWidgetDoctor extends StatelessWidget {
                                                   .textTheme
                                                   .bodyText1,
                                             ),
-                                      Text(
-                                        translator.translate('age') +
-                                            ': ' +
-                                            documentSnapshot['age'],
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      ),
-                                      documentSnapshot['gender'] == 'Male' ||
-                                              documentSnapshot['gender'] ==
-                                                  'ذكر'
+                                      translator.currentLanguage == 'en'
                                           ? Text(
-                                              translator.translate('gender') +
-                                                  ': ' +
-                                                  translator.translate('male'),
+                                              'Invoice Code: ' +
+                                                  documentSnapshot['Id'],
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1,
                                             )
                                           : Text(
-                                              translator.translate('gender') +
-                                                  ': ' +
-                                                  translator
-                                                      .translate('female'),
+                                              'كود الفاتورة: ' +
+                                                  documentSnapshot['Id'],
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1,
-                                            )
+                                            ),
+
+                                      /*  Text(
+                                          translator.translate('age') +
+                                              ': ' +
+                                              documentSnapshot['age'],
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
+                                        ),
+                                        documentSnapshot['gender'] == 'Male' ||
+                                                documentSnapshot['gender'] ==
+                                                    'ذكر'
+                                            ? Text(
+                                                translator.translate('gender') +
+                                                    ': ' +
+                                                    translator
+                                                        .translate('male'),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1,
+                                              )
+                                            : Text(
+                                                translator.translate('gender') +
+                                                    ': ' +
+                                                    translator
+                                                        .translate('female'),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1,
+                                              )
+                                               */
                                     ],
-                                  ), */
+                                  ),
                                   leading: Container(
                                     width: size.width * 0.08,
                                     height: size.height,
@@ -203,22 +191,6 @@ class MessegesWidgetDoctor extends StatelessWidget {
                                       color: kPrimaryColor,
                                     ),
                                   ),
-                                  /*      trailing: Container(
-                                    width: size.width * 0.3,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          documentSnapshot['AppointmentDate'],
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6
-                                              .copyWith(
-                                                  color: kPrimaryLightColor),
-                                        ),
-                                      ],
-                                    ),
-                                  ), */
                                 ),
                               ),
                             ),
@@ -238,7 +210,7 @@ class MessegesWidgetDoctor extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              "You haven't any messages",
+                              "No items",
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
@@ -253,8 +225,8 @@ class MessegesWidgetDoctor extends StatelessWidget {
                   }
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

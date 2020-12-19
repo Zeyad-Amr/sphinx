@@ -4,22 +4,41 @@ import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:sphinx/components/constants.dart';
 import 'package:sphinx/providers/UserDataProvider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class DetailScreen extends StatelessWidget {
-  final String name;
-  final String description;
+class DetailScreen extends StatefulWidget {
+  final String docNameEn;
+  final String docNameAr;
+  final String docMobile;
+  final String descriptionEn;
+  final String descriptionAr;
   final String imageUrl;
   final int cost;
-  final String docMobile;
 
   DetailScreen(
       {Key key,
-      @required this.name,
-      @required this.description,
+      @required this.descriptionEn,
+      @required this.descriptionAr,
       @required this.imageUrl,
       @required this.cost,
-      @required this.docMobile})
+      @required this.docMobile,
+      @required this.docNameEn,
+      @required this.docNameAr})
       : super(key: key);
+
+  @override
+  _DetailScreenState createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  uniqueId() {
+    String uniqueId =
+        UniqueKey().toString().split('').getRange(2, 7).join().toString() +
+            UniqueKey().toString().split('').getRange(2, 7).join().toString() +
+            UniqueKey().toString().split('').getRange(2, 7).join().toString();
+    return uniqueId;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,10 +120,10 @@ class DetailScreen extends StatelessWidget {
                                 children: <Widget>[
                                   Container(
                                     width: 80,
-                                    child: imageUrl != null
+                                    child: widget.imageUrl != null
                                         ? CircleAvatar(
                                             backgroundImage: NetworkImage(
-                                              imageUrl,
+                                              widget.imageUrl,
                                             ),
                                             radius: 40,
                                           )
@@ -122,26 +141,46 @@ class DetailScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
-                                    Text(
-                                      name,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    Text(
-                                      description,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: kPrimaryColor.withOpacity(0.7),
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                    translator.currentLanguage == 'en'
+                                        ? Text(
+                                            widget.docNameEn,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 25,
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                        : Text(
+                                            widget.docNameAr,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 25,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                    translator.currentLanguage == 'en'
+                                        ? Text(
+                                            widget.descriptionEn,
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: kPrimaryColor
+                                                    .withOpacity(0.7),
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        : Text(
+                                            widget.descriptionAr,
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: kPrimaryColor
+                                                    .withOpacity(0.7),
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                     SizedBox(
                                       height: 10,
                                     ),
                                     Text(
-                                      '$cost ' + translator.translate('L.E'),
+                                      '${widget.cost} ' +
+                                          translator.translate('L.E'),
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16,
@@ -172,27 +211,128 @@ class DetailScreen extends StatelessWidget {
                                       translator.translate('book'),
                                       style: TextStyle(fontSize: 25),
                                     ),
-                                    onPressed: () {
-                                      Firestore.instance
+                                    onPressed: () async {
+                                      String id = uniqueId();
+                                      print(id);
+                                      /*  Firestore.instance
                                           .collection('requests')
                                           .document(DateTime.now().toString())
                                           .setData({
+                                        'Id': uniqueId(),
                                         'name': currentUser.name,
                                         'phone': currentUser.mobile,
                                         'age': currentUser.age,
                                         'gender': currentUser.gender,
                                         'country': currentUser.country,
-                                        'DoctorPhone': docMobile,
-                                        'DoctorName': name,
+                                        'DoctorPhone': widget.docMobile,
+                                        'DoctorNameEn': widget.docNameEn,
+                                        'DoctorNameAr': widget.docNameAr,
+                                        'cost': widget.cost,
                                         'state': 0,
                                         'date': DateTime.now().toString(),
-                                        'imgUrl':imageUrl
+                                        'imgUrl': widget.imageUrl
                                       });
-                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop(); */
+                                      await Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => WebView(
+                                            onPageStarted: (input) {},
+                                            onPageFinished: (output) {
+                                              print(
+                                                  'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
+                                              print(output);
+                                              if (output
+                                                  .contains('NBESuccess.php')) {
+                                                Firestore.instance
+                                                    .collection('requests')
+                                                    .document(DateTime.now()
+                                                        .toString())
+                                                    .setData({
+                                                  'Id': id,
+                                                  'name': currentUser.name,
+                                                  'phone': currentUser.mobile,
+                                                  'age': currentUser.age,
+                                                  'gender': currentUser.gender,
+                                                  'country':
+                                                      currentUser.country,
+                                                  'DoctorPhone':
+                                                      widget.docMobile,
+                                                  'DoctorNameEn':
+                                                      widget.docNameEn,
+                                                  'DoctorNameAr':
+                                                      widget.docNameAr,
+                                                  'specialtyAr':
+                                                      widget.descriptionAr,
+                                                  'specialtyEn':
+                                                      widget.descriptionEn,
+                                                  'cost': widget.cost,
+                                                  'state': 0,
+                                                  'date':
+                                                      DateTime.now().toString(),
+                                                  'imgUrl': widget.imageUrl
+                                                });
+                                                Navigator.of(context).pop();
+                                                Fluttertoast.showToast(
+                                                    msg: 'Success',
+                                                    toastLength:
+                                                        Toast.LENGTH_LONG,
+                                                    gravity: ToastGravity.TOP,
+                                                    timeInSecForIos: 5,
+                                                    backgroundColor: Colors
+                                                        .black
+                                                        .withOpacity(0.6),
+                                                    textColor: Colors.white,
+                                                    fontSize: 20.0);
+                                              } else if (output
+                                                  .contains('NBEFailed.php')) {
+                                                print(
+                                                    'OUTPUT IS ................. $output');
+                                                Fluttertoast.showToast(
+                                                    msg: 'Falied',
+                                                    toastLength:
+                                                        Toast.LENGTH_LONG,
+                                                    gravity: ToastGravity.TOP,
+                                                    timeInSecForIos: 5,
+                                                    backgroundColor: Colors
+                                                        .black
+                                                        .withOpacity(0.6),
+                                                    textColor: Colors.white,
+                                                    fontSize: 20.0);
+                                              } else if (output
+                                                  .contains('NBECancel.php')) {
+                                                print(
+                                                    'OUTPUT IS ................. $output');
+                                                Fluttertoast.showToast(
+                                                    msg: 'Canceled',
+                                                    toastLength:
+                                                        Toast.LENGTH_LONG,
+                                                    gravity: ToastGravity.TOP,
+                                                    timeInSecForIos: 5,
+                                                    backgroundColor: Colors
+                                                        .black
+                                                        .withOpacity(0.6),
+                                                    textColor: Colors.white,
+                                                    fontSize: 20.0);
+                                              }
+                                            },
+                                            initialUrl:
+                                                "https://onlineconsultation.sphinxkc.com/NBEPayment.php?s_name=${currentUser.name}&s_price=${widget.cost}&OID=$id",
+                                            javascriptMode:
+                                                JavascriptMode.unrestricted,
+                                          ),
+                                        ),
+                                      );
+                                      print(id);
                                     },
                                   ),
                                 ),
                               ),
+                              /*   RaisedButton(
+                                onPressed: () {
+                                  print(uniqueId);
+                                },
+                                child: Text('click'),
+                              ), */
                             ],
                           ),
                         ),

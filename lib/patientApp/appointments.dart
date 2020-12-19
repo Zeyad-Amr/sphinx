@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sphinx/components/constants.dart';
 import 'package:sphinx/providers/UserDataProvider.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
+import 'messages/messageDetailsScreen.dart';
 
 class AppointmentWidget extends StatefulWidget {
   const AppointmentWidget({
@@ -14,26 +16,25 @@ class AppointmentWidget extends StatefulWidget {
 }
 
 class _AppointmentWidgetState extends State<AppointmentWidget> {
-  int i = 1;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Container(
-        height: size.height,
-        width: double.infinity,
-        color: Colors.grey[200],
-        child: ListView(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-              child: Text('My Appointments',
-                  style: Theme.of(context).textTheme.headline6),
-            ),
-            Consumer<User>(
+    return Container(
+      height: size.height,
+      width: double.infinity,
+      color: Colors.grey[200],
+      child: Column(
+        children: [
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+            child: Text(translator.translate('appointments'),
+                style: Theme.of(context).textTheme.headline6),
+          ),
+          Expanded(
+            child: Consumer<User>(
               builder: (context, currentUser, child) => StreamBuilder(
                 stream: Firestore.instance
                     .collection("appointments")
@@ -54,7 +55,7 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Text(
-                                "You haven't any appointments",
+                                translator.translate('noItems'),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6
@@ -86,26 +87,113 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: ListTile(
+                                  trailing: RaisedButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                        builder: (context) =>
+                                            MessageDetailsScreen(
+                                          descriptionAr:
+                                              documentSnapshot['specialtyAr'],
+                                          descriptionEn:
+                                              documentSnapshot['specialtyEn'],
+                                          doctorNameEn:
+                                              documentSnapshot['DoctorNameEn'],
+                                          pateintName:
+                                              documentSnapshot['patientName'],
+                                          doctorName: translator
+                                                      .currentLanguage ==
+                                                  'en'
+                                              ? documentSnapshot['DoctorNameEn']
+                                              : documentSnapshot[
+                                                  'DoctorNameAr'],
+                                          imageUrl: documentSnapshot['imgUrl'],
+                                          doctorPhone:
+                                              documentSnapshot['DoctorPhone'],
+                                          pateintPhone:
+                                              documentSnapshot['patientPhone'],
+                                        ),
+                                      ));
+                                    },
+                                    child: Text(translator.translate('open')),
+                                    color: kPrimaryColor,
+                                    textColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                  ),
                                   title: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        documentSnapshot['DoctorName'],
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline5,
-                                      ),
-                                      Text(
-                                        'Date: ' +
-                                            documentSnapshot['AppointmentDate'],
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6
-                                            .copyWith(
-                                                color: kPrimaryLightColor),
-                                      ),
+                                      translator.currentLanguage == 'en'
+                                          ? Text(
+                                              documentSnapshot['DoctorNameEn'],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline6
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            )
+                                          : Text(
+                                              documentSnapshot['DoctorNameAr'],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline6
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                    ],
+                                  ),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      translator.currentLanguage == 'en'
+                                          ? Text(
+                                              'Reservation code: ' +
+                                                  documentSnapshot['Id'],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  .copyWith(
+                                                      color:
+                                                          kPrimaryLightColor),
+                                            )
+                                          : Text(
+                                              'كود الحجز: ' +
+                                                  documentSnapshot['Id'],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  .copyWith(
+                                                      color:
+                                                          kPrimaryLightColor),
+                                            ),
+                                      translator.currentLanguage == 'en'
+                                          ? Text(
+                                              'Date: ' +
+                                                  documentSnapshot[
+                                                      'AppointmentDate'],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  .copyWith(
+                                                      color: kPrimaryColor),
+                                            )
+                                          : Text(
+                                              'الموعد: ' +
+                                                  documentSnapshot[
+                                                      'AppointmentDate'],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  .copyWith(
+                                                      color: kPrimaryColor),
+                                            ),
                                     ],
                                   ),
                                   /* subtitle: Column(
@@ -215,7 +303,7 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              "You haven't any appointments",
+                              translator.translate('noItems'),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
@@ -231,8 +319,8 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                 },
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

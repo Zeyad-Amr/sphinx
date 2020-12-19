@@ -50,6 +50,9 @@ dependencies:
   webview_flutter: ^1.0.7
   firebase_messaging: ^6.0.13
   flutter_launcher_icons: "^0.8.0"
+  photo_view: ^0.10.3
+  cached_network_image: ^2.4.1
+
   
 
   

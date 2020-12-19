@@ -102,12 +102,32 @@
     "homeps1":"احجز موعدك",
     "homeps2":"مع أفضل الخدمات",
 
+    "appointments":"المواعيد",
+    "bookedSerives":"الخدمات المحجوزة",
+    "EndedConsult":"الاستشارات المنتهية",
+
     "radiology":"الإشعة",
     "medication":"الأدوية",
     "renalBiopsy":"أخذ عينه من الكلي",
     "int_radiology":"الإشعة التداخلية",
     "otherServices":"خدمات أخري",
-    "labs":"التحاليل"
+    "labs":"التحاليل",
+    "noItems":"لا توجد عناصر",
+
+    "messages":"الرسائل",
+    "typeMessage":"اكتب رسالة",
+    "photouploaded":"تم رفع الصورة بنجاح",
+    "photouploading":"جار تحميل الصورة ....",
+    "loadingDots":"جار التحميل ...",
+    
+
+    "patientName":"اسم المريض",
+    "doctorName":"اسم الطبيب",
+    "message":"مراسلة",
+    "videoCall":"مكالمة فيديو",
+    "open":"افتح",
+
+    "calldocnow":"تواصل\nمع طبيبك الآن"
     
 }
 

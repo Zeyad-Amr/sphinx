@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/patientApp/services/servicesList.dart';
-import 'package:sphinx/screens/paymentScreen.dart';
 
 import 'doctors/doctorList.dart';
 
@@ -82,7 +81,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           child: Image(
                             width: size.width * 0.2,
                             image: AssetImage(
-                              'assets/icons/doctor.png',
+                              'assets/icons/doctorDash.png',
                             ),
                             fit: BoxFit.cover,
                           ),
@@ -166,7 +165,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           child: Image(
                             width: size.width * 0.2,
                             image: AssetImage(
-                              'assets/icons/services.png',
+                              'assets/icons/servicesDash.png',
                             ),
                             fit: BoxFit.cover,
                           ),
@@ -212,14 +211,14 @@ class _HomeWidgetState extends State<HomeWidget> {
               ],
             ),
           ),
-          RaisedButton(
+          /*  RaisedButton(
             child: Text('Test Payment'),
             onPressed: () => Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => PaymentScreen(),
+                builder: (context) => PaymentScreen(doctorName: ,),
               ),
             ),
-          )
+          ) */
         ],
       ),
     );

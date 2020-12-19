@@ -3,6 +3,10 @@ import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/components/constants.dart';
 import 'services/servicesList.dart';
 import 'doctors/addDoctor.dart';
+import 'bookedServicesList.dart';
+import 'appointmentsList.dart';
+import 'requestsList.dart';
+import 'endedAppointmentList.dart';
 
 class HomeWidgetAdmin extends StatefulWidget {
   const HomeWidgetAdmin({
@@ -16,27 +20,35 @@ class HomeWidgetAdmin extends StatefulWidget {
 class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
   Items item1 = new Items(
     title: translator.translate('doctors'),
-    img: "assets/icons/doctor.png",
+    img: "assets/icons/doctorw.png",
   );
 
   Items item2 = new Items(
     title: translator.translate('services'),
     subtitle: "Bocali, Apple",
-    img: "assets/icons/services.png",
+    img: "assets/icons/servicesw.png",
   );
-  /* Items item3 = new Items(
-    title: "Locations",
-    img: "assets/icons/logo.png",
+  Items item3 = new Items(
+    title: translator.translate('requests'),
+    img: "assets/icons/request.png",
   );
   Items item4 = new Items(
-    title: "Activity",
-    img: "assets/icons/logo.png",
+    title: translator.translate('appointments'),
+    img: "assets/icons/appointment.png",
   );
- */
+  Items item5 = new Items(
+    title: translator.translate('bookedSerives'),
+    img: "assets/icons/bookedServices.png",
+  );
+  Items item6 = new Items(
+    title: translator.translate('EndedConsult'),
+    img: "assets/icons/end.png",
+  );
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    List<Items> myList = [item1, item2 /* , item3, item4 */];
+    List<Items> myList = [item1, item2, item3, item4, item5, item6];
 
     return Container(
       height: size.height,
@@ -65,10 +77,10 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
             Flexible(
               child: GridView.count(
                   childAspectRatio: 1.0,
-                  padding: EdgeInsets.only(left: 16, right: 16),
+                  padding: EdgeInsets.only(left: 15, right: 15),
                   crossAxisCount: 2,
-                  crossAxisSpacing: 18,
-                  mainAxisSpacing: 18,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
                   children: myList.map((data) {
                     return GestureDetector(
                       onTap: () {
@@ -83,6 +95,34 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => ServicesList(),
+                            ),
+                          );
+                        } else if (data.title ==
+                            translator.translate('bookedSerives')) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => BookedServices(),
+                            ),
+                          );
+                        } else if (data.title ==
+                            translator.translate('appointments')) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => AppointmentsList(),
+                            ),
+                          );
+                        } else if (data.title ==
+                            translator.translate('requests')) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => RequestsList(),
+                            ),
+                          );
+                        } else if (data.title ==
+                            translator.translate('EndedConsult')) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => EndedAppointmentsList(),
                             ),
                           );
                         }
@@ -105,7 +145,7 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
                               data.title,
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold),
                             ),
                           ],

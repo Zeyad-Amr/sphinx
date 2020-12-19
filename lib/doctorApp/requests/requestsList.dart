@@ -455,6 +455,7 @@ class _RequestsListState extends State<RequestsList> {
                                                                           onPressed:
                                                                               () {
                                                                             Firestore.instance.collection('appointments').document(DateTime.now().toString()).setData({
+                                                                              'Id': documentSnapshot['Id'],
                                                                               'AppointmentDate': dateFormat.format(fullselectedDate).toString(),
                                                                               'patientName': documentSnapshot['name'],
                                                                               'patientPhone': documentSnapshot['phone'],
@@ -462,7 +463,11 @@ class _RequestsListState extends State<RequestsList> {
                                                                               'gender': documentSnapshot['gender'],
                                                                               'country': documentSnapshot['country'],
                                                                               'DoctorPhone': documentSnapshot['DoctorPhone'],
-                                                                              'DoctorName': documentSnapshot['DoctorName'],
+                                                                              'DoctorNameEn': documentSnapshot['DoctorNameEn'],
+                                                                              'DoctorNameAr': documentSnapshot['DoctorNameAr'],
+                                                                              'specialtyEn': documentSnapshot['specialtyEn'],
+                                                                              'specialtyAr': documentSnapshot['specialtyAr'],
+                                                                              'cost': documentSnapshot['cost'],
                                                                               'state': 0,
                                                                               'imgUrl': documentSnapshot['imgUrl'],
                                                                             });

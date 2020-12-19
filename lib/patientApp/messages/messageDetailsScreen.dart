@@ -5,16 +5,28 @@ import 'package:sphinx/screens/VideoCall.dart';
 import 'package:sphinx/screens/chatRoom.dart';
 import 'package:sphinx/providers/UserDataProvider.dart';
 import '../../components/constants.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 class MessageDetailsScreen extends StatefulWidget {
-  final String doctorPhone, pateintPhone, doctorName, imageUrl;
+  final String doctorPhone,
+      pateintPhone,
+      doctorName,
+      doctorNameEn,
+      pateintName,
+      imageUrl;
+  final String descriptionEn;
+  final String descriptionAr;
 
   const MessageDetailsScreen({
     Key key,
     @required this.doctorPhone,
     @required this.pateintPhone,
-    @required this.doctorName,
+    @required this.doctorNameEn,
     @required this.imageUrl,
+    @required this.pateintName,
+    @required this.doctorName,
+    @required this.descriptionEn,
+    @required this.descriptionAr,
   }) : super(key: key);
   @override
   _MessageDetailsScreenState createState() => _MessageDetailsScreenState();
@@ -68,7 +80,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                     SizedBox(
                       width: 40,
                     ),
-                    Text('Call your\ndoctor Now'.toUpperCase(),
+                    Text(translator.translate('calldocnow').toUpperCase(),
                         textAlign: TextAlign.start,
                         style: Theme.of(context)
                             .textTheme
@@ -130,6 +142,23 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                         color: Colors.black,
                                       ),
                                     ),
+                                    translator.currentLanguage == 'en'
+                                        ? Text(
+                                            widget.descriptionEn,
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: kPrimaryColor
+                                                    .withOpacity(0.7),
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        : Text(
+                                            widget.descriptionAr,
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: kPrimaryColor
+                                                    .withOpacity(0.7),
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                     SizedBox(
                                       height: 10,
                                     ),
@@ -160,7 +189,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                       color: kPrimaryColor,
                                       textColor: Colors.white,
                                       label: Text(
-                                        'Message',
+                                        translator.translate('message'),
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1
@@ -187,7 +216,9 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                               chatRoomId:
                                                   '${widget.doctorPhone}_${widget.pateintPhone}',
                                               sendTo: widget.doctorPhone,
-                                              sendToName: widget.doctorName,
+                                              sendToName: widget.doctorNameEn,
+                                              sendBy: widget.pateintPhone,
+                                              sendByName: widget.pateintName,
                                             ),
                                           ),
                                         );
@@ -208,7 +239,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                       color: kPrimaryColor,
                                       textColor: Colors.white,
                                       label: Text(
-                                        'Video Call',
+                                        translator.translate('videoCall'),
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1

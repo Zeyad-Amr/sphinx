@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:sphinx/providers/UserDataProvider.dart';
@@ -14,7 +15,8 @@ class MessageDetailsDoctorScreen extends StatefulWidget {
       age,
       gender,
       country,
-      patientName;
+      patientName,
+      documentId;
 
   const MessageDetailsDoctorScreen(
       {Key key,
@@ -24,7 +26,8 @@ class MessageDetailsDoctorScreen extends StatefulWidget {
       @required this.age,
       @required this.gender,
       @required this.country,
-      @required this.patientName})
+      @required this.patientName,
+      @required this.documentId})
       : super(key: key);
   @override
   _MessageDetailsDoctorScreenState createState() =>
@@ -33,6 +36,8 @@ class MessageDetailsDoctorScreen extends StatefulWidget {
 
 class _MessageDetailsDoctorScreenState
     extends State<MessageDetailsDoctorScreen> {
+  final DateFormat dateFormat = DateFormat('yyyy-MM-dd K:mm a');
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -107,6 +112,45 @@ class _MessageDetailsDoctorScreenState
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.5,
+                                    height:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    child: FlatButton.icon(
+                                      icon: Icon(Icons.exit_to_app,
+                                          color: Colors.white),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      color: Colors.red[800],
+                                      textColor: Colors.white,
+                                      label: Text(
+                                        'End Consultation',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1
+                                            .copyWith(color: kWhiteColor),
+                                      ),
+                                      onPressed: () async {
+                                        Firestore.instance
+                                            .collection('appointments')
+                                            .document(widget.documentId)
+                                            .updateData({
+                                          'state': 1,
+                                          'endDate':
+                                              dateFormat.format(DateTime.now())
+                                        });
+
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
                               SizedBox(height: 20),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -243,6 +287,8 @@ class _MessageDetailsDoctorScreenState
                                                   '${widget.doctorPhone}_${widget.pateintPhone}',
                                               sendTo: widget.pateintPhone,
                                               sendToName: widget.patientName,
+                                              sendBy: widget.doctorPhone,
+                                              sendByName: widget.doctorName,
                                             ),
                                           ),
                                         );
@@ -274,7 +320,17 @@ class _MessageDetailsDoctorScreenState
                                         print(currentUser.name);
                                         print(
                                             '${widget.doctorPhone.toString().split('').getRange(2, 13).join().toString()}_${widget.pateintPhone.toString().split('').getRange(2, 13).join().toString()}');
-
+                                        Firestore.instance
+                                            .collection('videoCalls')
+                                            .document(
+                                                '${widget.doctorPhone}_${widget.pateintPhone}' +
+                                                    DateTime.now().toString())
+                                            .setData({
+                                          "callBy": widget.doctorPhone,
+                                          "callTo": widget.pateintPhone,
+                                          "callByName": widget.doctorName,
+                                          "callToName": widget.patientName,
+                                        });
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) => VideoCall(

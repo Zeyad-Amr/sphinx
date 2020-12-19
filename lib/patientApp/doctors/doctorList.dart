@@ -260,18 +260,14 @@ class _DoctorListState extends State<DoctorList> {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) => DetailScreen(
-                                              name: translator
-                                                          .currentLanguage ==
-                                                      'en'
-                                                  ? documentSnapshot['name_en']
-                                                  : documentSnapshot['name_ar'],
-                                              description:
-                                                  translator.currentLanguage ==
-                                                          'en'
-                                                      ? documentSnapshot[
-                                                          'specialtyEn']
-                                                      : documentSnapshot[
-                                                          'specialtyAr'],
+                                              docNameEn:
+                                                  documentSnapshot['name_en'],
+                                              docNameAr:
+                                                  documentSnapshot['name_ar'],
+                                              descriptionEn: documentSnapshot[
+                                                  'specialtyEn'],
+                                              descriptionAr: documentSnapshot[
+                                                  'specialtyAr'],
                                               imageUrl:
                                                   documentSnapshot['imgUrl'],
                                               cost: userNation == 'مصر‎'
