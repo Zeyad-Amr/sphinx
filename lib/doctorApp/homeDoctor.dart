@@ -60,7 +60,7 @@ class _HomeWidgetDoctorState extends State<HomeWidgetDoctor> {
                     );
                   },
                   child: Container(
-                    height: size.height * 0.15,
+                    height: size.height * 0.2,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20.0),

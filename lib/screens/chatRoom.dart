@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:sphinx/providers/UserDataProvider.dart';
 import '../components/constants.dart';
 import 'package:path/path.dart' as p;
+import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 
 class ChatRoom extends StatefulWidget {
   final String chatRoomId;
@@ -48,7 +49,7 @@ class _ChatRoomState extends State<ChatRoom> {
         curve: Curves.easeInOut,
       );
     } catch (e) {
-      print('erorrrrrrrrrrrrfkffnkfn');
+      print('scroll to bottom error :: $e ');
     }
   }
 
@@ -79,20 +80,22 @@ class _ChatRoomState extends State<ChatRoom> {
           }
         });
       }
-      Fluttertoast.showToast(
+      showProgressDialog();
+      /* Fluttertoast.showToast(
           msg: translator.translate('photouploading'),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.TOP,
           timeInSecForIos: 5,
           backgroundColor: Colors.black.withOpacity(0.6),
           textColor: Colors.white,
-          fontSize: 20.0);
+          fontSize: 20.0); */
     } catch (ex) {
-      Scaffold.of(context).showSnackBar(
+      print('hhhhhhhhhhhhhhhhhhhhhhg $ex');
+      /* Scaffold.of(context).showSnackBar(
         SnackBar(
           content: Text(translator.translate('loadingDots')),
         ),
-      );
+      ); */
     }
     uploadImage(context);
   }
@@ -135,26 +138,29 @@ class _ChatRoomState extends State<ChatRoom> {
           .catchError((e) {
         print(e.toString());
       });
+      dismissProgressDialog();
       Navigator.of(context).pop();
       Timer(Duration(milliseconds: 200), scrollToBottom);
-      Fluttertoast.showToast(
+
+      /*  Fluttertoast.showToast(
           msg: translator.translate('photouploaded'),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.TOP,
           timeInSecForIos: 5,
           backgroundColor: Colors.black.withOpacity(0.6),
           textColor: Colors.white,
-          fontSize: 20.0);
+          fontSize: 20.0); */
       return;
     } catch (ex) {
-      Fluttertoast.showToast(
+      print('hhhhhhhhhhhhhhhhhhhhhhg $ex');
+      /* Fluttertoast.showToast(
           msg: translator.translate('loadingDots'),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.TOP,
           timeInSecForIos: 5,
           backgroundColor: Colors.black.withOpacity(0.6),
           textColor: Colors.white,
-          fontSize: 20.0);
+          fontSize: 20.0); */
     }
   }
 

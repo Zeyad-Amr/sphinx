@@ -7,6 +7,7 @@ import 'bookedServicesList.dart';
 import 'appointmentsList.dart';
 import 'requestsList.dart';
 import 'endedAppointmentList.dart';
+import 'usersList.dart';
 
 class HomeWidgetAdmin extends StatefulWidget {
   const HomeWidgetAdmin({
@@ -41,8 +42,8 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
     img: "assets/icons/bookedServices.png",
   );
   Items item6 = new Items(
-    title: translator.translate('EndedConsult'),
-    img: "assets/icons/end.png",
+    title: translator.translate('users'),
+    img: "assets/icons/user.png",
   );
 
   @override
@@ -119,10 +120,10 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
                             ),
                           );
                         } else if (data.title ==
-                            translator.translate('EndedConsult')) {
+                            translator.translate('users')) {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => EndedAppointmentsList(),
+                              builder: (context) => UsersList(),
                             ),
                           );
                         }

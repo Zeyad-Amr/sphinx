@@ -121,7 +121,7 @@
     "typeMessage":"Type a message",
     "photouploaded":"Image is uploaded successfully",
     "photouploading":"Uploading the image ....",
-    "loadingDots":"loading ...",
+    "loadingDots":"Loading ...",
 
     "patientName":"Patient Name",
     "doctorName":"Doctor Name",
@@ -140,13 +140,21 @@
     "failedPay":"Payment process failed",
     "canceledPay":"Payment process canceled",
     "order":"Order",
-    
+    "users":"Users",
+    "account":"Type",
+    "patient":"Patient",
+    "doctor":"Doctor",
+    "admin":"Admin",
+
+    "finished":"Finished",
+    "valid":"Valid",
     
     "sureEndConsult":"Are you sure you want to end that consultation?",
     "end":"End",
     "call":"Calling",
     "endConsult":"End Consultation",
-    "ok":"Okay"
+    "ok":"Okay",
+    "loadingg":"Loading .."
 
     
     

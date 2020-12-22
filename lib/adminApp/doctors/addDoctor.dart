@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:path/path.dart' as p;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/components/constants.dart';
+import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 
 class AddDoctor extends StatefulWidget {
   @override
@@ -112,12 +112,14 @@ class _AddDoctorState extends State<AddDoctor> {
           print('path : ${image.path}');
         }
       });
+      showProgressDialog();
     } catch (ex) {
-      Scaffold.of(context).showSnackBar(
+      print('pick error :: $ex');
+      /*  Scaffold.of(context).showSnackBar(
         SnackBar(
           content: Text(ex.message),
         ),
-      );
+      ); */
     }
     uploadImage(context, n);
   }
@@ -139,23 +141,26 @@ class _AddDoctorState extends State<AddDoctor> {
       setState(() {
         _url = url;
       });
-      Fluttertoast.showToast(
+      dismissProgressDialog();
+
+      /* Fluttertoast.showToast(
           msg: translator.translate('photoSelected'),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.TOP,
           timeInSecForIos: 5,
           backgroundColor: Colors.black.withOpacity(0.6),
           textColor: Colors.white,
-          fontSize: 20.0);
+          fontSize: 20.0); */
     } catch (ex) {
-      Fluttertoast.showToast(
+      /*  Fluttertoast.showToast(
           msg: ex.message,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.TOP,
           timeInSecForIos: 5,
           backgroundColor: Colors.black.withOpacity(0.6),
           textColor: Colors.white,
-          fontSize: 20.0);
+          fontSize: 20.0); */
+      print('upload error :: $ex');
     }
   }
 
@@ -206,19 +211,19 @@ class _AddDoctorState extends State<AddDoctor> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return SingleChildScrollView(
-                            child: Dialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                          return Dialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Container(
+                              height: size.height * 0.85,
+                              margin: EdgeInsets.only(
+                                top: 10,
+                                bottom: 10,
+                                left: 30,
+                                right: 30,
                               ),
-                              child: Container(
-                                height: size.height * 0.85,
-                                margin: EdgeInsets.only(
-                                  top: 10,
-                                  bottom: 10,
-                                  left: 30,
-                                  right: 30,
-                                ),
+                              child: SingleChildScrollView(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment:
@@ -549,23 +554,24 @@ class _AddDoctorState extends State<AddDoctor> {
                                                 context: context,
                                                 builder:
                                                     (BuildContext context) {
-                                                  return SingleChildScrollView(
-                                                    child: Dialog(
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
+                                                  return Dialog(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                    ),
+                                                    child: Container(
+                                                      height:
+                                                          size.height * 0.85,
+                                                      margin: EdgeInsets.only(
+                                                        top: 10,
+                                                        bottom: 10,
+                                                        left: 30,
+                                                        right: 30,
                                                       ),
-                                                      child: Container(
-                                                        height:
-                                                            size.height * 0.85,
-                                                        margin: EdgeInsets.only(
-                                                          top: 10,
-                                                          bottom: 10,
-                                                          left: 30,
-                                                          right: 30,
-                                                        ),
+                                                      child:
+                                                          SingleChildScrollView(
                                                         child: Column(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment

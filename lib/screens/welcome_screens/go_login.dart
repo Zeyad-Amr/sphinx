@@ -16,7 +16,7 @@ class GoLogin extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Positioned(
-              top: size.height * -0.15, //size.height *  -0.03
+              top: size.height * -0.3, //size.height *  -0.03
               child: Image.asset('assets/images/03.png'),
               width: size.width,
             ),
@@ -38,7 +38,7 @@ class GoLogin extends StatelessWidget {
                 ),
                 Image.asset(
                   'assets/icons/bo4.png',
-                  height: size.height * 0.4,
+                  height: size.height * 0.3,
                 ),
                 SizedBox(
                   height: size.height * 0.03,
@@ -52,7 +52,7 @@ class GoLogin extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontSize: 16),
           ), */
                 SizedBox(
-                  height: size.height * 0.1,
+                  height: size.height * 0.15,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -85,8 +85,8 @@ class GoLogin extends StatelessWidget {
               ],
             ),
             Positioned(
-              bottom: size.height * -0.15, //size.height *  -0.03
-              right: size.width * -0.15,
+              bottom: size.height * -0.2, //size.height *  -0.03
+              right: size.width * -0.2,
               child: Image.asset('assets/images/04.png'),
               width: size.width * 0.6,
             ),

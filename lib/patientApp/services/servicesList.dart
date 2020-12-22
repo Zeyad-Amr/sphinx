@@ -29,488 +29,486 @@ class _ServiceListState extends State<ServiceList> {
         backgroundColor: kPrimaryColor,
         title: Text(translator.translate('book_services')),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          height: size.height,
-          width: size.width,
-          color: Colors.grey[200],
-          child: Column(
-            children: [
-              ////////////////////////////////
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 10.0, left: 5, right: 5, bottom: 10),
-                      child: Column(
-                        children: [
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => LabsList(),
+      body: Container(
+        height: size.height,
+        width: size.width,
+        color: Colors.grey[200],
+        child: ListView(
+          children: [
+            ////////////////////////////////
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10.0, left: 5, right: 5, bottom: 10),
+                    child: Column(
+                      children: [
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => LabsList(),
+                              ),
+                            );
+                          },
+                          splashColor: Colors.grey,
+                          child: Container(
+                            height: size.width * 0.23,
+                            decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(0.0, 2.0),
+                                  blurRadius: 6.0,
                                 ),
-                              );
-                            },
-                            splashColor: Colors.grey,
-                            child: Container(
-                              height: size.width * 0.23,
-                              decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(20.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    offset: Offset(0.0, 2.0),
-                                    blurRadius: 6.0,
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      radius: 50,
-                                      child: Image(
-                                        image: AssetImage(
-                                          'assets/icons/lab.png',
-                                        ),
-                                        fit: BoxFit.cover,
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 50,
+                                    child: Image(
+                                      image: AssetImage(
+                                        'assets/icons/lab.png',
                                       ),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 15.0, bottom: 8),
-                                    child: Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: size.width * 0.5),
-                                      child: Text(translator.translate('labs'),
-                                          overflow: TextOverflow.ellipsis,
-                                          softWrap: false,
-                                          maxLines: 2,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              )),
-                                    ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 15.0, bottom: 8),
+                                  child: Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: size.width * 0.5),
+                                    child: Text(translator.translate('labs'),
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6
+                                            .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            )),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              /////////////////////////
-              /// ////////////////////////////////
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 10.0, left: 5, right: 5, bottom: 10),
-                      child: Column(
-                        children: [
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => RadiologyList(),
+            ),
+            /////////////////////////
+            /// ////////////////////////////////
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10.0, left: 5, right: 5, bottom: 10),
+                    child: Column(
+                      children: [
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => RadiologyList(),
+                              ),
+                            );
+                          },
+                          splashColor: Colors.grey,
+                          child: Container(
+                            height: size.width * 0.23,
+                            decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(0.0, 2.0),
+                                  blurRadius: 6.0,
                                 ),
-                              );
-                            },
-                            splashColor: Colors.grey,
-                            child: Container(
-                              height: size.width * 0.23,
-                              decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(20.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    offset: Offset(0.0, 2.0),
-                                    blurRadius: 6.0,
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      radius: 50,
-                                      child: Image(
-                                        image: AssetImage(
-                                          'assets/icons/radiology.png',
-                                        ),
-                                        fit: BoxFit.cover,
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 50,
+                                    child: Image(
+                                      image: AssetImage(
+                                        'assets/icons/radiology.png',
                                       ),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 15.0, bottom: 8),
-                                    child: Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: size.width * 0.5),
-                                      child: Text(
-                                          translator.translate('radiology'),
-                                          overflow: TextOverflow.ellipsis,
-                                          softWrap: false,
-                                          maxLines: 2,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              )),
-                                    ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 15.0, bottom: 8),
+                                  child: Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: size.width * 0.5),
+                                    child: Text(
+                                        translator.translate('radiology'),
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6
+                                            .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            )),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              /////////////////////////
-              /// ////////////////////////////////
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 10.0, left: 5, right: 5, bottom: 10),
-                      child: Column(
-                        children: [
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => MedicationList(),
+            ),
+            /////////////////////////
+            /// ////////////////////////////////
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10.0, left: 5, right: 5, bottom: 10),
+                    child: Column(
+                      children: [
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => MedicationList(),
+                              ),
+                            );
+                          },
+                          splashColor: Colors.grey,
+                          child: Container(
+                            height: size.width * 0.23,
+                            decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(0.0, 2.0),
+                                  blurRadius: 6.0,
                                 ),
-                              );
-                            },
-                            splashColor: Colors.grey,
-                            child: Container(
-                              height: size.width * 0.23,
-                              decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(20.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    offset: Offset(0.0, 2.0),
-                                    blurRadius: 6.0,
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      radius: 50,
-                                      child: Image(
-                                        image: AssetImage(
-                                          'assets/icons/medication.png',
-                                        ),
-                                        fit: BoxFit.cover,
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 50,
+                                    child: Image(
+                                      image: AssetImage(
+                                        'assets/icons/medication.png',
                                       ),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 15.0, bottom: 8),
-                                    child: Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: size.width * 0.5),
-                                      child: Text(
-                                          translator.translate('medication'),
-                                          overflow: TextOverflow.ellipsis,
-                                          softWrap: false,
-                                          maxLines: 2,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              )),
-                                    ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 15.0, bottom: 8),
+                                  child: Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: size.width * 0.5),
+                                    child: Text(
+                                        translator.translate('medication'),
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6
+                                            .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            )),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              /////////////////////////
-              /// ////////////////////////////////
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 10.0, left: 5, right: 5, bottom: 10),
-                      child: Column(
-                        children: [
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => RenalBiopsyList(),
+            ),
+            /////////////////////////
+            /// ////////////////////////////////
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10.0, left: 5, right: 5, bottom: 10),
+                    child: Column(
+                      children: [
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => RenalBiopsyList(),
+                              ),
+                            );
+                          },
+                          splashColor: Colors.grey,
+                          child: Container(
+                            height: size.width * 0.23,
+                            decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(0.0, 2.0),
+                                  blurRadius: 6.0,
                                 ),
-                              );
-                            },
-                            splashColor: Colors.grey,
-                            child: Container(
-                              height: size.width * 0.23,
-                              decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(20.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    offset: Offset(0.0, 2.0),
-                                    blurRadius: 6.0,
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      radius: 50,
-                                      child: Image(
-                                        image: AssetImage(
-                                          'assets/icons/renal.png',
-                                        ),
-                                        fit: BoxFit.cover,
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 50,
+                                    child: Image(
+                                      image: AssetImage(
+                                        'assets/icons/renal.png',
                                       ),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 15.0, bottom: 8),
-                                    child: Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: size.width * 0.5),
-                                      child: Text(
-                                          translator.translate('renalBiopsy'),
-                                          overflow: TextOverflow.ellipsis,
-                                          softWrap: false,
-                                          maxLines: 2,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              )),
-                                    ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 15.0, bottom: 8),
+                                  child: Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: size.width * 0.5),
+                                    child: Text(
+                                        translator.translate('renalBiopsy'),
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6
+                                            .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            )),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              /////////////////////////
-              /// ////////////////////////////////
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 10.0, left: 5, right: 5, bottom: 10),
-                      child: Column(
-                        children: [
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => IntRadiologyList(),
+            ),
+            /////////////////////////
+            /// ////////////////////////////////
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10.0, left: 5, right: 5, bottom: 10),
+                    child: Column(
+                      children: [
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => IntRadiologyList(),
+                              ),
+                            );
+                          },
+                          splashColor: Colors.grey,
+                          child: Container(
+                            height: size.width * 0.23,
+                            decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(0.0, 2.0),
+                                  blurRadius: 6.0,
                                 ),
-                              );
-                            },
-                            splashColor: Colors.grey,
-                            child: Container(
-                              height: size.width * 0.23,
-                              decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(20.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    offset: Offset(0.0, 2.0),
-                                    blurRadius: 6.0,
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      radius: 50,
-                                      child: Image(
-                                        image: AssetImage(
-                                          'assets/icons/radiology2.png',
-                                        ),
-                                        fit: BoxFit.cover,
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 50,
+                                    child: Image(
+                                      image: AssetImage(
+                                        'assets/icons/radiology2.png',
                                       ),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 15.0, bottom: 8),
-                                    child: Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: size.width * 0.5),
-                                      child: Text(
-                                          translator.translate('int_radiology'),
-                                          overflow: TextOverflow.ellipsis,
-                                          softWrap: false,
-                                          maxLines: 2,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              )),
-                                    ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 15.0, bottom: 8),
+                                  child: Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: size.width * 0.5),
+                                    child: Text(
+                                        translator.translate('int_radiology'),
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6
+                                            .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            )),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              /////////////////////////
-              /// /// ////////////////////////////////
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 10.0, left: 5, right: 5, bottom: 10),
-                      child: Column(
-                        children: [
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => OtherServicesList(),
+            ),
+            /////////////////////////
+            /// /// ////////////////////////////////
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10.0, left: 5, right: 5, bottom: 10),
+                    child: Column(
+                      children: [
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => OtherServicesList(),
+                              ),
+                            );
+                          },
+                          splashColor: Colors.grey,
+                          child: Container(
+                            height: size.width * 0.23,
+                            decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(0.0, 2.0),
+                                  blurRadius: 6.0,
                                 ),
-                              );
-                            },
-                            splashColor: Colors.grey,
-                            child: Container(
-                              height: size.width * 0.23,
-                              decoration: BoxDecoration(
-                                color: kPrimaryColor,
-                                borderRadius: BorderRadius.circular(20.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    offset: Offset(0.0, 2.0),
-                                    blurRadius: 6.0,
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      radius: 50,
-                                      child: Image(
-                                        image: AssetImage(
-                                          'assets/icons/otherServices.png',
-                                        ),
-                                        fit: BoxFit.cover,
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 50,
+                                    child: Image(
+                                      image: AssetImage(
+                                        'assets/icons/otherServices.png',
                                       ),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 15.0, bottom: 8),
-                                    child: Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: size.width * 0.5),
-                                      child: Text(
-                                          translator.translate('otherServices'),
-                                          overflow: TextOverflow.ellipsis,
-                                          softWrap: false,
-                                          maxLines: 2,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              )),
-                                    ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 15.0, bottom: 8),
+                                  child: Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: size.width * 0.5),
+                                    child: Text(
+                                        translator.translate('otherServices'),
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6
+                                            .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            )),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              /////////////////////////
-            ],
-          ),
+            ),
+            /////////////////////////
+          ],
         ),
       ),
     );

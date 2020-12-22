@@ -15,16 +15,42 @@ class _AppointmentsListState extends State<AppointmentsList> {
     return Scaffold(
       appBar: AppBar(
         title: Text(translator.translate('appointments')),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    Text(translator.translate('finished')),
+                    CircleAvatar(
+                      radius: 10,
+                      backgroundColor: Colors.red[100],
+                    ),
+                  ],
+                ),
+                SizedBox(width: 8),
+                Column(
+                  children: [
+                    Text(translator.translate('valid')),
+                    CircleAvatar(
+                      radius: 10,
+                      backgroundColor: Colors.green[100],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
       ),
       body: Container(
         height: size.height,
         width: double.infinity,
         color: Colors.grey[200],
         child: StreamBuilder(
-          stream: Firestore.instance
-              .collection("appointments")
-              .where('state', isEqualTo: 0)
-              .snapshots(),
+          stream: Firestore.instance.collection("appointments").snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data.documents.length == 0) {
@@ -63,6 +89,9 @@ class _AppointmentsListState extends State<AppointmentsList> {
                     return Padding(
                       padding: const EdgeInsets.all(1.0),
                       child: Card(
+                        color: documentSnapshot['state'] == 1
+                            ? Colors.red[100]
+                            : Colors.green[100],
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
@@ -129,6 +158,29 @@ class _AppointmentsListState extends State<AppointmentsList> {
                                             .textTheme
                                             .headline6
                                             .copyWith(color: kPrimaryColor),
+                                      ),
+                                documentSnapshot['state'] == 1
+                                    ? translator.currentLanguage == 'en'
+                                        ? Text(
+                                            'End Date: ' +
+                                                documentSnapshot['endDate'],
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6
+                                                .copyWith(
+                                                    color: Colors.red[900]),
+                                          )
+                                        : Text(
+                                            'موعد الإنتهاء: ' +
+                                                documentSnapshot['endDate'],
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6
+                                                .copyWith(
+                                                    color: Colors.red[900]),
+                                          )
+                                    : SizedBox(
+                                        height: 1,
                                       ),
                                 Text(
                                   translator.translate('patientName') +

@@ -24,6 +24,7 @@ class _EndedAppointmentsListState extends State<EndedAppointmentsList> {
           stream: Firestore.instance
               .collection("appointments")
               .where('state', isEqualTo: 1)
+              .orderBy('endDate', descending: true)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {

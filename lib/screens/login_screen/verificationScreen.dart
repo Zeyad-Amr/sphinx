@@ -56,7 +56,7 @@ class _OTPScreenState extends State<OTPScreen> {
             alignment: Alignment.center,
             children: [
               Positioned(
-                top: size.height * -0.38, //size.height *  -0.03
+                top: size.height * -0.5, //size.height *  -0.03
                 child: Image.asset('assets/images/03.png'),
                 width: size.width,
               ),
@@ -78,7 +78,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   ),
                   Image.asset(
                     'assets/icons/bo5.png',
-                    height: size.height * 0.18,
+                    height: size.height * 0.15,
                   ),
                   SizedBox(
                     height: size.height * 0.12,
@@ -171,8 +171,8 @@ class _OTPScreenState extends State<OTPScreen> {
                 ],
               ),
               Positioned(
-                bottom: size.height * -0.1, //size.height *  -0.03
-                right: size.width * -0.2,
+                bottom: size.height * -0.15, //size.height *  -0.03
+                right: size.width * -0.25,
                 child: Image.asset('assets/images/04.png'),
                 width: size.width * 0.65,
               ),

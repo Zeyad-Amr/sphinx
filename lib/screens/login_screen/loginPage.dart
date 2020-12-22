@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.center,
                 children: [
                   Positioned(
-                    top: size.height * -0.35, //size.height *  -0.03
+                    top: size.height * -0.5, //size.height *  -0.03
                     child: Image.asset('assets/images/01.png'),
                     width: size.width,
                   ),
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Image.asset(
                         'assets/icons/bo5.png',
-                        height: size.height * 0.22,
+                        height: size.height * 0.2,
                       ),
                       SizedBox(
                         height: size.height * 0.15,
@@ -195,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   Positioned(
-                    bottom: size.height * -0.1, //size.height *  -0.03
+                    bottom: size.height * -0.15, //size.height *  -0.03
                     right: size.width * -0.2,
                     child: Image.asset('assets/images/04.png'),
                     width: size.width * 0.6,

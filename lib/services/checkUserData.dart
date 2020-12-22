@@ -97,9 +97,8 @@ class _CheckUserDataState extends State<CheckUserData> {
           print('Error ${snapshot.error}');
           return LoadingScreen();
         } else {
-          getDeviceToken();
-
           if (type == 'old') {
+            getDeviceToken();
             if (userType == 'admin') {
               return AccountPageAdmin(
                 user: user,

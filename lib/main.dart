@@ -46,6 +46,8 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: ProgressDialog(
+        loadingText: translator.translate('loadingg'),
+        orientation: ProgressOrientation.vertical,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           localizationsDelegates:

@@ -19,7 +19,7 @@ class WelcomeScreen2 extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Positioned(
-              top: size.height * -0.03, //size.height *  -0.03
+              top: size.height * -0.15, //size.height *  -0.03
               child: Image.asset('assets/images/02.png'),
               width: size.width,
             ),
@@ -41,7 +41,7 @@ class WelcomeScreen2 extends StatelessWidget {
                 ),
                 Image.asset(
                   'assets/icons/bo2.png',
-                  height: size.height * 0.35,
+                  height: size.height * 0.3,
                 ),
                 SizedBox(
                   height: size.height * 0.03,
