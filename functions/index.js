@@ -7,28 +7,26 @@ exports.newRequest = functions.firestore.document('requests/{requestId}').onCrea
 (
     async (snapshot,context)=>
     {
-
         var tokens=[];
 
         const dataa = db.collection('users').doc(snapshot.data().DoctorPhone);
         const doc = await dataa.get();
-
-        tokens.push(doc.data().token);
+        if(doc.data().token !== ""){
+            tokens.push(doc.data().token);
+        }
 
         const adminData =  db.collection('users');
         const adminTokens = await adminData.get();
-        adminTokens.forEach(doc=>{
-            if(doc.data().info =='admin'){
-               
-               if(doc.data().token !== ""){
-                tokens.push(doc.data().token);
+        adminTokens.forEach(docc=>{
+            if(docc.data().info =='admin'){
+               if(docc.data().token !== ""){
+                tokens.push(docc.data().token);
                }
             }
-            
         });
 
       
-        var payload = {notification: {title:'New Consultation request' , body:snapshot.data().name +' has requested for an appointment' },
+        var payload = {notification: {title:'New Onilne Consultation Request' , body:snapshot.data().name +' has requested for an appointment' },
         data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
         const respond = await admin.messaging().sendToDevice(tokens,payload); 
     }
@@ -40,66 +38,102 @@ exports.newAppointment = functions.firestore.document('appointments/{appointment
     async (snapshot,context)=>
     {
 
-        
         var tokens=[];
+       
 
         const dataa = db.collection('users').doc(snapshot.data().patientPhone);
         const doc = await dataa.get();
-          
-        tokens.push(doc.data().token);
-       
-        const adminData =  db.collection('users');
-        const adminTokens = await adminData.get();
-        adminTokens.forEach(doc=>{
-            if(doc.data().info =='admin'){
-               
-               if(doc.data().token !== ""){
-                tokens.push(doc.data().token);
-               }
-            }
-            
-        });
+        if(doc.data().token !== ""){
+            tokens.push(doc.data().token);
+        }
 
-      
-        var payload = {notification: {title:'Your Consultation date has been set' , body:snapshot.data().DoctorNameEn +' has set your consultation date at '+ snapshot.data().AppointmentDate },
+        var payload = {notification: {title:'Your Online Consultation Date has been set' , body:snapshot.data().DoctorNameEn +' has set your consultation date at '+ snapshot.data().AppointmentDate },
         data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
-        const respond = await admin.messaging().sendToDevice(tokens,payload); 
+        const respond = await admin.messaging().sendToDevice(tokens,payload);
     }
 );
+
+
+exports.newAppointmentadmin = functions.firestore.document('appointments/{appointmentsId}').onCreate
+(
+    async (snapshot,context)=>
+    {
+
+        var tokens=[];
+   
+        const adminData =  db.collection('users');
+        const adminTokens = await adminData.get();
+        adminTokens.forEach(docc=>{
+            if(docc.data().info =='admin'){
+               if(docc.data().token !== ""){
+                tokens.push(docc.data().token);
+               }
+            }
+        });
+
+     
+        var payload = {notification: {title:'An Online Consultation Date has been set' , body:snapshot.data().DoctorNameEn +' has set an online consultation date for ' + snapshot.data().patientName+' at '+ snapshot.data().AppointmentDate },
+        data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
+        const respondd = await admin.messaging().sendToDevice(tokens,payload);
+    }
+);
+
+
 
 
 
 exports.EndAppointment = functions.firestore.document('appointments/{appointmentsId}').onUpdate
 (
-    async (snapshot,context)=>
+    async (change,context)=>
     {
+        const newValue = change.after.data();
 
-        
         var tokens=[];
-
-        const dataa = db.collection('users').doc(snapshot.data().patientPhone);
-        const doc = await dataa.get();
-          
-        tokens.push(doc.data().token);
-       
-        const adminData =  db.collection('users');
-        const adminTokens = await adminData.get();
-        adminTokens.forEach(doc=>{
-            if(doc.data().info =='admin'){
-               
-               if(doc.data().token !== ""){
-                tokens.push(doc.data().token);
-               }
-            }
-            
-        });
-
       
-        var payload = {notification: {title:'Your Consultation date has been set' , body:snapshot.data().DoctorNameEn +' has ended the consultation for '+ snapshot.data().patientName },
+
+        const dataa = db.collection('users').doc(newValue.patientPhone);
+        const doc = await dataa.get();
+        if(doc.data().token !== ""){
+            tokens.push(doc.data().token);
+        }
+      
+        var payload = {notification: {title:'Your Online Consultation ended' , body:newValue.DoctorNameEn +' has ended the consultation for you' },
         data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
         const respond = await admin.messaging().sendToDevice(tokens,payload); 
+
     }
 );
+
+
+
+exports.EndAppointmentadmin = functions.firestore.document('appointments/{appointmentsId}').onUpdate
+(
+    async (change,context)=>
+    {
+        const newValue = change.after.data();
+
+        var tokens=[];
+      
+
+        const adminData =  db.collection('users');
+        const adminTokens = await adminData.get();
+        adminTokens.forEach(docc=>{
+            if(docc.data().info =='admin'){
+               if(docc.data().token !== ""){
+                tokens.push(docc.data().token);
+               }
+            }
+        });
+ 
+      
+        var payload = {notification: {title:'An Online Consultation Date has been set' , body:snapshot.data().DoctorNameEn +' has ended the consultation for '+ snapshot.data().patientName },
+        data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
+        const respond = await admin.messaging().sendToDevice(tokens,payload); 
+
+    }
+);
+
+
 
 
 
@@ -107,16 +141,12 @@ exports.newService = functions.firestore.document('BookedServices/{BookedService
 (
     async (snapshot,context)=>
     {
-
         var tokens=[];
 
-/*         tokens.push('ec5BS51kRXGlUf0WOuMMNw:APA91bHnOT3lJOmfEvl_GMdqFA8n9hC9Rxqln9q9mNr12mHapuxQ9WSpERFMXX7fC9xZqvVC_8C5wc9SzJ4hDSPhXrRoAoE4Ay7BVuO20kEPqBTfOCffphUqI4Jgh7oNqgRueyGveom5');
- */
         const adminData =  db.collection('users');
         const adminTokens = await adminData.get();
         adminTokens.forEach(doc=>{
             if(doc.data().info =='admin'){
-               
                if(doc.data().token !== ""){
                 tokens.push(doc.data().token);
                }
@@ -124,11 +154,6 @@ exports.newService = functions.firestore.document('BookedServices/{BookedService
             
         });
         
-
-        
-        
-
-      
         var payload = {notification: {title:'New Service Reservation' , body:snapshot.data().name +' has reserved '+snapshot.data().serviceNameEn },
         data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
         const respond = await admin.messaging().sendToDevice(tokens,payload); 
@@ -149,7 +174,9 @@ exports.newChatMessage = functions.firestore.document('chatRooms/{chatRoomId}/ch
         const dataa = db.collection('users').doc(snapshot.data().sendTo);
         const doc = await dataa.get();
           
-        tokens.push(doc.data().token);
+        if(doc.data().token !== ""){
+            tokens.push(doc.data().token);
+        }
        
         if(snapshot.data().type =='text'){
             var messagefield = snapshot.data().message;
@@ -177,75 +204,27 @@ exports.videoCall = functions.firestore.document('videoCalls/{call}').onCreate
         const dataa = db.collection('users').doc(snapshot.data().callTo);
         const doc = await dataa.get();
           
-        tokens.push(doc.data().token);
+        if(doc.data().token !== ""){
+            tokens.push(doc.data().token);
+        }
        
 
 
       
         var payload = {notification: {title:snapshot.data().callByName , body:'is calling you now' },
-        data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
+        data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'videoCall' ,
+        callId:snapshot.data().callId ,
+        callToName:snapshot.data().callToName,
+        callByName:snapshot.data().callByName,
+        callBy:snapshot.data().callBy,
+        callTo:snapshot.data().callTo,
+        imageUrl:snapshot.data().imageUrl}}
         const respond = await admin.messaging().sendToDevice(tokens,payload); 
     }
 );
 
-/* 
-exports.req = functions.firestore.document('requests/{requestId}').onCreate
-(
-    async (snapshot,context)=>
-    {
-       
-     
-      
-        var payload = {notification: {title:'Consult' , body:snapshot.data().name +' requesting' },
-        data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
-        const respond = await admin.messaging().sendToDevice('eDaoIkJsQVCG2MlwLRqy0m:APA91bF3C49UH9ETX0R1ST_17I1k-vIaXWwq7La148P6TD4VmvwBDAduNxBobL-npB5FWm19LlD9dA5j4lEGZ8JHIiJLPtRBFkKJF3f2-sekW6IfTPTYh0Stldz3_Q-L5liWzNIxT8Ck',payload); 
-    }
-); */
-
-
-/*  var token =[];
-       token.push("eDaoIkJsQVCG2MlwLRqy0m:APA91bF3C49UH9ETX0R1ST_17I1k-vIaXWwq7La148P6TD4VmvwBDAduNxBobL-npB5FWm19LlD9dA5j4lEGZ8JHIiJLPtRBFkKJF3f2-sekW6IfTPTYh0Stldz3_Q-L5liWzNIxT8Ck");  */
-        
-/* exports.orderTriggerrr = functions.firestore.document('requests/{requestId}').onCreate
-(
-    async (snapshot,context)=>
-    {
-        
-       
-        var payload = {notification: {title: 'hiiiiiiiiiiii', body: 'Your consultation date has been set'},
-         data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
-         const respond = await admin.messaging().sendToTopic('Admin',payload);
-       
-    }
-);
-
-
-exports.specialorderTrigger = functions.firestore.document('appointments/{appointmentsId}').onCreate
-(
-    
-    async (snapshot,context)=>
-    {
-        var tokens=[];
-        tokens.push(snapshot.data().token);
-        var payload = {notification: {title: 'SphinxKcc', body: 'you have a new message'},
-         data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
-
-         const respond = await admin.messaging().sendToDevice(tokens,payload);  
-    }
-
-); */
-/* 
-exports.specialorderTrigger = functions.firestore.document('appointments/{appointmentsId}').onCreate
-(
-    
-    async (snapshot,context)=>
-    {
-        var tokens=[];
-        tokens.push(snapshot.data().token);
-        var payload = {notification: {title: 'SphinxKcc', body: 'you have a new message'},
-         data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
-
-         const respond = await admin.messaging().sendToDevice(tokens,payload);  
-    }
-
-); */
+/* 'callBy':snapshot.data().callBy,
+'callByName':snapshot.data().callByName,
+'callTo':snapshot.data().callTo,
+'callToName':snapshot.data().callToName,
+'callId':snapshot.data().callId */

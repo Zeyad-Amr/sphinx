@@ -1,34 +1,39 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:sphinx/components/constants.dart';
-import 'package:sphinx/doctorApp/messages/messageDetailsDoctorScreen.dart';
 import 'package:sphinx/providers/UserDataProvider.dart';
 
-class MessegesWidgetDoctor extends StatelessWidget {
+class MessegesWidgetDoctor extends StatefulWidget {
   const MessegesWidgetDoctor({
     Key key,
   }) : super(key: key);
 
   @override
+  _MessegesWidgetDoctorState createState() => _MessegesWidgetDoctorState();
+}
+
+class _MessegesWidgetDoctorState extends State<MessegesWidgetDoctor> {
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Container(
-        height: size.height,
-        width: double.infinity,
-        color: Colors.grey[200],
-        child: ListView(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-              child: Text('My Messages',
-                  style: Theme.of(context).textTheme.headline6),
-            ),
-            Consumer<User>(
+    return Container(
+      height: size.height,
+      width: double.infinity,
+      color: Colors.grey[200],
+      child: Column(
+        children: [
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+            child: Text(translator.translate('messages'),
+                style: Theme.of(context).textTheme.headline6),
+          ),
+          Expanded(
+            child: Consumer<User>(
               builder: (context, currentUser, child) => StreamBuilder(
                 stream: Firestore.instance
                     .collection("appointments")
@@ -49,7 +54,7 @@ class MessegesWidgetDoctor extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Text(
-                                "You haven't any messages",
+                                translator.translate('noItems'),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6
@@ -62,6 +67,7 @@ class MessegesWidgetDoctor extends StatelessWidget {
                         ),
                       );
                     }
+
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListView.builder(
@@ -80,35 +86,7 @@ class MessegesWidgetDoctor extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: ListTile(
-                                  trailing: RaisedButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                        builder: (context) =>
-                                            MessageDetailsDoctorScreen(
-                                          documentId:
-                                              documentSnapshot.documentID,
-                                          age: documentSnapshot['age'],
-                                          country: documentSnapshot['country'],
-                                          gender: documentSnapshot['gender'],
-                                          doctorName:
-                                              documentSnapshot['DoctorName'],
-                                          doctorPhone:
-                                              documentSnapshot['DoctorPhone'],
-                                          pateintPhone:
-                                              documentSnapshot['patientPhone'],
-                                          patientName:
-                                              documentSnapshot['patientName'],
-                                        ),
-                                      ));
-                                    },
-                                    child: Text('Open'),
-                                    color: kPrimaryColor,
-                                    textColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                  ),
+                                  /*  */
                                   title: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -118,24 +96,58 @@ class MessegesWidgetDoctor extends StatelessWidget {
                                         documentSnapshot['patientName'],
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5,
-                                      ),
-                                      Text(
-                                        'Date: ' +
-                                            documentSnapshot['AppointmentDate'],
-                                        style: Theme.of(context)
-                                            .textTheme
                                             .headline6
                                             .copyWith(
-                                                color: kPrimaryLightColor),
-                                      ),
+                                                fontWeight: FontWeight.bold),
+                                      )
                                     ],
                                   ),
-                                  /* subtitle: Column(
+                                  subtitle: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      
+                                      translator.currentLanguage == 'en'
+                                          ? Text(
+                                              'Reservation code: ' +
+                                                  documentSnapshot['Id'],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  .copyWith(
+                                                      color:
+                                                          kPrimaryLightColor),
+                                            )
+                                          : Text(
+                                              'كود الحجز: ' +
+                                                  documentSnapshot['Id'],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  .copyWith(
+                                                      color:
+                                                          kPrimaryLightColor),
+                                            ),
+                                      translator.currentLanguage == 'en'
+                                          ? Text(
+                                              'Date: ' +
+                                                  documentSnapshot[
+                                                      'AppointmentDate'],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  .copyWith(
+                                                      color: kPrimaryColor),
+                                            )
+                                          : Text(
+                                              'الموعد: ' +
+                                                  documentSnapshot[
+                                                      'AppointmentDate'],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  .copyWith(
+                                                      color: kPrimaryColor),
+                                            ),
                                       Text(
                                         translator.translate('mob') +
                                             ': ' +
@@ -149,6 +161,14 @@ class MessegesWidgetDoctor extends StatelessWidget {
                                             .textTheme
                                             .bodyText1,
                                       ),
+                                    ],
+                                  ),
+                                  /* subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      
+                                     
                                       translator.currentLanguage == 'en'
                                           ? Text(
                                               'Country: ' +
@@ -198,7 +218,7 @@ class MessegesWidgetDoctor extends StatelessWidget {
                                     width: size.width * 0.08,
                                     height: size.height,
                                     child: Icon(
-                                      Icons.date_range,
+                                      Icons.message,
                                       size: 40,
                                       color: kPrimaryColor,
                                     ),
@@ -238,7 +258,7 @@ class MessegesWidgetDoctor extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              "You haven't any messages",
+                              translator.translate('noItems'),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
@@ -254,8 +274,8 @@ class MessegesWidgetDoctor extends StatelessWidget {
                 },
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

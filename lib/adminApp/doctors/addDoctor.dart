@@ -22,6 +22,7 @@ class _AddDoctorState extends State<AddDoctor> {
   String nameEn, nameAr;
   int pe, pf;
   String phone, specialtyEn, specialtyAr;
+  int order;
 
   Future<void> addDoctors({
     String nameEn,
@@ -32,6 +33,7 @@ class _AddDoctorState extends State<AddDoctor> {
     int pE,
     int pF,
     String imgUrl,
+    int order,
   }) {
     CollectionReference doctor = Firestore.instance.collection('doctors');
     return doctor
@@ -45,26 +47,28 @@ class _AddDoctorState extends State<AddDoctor> {
           'specialtyEn': specialEn,
           'specialtyAr': specialAr,
           'imgUrl': imgUrl,
-          'order': 7
+          'order': order
         })
         .then((value) => print("User doctor"))
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<void> updateDoctors(
-      {String oldName,
-      String nameEn,
-      String nameAr,
-      String specialEn,
-      String specialAr,
-      String phoneN,
-      int pE,
-      int pF,
-      String imgUrl}) {
+  Future<void> updateDoctors({
+    String oldName,
+    String nameEn,
+    String nameAr,
+    String specialEn,
+    String specialAr,
+    String phoneN,
+    int pE,
+    int pF,
+    String imgUrl,
+    int order,
+  }) {
     CollectionReference doctor = Firestore.instance.collection('doctors');
-    Firestore.instance.collection("doctors").document(oldName).delete();
+
     return doctor
-        .document(nameEn)
+        .document(oldName)
         .updateData({
           'name_en': nameEn,
           'name_ar': nameAr,
@@ -73,7 +77,8 @@ class _AddDoctorState extends State<AddDoctor> {
           'mobile': phoneN,
           'specialtyEn': specialEn,
           'specialtyAr': specialAr,
-          'imgUrl': imgUrl
+          'imgUrl': imgUrl,
+          'order': order
         })
         .then((value) => print('update'))
         .catchError((error) => print("Failed to updateeeeee user: $error"));
@@ -196,6 +201,7 @@ class _AddDoctorState extends State<AddDoctor> {
                         specialtyAr = null;
                         specialtyEn = null;
                         _url = null;
+                        order = null;
                       });
                       showDialog(
                         context: context,
@@ -206,7 +212,7 @@ class _AddDoctorState extends State<AddDoctor> {
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Container(
-                                height: size.height * 0.75,
+                                height: size.height * 0.85,
                                 margin: EdgeInsets.only(
                                   top: 10,
                                   bottom: 10,
@@ -262,6 +268,7 @@ class _AddDoctorState extends State<AddDoctor> {
                                     ),
                                     TextField(
                                       keyboardType: TextInputType.number,
+                                      maxLength: 11,
                                       decoration: InputDecoration(
                                         labelText:
                                             translator.translate('mobile'),
@@ -341,6 +348,21 @@ class _AddDoctorState extends State<AddDoctor> {
                                         });
                                       },
                                     ),
+                                    TextField(
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        labelText:
+                                            translator.translate('order'),
+                                        labelStyle: TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      onChanged: (val) {
+                                        setState(() {
+                                          order = int.parse(val);
+                                        });
+                                      },
+                                    ),
                                     SizedBox(
                                       height: 10,
                                     ),
@@ -376,17 +398,18 @@ class _AddDoctorState extends State<AddDoctor> {
                                               phone.length == 13 &&
                                               specialtyAr != null &&
                                               specialtyEn != null &&
-                                              _url != null) {
+                                              _url != null &&
+                                              order != null) {
                                             addDoctors(
-                                              nameEn: nameEn,
-                                              nameAr: nameAr,
-                                              pE: pe,
-                                              pF: pf,
-                                              phoneN: phone,
-                                              specialAr: specialtyAr,
-                                              specialEn: specialtyEn,
-                                              imgUrl: _url,
-                                            );
+                                                nameEn: nameEn,
+                                                nameAr: nameAr,
+                                                pE: pe,
+                                                pF: pf,
+                                                phoneN: phone,
+                                                specialAr: specialtyAr,
+                                                specialEn: specialtyEn,
+                                                imgUrl: _url,
+                                                order: order);
                                             setState(() {
                                               nameEn = null;
                                               nameAr = null;
@@ -396,6 +419,7 @@ class _AddDoctorState extends State<AddDoctor> {
                                               specialtyAr = null;
                                               specialtyEn = null;
                                               _url = null;
+                                              order = null;
                                             });
                                             Navigator.of(context).pop();
                                           } else {
@@ -442,7 +466,7 @@ class _AddDoctorState extends State<AddDoctor> {
                 child: StreamBuilder(
                   stream: Firestore.instance
                       .collection("doctors")
-                      .orderBy('name_en')
+                      .orderBy('order')
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
@@ -519,6 +543,7 @@ class _AddDoctorState extends State<AddDoctor> {
                                                 specialtyAr = null;
                                                 specialtyEn = null;
                                                 _url = null;
+                                                order = null;
                                               });
                                               showDialog(
                                                 context: context,
@@ -534,7 +559,7 @@ class _AddDoctorState extends State<AddDoctor> {
                                                       ),
                                                       child: Container(
                                                         height:
-                                                            size.height * 0.75,
+                                                            size.height * 0.85,
                                                         margin: EdgeInsets.only(
                                                           top: 10,
                                                           bottom: 10,
@@ -621,6 +646,7 @@ class _AddDoctorState extends State<AddDoctor> {
                                                               keyboardType:
                                                                   TextInputType
                                                                       .number,
+                                                              maxLength: 11,
                                                               decoration:
                                                                   InputDecoration(
                                                                 labelText: translator
@@ -742,6 +768,32 @@ class _AddDoctorState extends State<AddDoctor> {
                                                                 });
                                                               },
                                                             ),
+                                                            TextFormField(
+                                                              initialValue:
+                                                                  documentSnapshot[
+                                                                          'order']
+                                                                      .toString(),
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .number,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                labelText: translator
+                                                                    .translate(
+                                                                        'order'),
+                                                                labelStyle:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                ),
+                                                              ),
+                                                              onChanged: (val) {
+                                                                setState(() {
+                                                                  order =
+                                                                      int.parse(
+                                                                          val);
+                                                                });
+                                                              },
+                                                            ),
                                                             SizedBox(
                                                               height: 10,
                                                             ),
@@ -852,6 +904,7 @@ class _AddDoctorState extends State<AddDoctor> {
                                                                                         specialEn: specialtyEn != null ? specialtyEn : documentSnapshot['specialtyEn'],
                                                                                         specialAr: specialtyAr != null ? specialtyAr : documentSnapshot['specialtyAr'],
                                                                                         imgUrl: _url != null ? _url : documentSnapshot['imgUrl'].toString(),
+                                                                                        order: order != null ? order : documentSnapshot['order'],
                                                                                       );
 
                                                                                       nameEn = null;
@@ -862,6 +915,7 @@ class _AddDoctorState extends State<AddDoctor> {
                                                                                       specialtyAr = null;
                                                                                       specialtyEn = null;
                                                                                       _url = null;
+                                                                                      order = null;
 
                                                                                       Navigator.of(context).pop();
                                                                                       Navigator.of(context).pop();

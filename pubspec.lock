@@ -263,6 +263,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.11"
+  flutter_progress_dialog:
+    dependency: "direct main"
+    description:
+      name: flutter_progress_dialog
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
+  flutter_ringtone_player:
+    dependency: "direct main"
+    description:
+      name: flutter_ringtone_player
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -378,6 +392,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1-dev"
+  ndialog:
+    dependency: "direct main"
+    description:
+      name: ndialog
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
   nested:
     dependency: transitive
     description:

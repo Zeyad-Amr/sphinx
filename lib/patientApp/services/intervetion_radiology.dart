@@ -3,12 +3,16 @@ import 'package:fancy_dialog/FancyAnimation.dart';
 import 'package:fancy_dialog/fancy_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/components/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 import 'package:sphinx/providers/UserDataProvider.dart';
+import 'package:sphinx/screens/loading.dart';
+import 'package:sphinx/screens/noConnection.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class IntRadiologyList extends StatefulWidget {
   @override
@@ -19,6 +23,7 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
   TextEditingController editingController = TextEditingController();
   FirebaseUser user;
   String userNation;
+  int cost;
   uniqueId() {
     String uniqueId =
         UniqueKey().toString().split('').getRange(2, 7).join().toString() +
@@ -252,6 +257,19 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                           translator.translate('book'),
                                         ),
                                         onPressed: () {
+                                          if (userNation == 'مصر‎') {
+                                            setState(() {
+                                              cost =
+                                                  documentSnapshot['costEgy'];
+                                            });
+                                            print('cost is $cost');
+                                          } else {
+                                            setState(() {
+                                              cost =
+                                                  documentSnapshot['costForg'];
+                                            });
+                                            print('cost is $cost');
+                                          }
                                           showDialog(
                                             context: context,
                                             builder: (BuildContext context) =>
@@ -282,20 +300,36 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                   ? documentSnapshot['name_en']
                                                   : documentSnapshot['name_ar'],
                                               gifPath:
-                                                  'assets/images/serviceList.png',
+                                                  'assets/images/serviceList5.png',
                                               ok: translator.translate('book'),
                                               cancel: translator
                                                   .translate('cancel'),
                                               cancelColor: Colors.black,
                                               okColor: kPrimaryColor,
                                               okFun: () {
+                                                ////////////////////////////Book Function ////////////////////
+                                                String id = uniqueId();
+                                                print(id);
+                                                print('hellalalalo');
+/* 
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        WebView(
+                                                      onPageStarted: (input) {},
+                                                      onPageFinished: (output) {
+                                                        print(
+                                                            'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
+                                                        print(output);
+                                                        if (output.contains(
+                                                            'NBESuccess.php')) { */
                                                 Firestore.instance
                                                     .collection(
                                                         'BookedServices')
                                                     .document(DateTime.now()
                                                         .toString())
                                                     .setData({
-                                                  'Id': uniqueId(),
+                                                  'Id': id,
                                                   'serviceNameEn':
                                                       documentSnapshot[
                                                           'name_en'],
@@ -321,6 +355,88 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                   'date': dateFormat
                                                       .format(DateTime.now()),
                                                 });
+                                                /*  Navigator.of(context)
+                                                              .pop();
+                                                          Fluttertoast.showToast(
+                                                              msg: translator
+                                                                  .translate(
+                                                                      'successPay'),
+                                                              toastLength: Toast
+                                                                  .LENGTH_LONG,
+                                                              gravity:
+                                                                  ToastGravity
+                                                                      .TOP,
+                                                              timeInSecForIos:
+                                                                  5,
+                                                              backgroundColor:
+                                                                  Colors.green
+                                                                      .withOpacity(
+                                                                          0.6),
+                                                              textColor:
+                                                                  Colors.white,
+                                                              fontSize: 20.0);
+                                                        } else if (output.contains(
+                                                            'NBEFailed.php')) {
+                                                          print(
+                                                              'OUTPUT IS ................. $output');
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                          Fluttertoast.showToast(
+                                                              msg: translator
+                                                                  .translate(
+                                                                      'failedPay'),
+                                                              toastLength: Toast
+                                                                  .LENGTH_LONG,
+                                                              gravity:
+                                                                  ToastGravity
+                                                                      .TOP,
+                                                              timeInSecForIos:
+                                                                  5,
+                                                              backgroundColor:
+                                                                  Colors.red
+                                                                      .withOpacity(
+                                                                          0.6),
+                                                              textColor:
+                                                                  Colors.white,
+                                                              fontSize: 20.0);
+                                                        } else if (output.contains(
+                                                            'NBECancel.php')) {
+                                                          print(
+                                                              'OUTPUT IS ................. $output');
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                          Fluttertoast.showToast(
+                                                              msg: translator
+                                                                  .translate(
+                                                                      'canceledPay'),
+                                                              toastLength: Toast
+                                                                  .LENGTH_LONG,
+                                                              gravity:
+                                                                  ToastGravity
+                                                                      .TOP,
+                                                              timeInSecForIos:
+                                                                  5,
+                                                              backgroundColor:
+                                                                  Colors.red
+                                                                      .withOpacity(
+                                                                          0.6),
+                                                              textColor:
+                                                                  Colors.white,
+                                                              fontSize: 20.0);
+                                                        }
+                                                      },
+                                                      initialUrl:
+                                                          "https://onlineconsultation.sphinxkc.com/NBEPayment.php?s_name=${currentUser.name}&s_price=$cost&OID=$id",
+                                                      javascriptMode:
+                                                          JavascriptMode
+                                                              .unrestricted,
+                                                    ),
+                                                  ),
+                                                );
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            LoadingScreen())); */
                                               },
                                               animationType:
                                                   FancyAnimation.TOP_BOTTOM,
@@ -345,5 +461,12 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
         ),
       ),
     );
+  }
+
+  nav(context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => NoConnection()));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => NoConnection()));
   }
 }

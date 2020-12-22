@@ -278,7 +278,8 @@ class _RequestsListState extends State<RequestsList> {
                                                     MainAxisAlignment.center,
                                                 children: <Widget>[
                                                   Text(
-                                                    'Select the date and time for the appointment',
+                                                    translator.translate(
+                                                        'selectDateTime'),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline6,
@@ -337,7 +338,8 @@ class _RequestsListState extends State<RequestsList> {
                                                         splashColor:
                                                             Colors.grey,
                                                         child: Text(
-                                                          'Select date and time',
+                                                          translator.translate(
+                                                              'selectDateTimebutton'),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.white,
@@ -406,7 +408,9 @@ class _RequestsListState extends State<RequestsList> {
                                                                   children: <
                                                                       Widget>[
                                                                     Text(
-                                                                      'The appointment date is ${dateFormat.format(fullselectedDate)}',
+                                                                      translator
+                                                                              .translate('appDateIs') +
+                                                                          ' ${dateFormat.format(fullselectedDate)}',
                                                                       style: Theme.of(
                                                                               context)
                                                                           .textTheme

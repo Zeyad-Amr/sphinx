@@ -128,9 +128,25 @@
     "message":"Message",
     "videoCall":"Video Call",
     "open":"Open",
-    "calldocnow":"Call your\ndoctor Now"
+    "calldocnow":"Call your\ndoctor Now",
+    "callpatnow":"Call your\npatient Now",
+
+    "selectDateTime":"Select the date and time for the appointment",
+    "selectDateTimebutton":"Select date and time",
+    "appDateIs":"The Consultation date is",
+
+
+    "successPay":"Payment process succeeded",
+    "failedPay":"Payment process failed",
+    "canceledPay":"Payment process canceled",
+    "order":"Order",
     
     
+    "sureEndConsult":"Are you sure you want to end that consultation?",
+    "end":"End",
+    "call":"Calling",
+    "endConsult":"End Consultation",
+    "ok":"Okay"
 
     
     

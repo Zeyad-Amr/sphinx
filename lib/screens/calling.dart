@@ -1,38 +1,39 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
+import 'package:sphinx/components/constants.dart';
+import 'package:sphinx/providers/UserDataProvider.dart';
 import 'package:sphinx/screens/VideoCall.dart';
 import 'package:sphinx/screens/chatRoom.dart';
-import 'package:sphinx/providers/UserDataProvider.dart';
-import '../../components/constants.dart';
-import 'package:localize_and_translate/localize_and_translate.dart';
 
-class MessageDetailsScreen extends StatefulWidget {
-  final String doctorPhone,
-      pateintPhone,
-      doctorName,
-      doctorNameEn,
-      pateintName,
-      imageUrl;
-  final String descriptionEn;
-  final String descriptionAr;
+class Calling extends StatefulWidget {
+  final String callId, callByName;
+  final String doctorPhone, pateintPhone, doctorName, pateintName, imageUrl;
 
-  const MessageDetailsScreen({
+  const Calling({
     Key key,
+    @required this.callId,
+    @required this.callByName,
     @required this.doctorPhone,
     @required this.pateintPhone,
-    @required this.doctorNameEn,
-    @required this.imageUrl,
-    @required this.pateintName,
     @required this.doctorName,
-    @required this.descriptionEn,
-    @required this.descriptionAr,
+    @required this.pateintName,
+    @required this.imageUrl,
   }) : super(key: key);
   @override
-  _MessageDetailsScreenState createState() => _MessageDetailsScreenState();
+  _CallingState createState() => _CallingState();
 }
 
-class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
+class _CallingState extends State<Calling> {
+  @override
+  void initState() {
+    super.initState();
+
+    FlutterRingtonePlayer.playRingtone();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -54,25 +55,8 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: BackButton(
-                            color: kWhiteColor,
-                          )),
-                    ],
-                  ),
-                ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: MediaQuery.of(context).size.height * 0.07,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -80,7 +64,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                     SizedBox(
                       width: 40,
                     ),
-                    Text(translator.translate('calldocnow').toUpperCase(),
+                    Text(translator.translate('call').toUpperCase(),
                         textAlign: TextAlign.start,
                         style: Theme.of(context)
                             .textTheme
@@ -113,7 +97,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                 children: <Widget>[
                                   Container(
                                     width: 80,
-                                    child: widget.imageUrl != null
+                                    child: widget.imageUrl != 'null'
                                         ? CircleAvatar(
                                             backgroundImage: NetworkImage(
                                               widget.imageUrl,
@@ -121,7 +105,9 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                             radius: 40,
                                           )
                                         : CircleAvatar(
-                                            backgroundColor: kPrimaryColor,
+                                            backgroundImage: AssetImage(
+                                              'assets/images/user.png',
+                                            ),
                                             radius: 40,
                                           ),
                                   ),
@@ -131,41 +117,16 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                 height: 20,
                               ),
                               Center(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      widget.doctorName,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25,
-                                        color: Colors.black,
-                                      ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    widget.callByName,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25,
+                                      color: Colors.black,
                                     ),
-                                    translator.currentLanguage == 'en'
-                                        ? Text(
-                                            widget.descriptionEn,
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: kPrimaryColor
-                                                    .withOpacity(0.7),
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        : Text(
-                                            widget.descriptionAr,
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: kPrimaryColor
-                                                    .withOpacity(0.7),
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
                               SizedBox(
@@ -216,7 +177,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                               chatRoomId:
                                                   '${widget.doctorPhone}_${widget.pateintPhone}',
                                               sendTo: widget.doctorPhone,
-                                              sendToName: widget.doctorNameEn,
+                                              sendToName: widget.doctorName,
                                               sendBy: widget.pateintPhone,
                                               sendByName: widget.pateintName,
                                             ),
@@ -248,22 +209,19 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                       onPressed: () {
                                         print(currentUser.email);
                                         print(currentUser.name);
-                                        print(
-                                            '${widget.doctorPhone.toString().split('').getRange(2, 13).join().toString()}_${widget.pateintPhone.toString().split('').getRange(2, 13).join().toString()}');
-                                        Firestore.instance
-                                            .collection('videoCalls')
-                                            .document(
-                                                '${widget.doctorPhone}_${widget.pateintPhone}' +
-                                                    DateTime.now().toString())
-                                            .setData({
-                                          "imageUrl": 'null',
-                                          "callTo": widget.doctorPhone,
-                                          "callBy": widget.pateintPhone,
-                                          "callToName": widget.doctorName,
-                                          "callByName": widget.pateintName,
-                                          "callId":
-                                              '${widget.doctorPhone.toString().split('').getRange(2, 13).join().toString()}_${widget.pateintPhone.toString().split('').getRange(2, 13).join().toString()}'
-                                        });
+                                        print('Idddddddddddd ${widget.callId}');
+                                        /*    Firestore.instance
+                      .collection('videoCalls')
+                      .document('${widget.doctorPhone}_${widget.pateintPhone}' +
+                          DateTime.now().toString())
+                      .setData({
+                    "callBy": widget.doctorPhone,
+                    "callTo": widget.pateintPhone,
+                    "callByName": widget.doctorName,
+                    "callToName": widget.patientName,
+                    "callId":
+                        '${widget.doctorPhone.toString().split('').getRange(2, 13).join().toString()}_${widget.pateintPhone.toString().split('').getRange(2, 13).join().toString()}'
+                  }); */
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) => VideoCall(
@@ -271,12 +229,47 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                               subjectText:
                                                   'Online Consultation',
                                               nameText: currentUser.name,
-                                              roomText:
-                                                  '${widget.doctorPhone.toString().split('').getRange(2, 13).join().toString()}_${widget.pateintPhone.toString().split('').getRange(2, 13).join().toString()}',
+                                              roomText: '${widget.callId}',
                                             ),
                                           ),
                                         );
                                       },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.4,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.06,
+                                      child: FlatButton.icon(
+                                        icon: Icon(Icons.cancel,
+                                            color: Colors.white),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                        ),
+                                        color: Colors.red[800],
+                                        textColor: Colors.white,
+                                        label: Text(
+                                          translator.translate('reject'),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1
+                                              .copyWith(color: kWhiteColor),
+                                        ),
+                                        onPressed: () {
+                                          FlutterRingtonePlayer.stop();
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -302,3 +295,66 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
     );
   }
 }
+
+/*  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Consumer<User>(
+        builder: (context, currentUser, child) => Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(widget.callByName + translator.translate('calling_you')),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.35,
+              height: MediaQuery.of(context).size.height * 0.06,
+              child: FlatButton.icon(
+                icon: Icon(Icons.video_call, color: Colors.white),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                color: kPrimaryColor,
+                textColor: Colors.white,
+                label: Text(
+                  'Video Call',
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1
+                      .copyWith(color: kWhiteColor),
+                ),
+                onPressed: () {
+                  print(currentUser.email);
+                  print(currentUser.name);
+                  print('Idddddddddddd ${widget.callId}');
+                  /*    Firestore.instance
+                      .collection('videoCalls')
+                      .document('${widget.doctorPhone}_${widget.pateintPhone}' +
+                          DateTime.now().toString())
+                      .setData({
+                    "callBy": widget.doctorPhone,
+                    "callTo": widget.pateintPhone,
+                    "callByName": widget.doctorName,
+                    "callToName": widget.patientName,
+                    "callId":
+                        '${widget.doctorPhone.toString().split('').getRange(2, 13).join().toString()}_${widget.pateintPhone.toString().split('').getRange(2, 13).join().toString()}'
+                  }); */
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => VideoCall(
+                        emailText: currentUser.email,
+                        subjectText: 'Online Consultation',
+                        nameText: currentUser.name,
+                        roomText: '${widget.callId}',
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+ */

@@ -16,6 +16,7 @@ class MessageDetailsDoctorScreen extends StatefulWidget {
       gender,
       country,
       patientName,
+      imageUrl,
       documentId;
 
   const MessageDetailsDoctorScreen(
@@ -27,7 +28,8 @@ class MessageDetailsDoctorScreen extends StatefulWidget {
       @required this.gender,
       @required this.country,
       @required this.patientName,
-      @required this.documentId})
+      @required this.documentId,
+      @required this.imageUrl})
       : super(key: key);
   @override
   _MessageDetailsDoctorScreenState createState() =>
@@ -85,7 +87,7 @@ class _MessageDetailsDoctorScreenState
                     SizedBox(
                       width: 40,
                     ),
-                    Text('Call your\npatient Now'.toUpperCase(),
+                    Text(translator.translate('callpatnow').toUpperCase(),
                         textAlign: TextAlign.start,
                         style: Theme.of(context)
                             .textTheme
@@ -129,23 +131,130 @@ class _MessageDetailsDoctorScreenState
                                       color: Colors.red[800],
                                       textColor: Colors.white,
                                       label: Text(
-                                        'End Consultation',
+                                        translator.translate('endConsult'),
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1
                                             .copyWith(color: kWhiteColor),
                                       ),
-                                      onPressed: () async {
-                                        Firestore.instance
-                                            .collection('appointments')
-                                            .document(widget.documentId)
-                                            .updateData({
-                                          'state': 1,
-                                          'endDate':
-                                              dateFormat.format(DateTime.now())
-                                        });
-
-                                        Navigator.of(context).pop();
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              Dialog(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: Container(
+                                              height: 110,
+                                              margin: EdgeInsets.only(
+                                                  top: 25,
+                                                  bottom: 10,
+                                                  left: 30,
+                                                  right: 30),
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                      translator.translate(
+                                                          'sureEndConsult'),
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                      )),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [
+                                                        FlatButton(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  10),
+                                                          splashColor:
+                                                              Colors.grey,
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: Text(
+                                                            translator
+                                                                .translate(
+                                                                    'cancel'),
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 17),
+                                                          ),
+                                                          color: Colors.red,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          15),
+                                                              side: BorderSide(
+                                                                  color: Colors
+                                                                      .white)),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        FlatButton(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  10),
+                                                          splashColor:
+                                                              Colors.grey,
+                                                          onPressed: () {
+                                                            Firestore.instance
+                                                                .collection(
+                                                                    'appointments')
+                                                                .document(widget
+                                                                    .documentId)
+                                                                .updateData({
+                                                              'state': 1,
+                                                              'endDate': dateFormat
+                                                                  .format(
+                                                                      DateTime
+                                                                          .now())
+                                                            });
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: Text(
+                                                            translator
+                                                                .translate(
+                                                                    'end'),
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 17),
+                                                          ),
+                                                          color: kPrimaryColor,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          15),
+                                                              side: BorderSide(
+                                                                  color: Colors
+                                                                      .grey)),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        );
                                       },
                                     ),
                                   ),
@@ -259,7 +368,7 @@ class _MessageDetailsDoctorScreenState
                                       color: kPrimaryColor,
                                       textColor: Colors.white,
                                       label: Text(
-                                        'Message',
+                                        translator.translate('message'),
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1
@@ -309,7 +418,7 @@ class _MessageDetailsDoctorScreenState
                                       color: kPrimaryColor,
                                       textColor: Colors.white,
                                       label: Text(
-                                        'Video Call',
+                                        translator.translate('videoCall'),
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1
@@ -326,10 +435,13 @@ class _MessageDetailsDoctorScreenState
                                                 '${widget.doctorPhone}_${widget.pateintPhone}' +
                                                     DateTime.now().toString())
                                             .setData({
+                                          "imageUrl": widget.imageUrl,
                                           "callBy": widget.doctorPhone,
                                           "callTo": widget.pateintPhone,
                                           "callByName": widget.doctorName,
                                           "callToName": widget.patientName,
+                                          "callId":
+                                              '${widget.doctorPhone.toString().split('').getRange(2, 13).join().toString()}_${widget.pateintPhone.toString().split('').getRange(2, 13).join().toString()}'
                                         });
                                         Navigator.of(context).push(
                                           MaterialPageRoute(

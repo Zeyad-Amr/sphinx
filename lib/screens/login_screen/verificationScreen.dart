@@ -120,7 +120,7 @@ class _OTPScreenState extends State<OTPScreen> {
                           children: [
                             //OTP Container
                             Container(
-                              width: size.width * 0.8, //0.12
+                              width: size.width * 0.7, //0.12
                               height: size.height * 0.06,
 
                               child: Center(

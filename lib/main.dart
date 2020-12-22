@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:sphinx/providers/UserDataProvider.dart';
@@ -44,18 +45,21 @@ class _MyAppState extends State<MyApp> {
               ConnectivityService().connectionStatusController.stream,
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: translator.delegates, // Android + iOS Delegates
-        locale: translator.locale, // Active locale
-        supportedLocales: translator.locals(), // Locals list
-        title: 'Sphinx KCC',
-        theme: ThemeData(
-            primaryColor: kPrimaryColor,
-            scaffoldBackgroundColor: Colors.white,
-            textTheme: TextTheme(),
-            fontFamily: 'Tajawal'),
-        home: SplashScreen(),
+      child: ProgressDialog(
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates:
+              translator.delegates, // Android + iOS Delegates
+          locale: translator.locale, // Active locale
+          supportedLocales: translator.locals(), // Locals list
+          title: 'Sphinx KCC',
+          theme: ThemeData(
+              primaryColor: kPrimaryColor,
+              scaffoldBackgroundColor: Colors.white,
+              textTheme: TextTheme(),
+              fontFamily: 'Tajawal'),
+          home: SplashScreen(),
+        ),
       ),
     );
   }

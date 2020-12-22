@@ -211,29 +211,11 @@ class _DetailScreenState extends State<DetailScreen> {
                                       translator.translate('book'),
                                       style: TextStyle(fontSize: 25),
                                     ),
-                                    onPressed: () async {
+                                    onPressed: () {
                                       String id = uniqueId();
                                       print(id);
-                                      /*  Firestore.instance
-                                          .collection('requests')
-                                          .document(DateTime.now().toString())
-                                          .setData({
-                                        'Id': uniqueId(),
-                                        'name': currentUser.name,
-                                        'phone': currentUser.mobile,
-                                        'age': currentUser.age,
-                                        'gender': currentUser.gender,
-                                        'country': currentUser.country,
-                                        'DoctorPhone': widget.docMobile,
-                                        'DoctorNameEn': widget.docNameEn,
-                                        'DoctorNameAr': widget.docNameAr,
-                                        'cost': widget.cost,
-                                        'state': 0,
-                                        'date': DateTime.now().toString(),
-                                        'imgUrl': widget.imageUrl
-                                      });
-                                      Navigator.of(context).pop(); */
-                                      await Navigator.of(context).push(
+                                      /* 
+                                      Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: (context) => WebView(
                                             onPageStarted: (input) {},
@@ -242,44 +224,37 @@ class _DetailScreenState extends State<DetailScreen> {
                                                   'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
                                               print(output);
                                               if (output
-                                                  .contains('NBESuccess.php')) {
-                                                Firestore.instance
-                                                    .collection('requests')
-                                                    .document(DateTime.now()
-                                                        .toString())
-                                                    .setData({
-                                                  'Id': id,
-                                                  'name': currentUser.name,
-                                                  'phone': currentUser.mobile,
-                                                  'age': currentUser.age,
-                                                  'gender': currentUser.gender,
-                                                  'country':
-                                                      currentUser.country,
-                                                  'DoctorPhone':
-                                                      widget.docMobile,
-                                                  'DoctorNameEn':
-                                                      widget.docNameEn,
-                                                  'DoctorNameAr':
-                                                      widget.docNameAr,
-                                                  'specialtyAr':
-                                                      widget.descriptionAr,
-                                                  'specialtyEn':
-                                                      widget.descriptionEn,
-                                                  'cost': widget.cost,
-                                                  'state': 0,
-                                                  'date':
-                                                      DateTime.now().toString(),
-                                                  'imgUrl': widget.imageUrl
-                                                });
-                                                Navigator.of(context).pop();
-                                                Fluttertoast.showToast(
-                                                    msg: 'Success',
+                                                  .contains('NBESuccess.php')) { */
+                                      Firestore.instance
+                                          .collection('requests')
+                                          .document(DateTime.now().toString())
+                                          .setData({
+                                        'Id': id,
+                                        'name': currentUser.name,
+                                        'phone': currentUser.mobile,
+                                        'age': currentUser.age,
+                                        'gender': currentUser.gender,
+                                        'country': currentUser.country,
+                                        'DoctorPhone': widget.docMobile,
+                                        'DoctorNameEn': widget.docNameEn,
+                                        'DoctorNameAr': widget.docNameAr,
+                                        'specialtyAr': widget.descriptionAr,
+                                        'specialtyEn': widget.descriptionEn,
+                                        'cost': widget.cost,
+                                        'state': 0,
+                                        'date': DateTime.now().toString(),
+                                        'imgUrl': widget.imageUrl
+                                      });
+                                      Navigator.of(context).pop();
+                                      /*  Fluttertoast.showToast(
+                                                    msg: translator.translate(
+                                                        'successPay'),
                                                     toastLength:
                                                         Toast.LENGTH_LONG,
                                                     gravity: ToastGravity.TOP,
                                                     timeInSecForIos: 5,
                                                     backgroundColor: Colors
-                                                        .black
+                                                        .green
                                                         .withOpacity(0.6),
                                                     textColor: Colors.white,
                                                     fontSize: 20.0);
@@ -287,14 +262,15 @@ class _DetailScreenState extends State<DetailScreen> {
                                                   .contains('NBEFailed.php')) {
                                                 print(
                                                     'OUTPUT IS ................. $output');
+                                                Navigator.of(context).pop();
                                                 Fluttertoast.showToast(
-                                                    msg: 'Falied',
+                                                    msg: translator
+                                                        .translate('failedPay'),
                                                     toastLength:
                                                         Toast.LENGTH_LONG,
                                                     gravity: ToastGravity.TOP,
                                                     timeInSecForIos: 5,
-                                                    backgroundColor: Colors
-                                                        .black
+                                                    backgroundColor: Colors.red
                                                         .withOpacity(0.6),
                                                     textColor: Colors.white,
                                                     fontSize: 20.0);
@@ -302,14 +278,15 @@ class _DetailScreenState extends State<DetailScreen> {
                                                   .contains('NBECancel.php')) {
                                                 print(
                                                     'OUTPUT IS ................. $output');
+                                                Navigator.of(context).pop();
                                                 Fluttertoast.showToast(
-                                                    msg: 'Canceled',
+                                                    msg: translator.translate(
+                                                        'canceledPay'),
                                                     toastLength:
                                                         Toast.LENGTH_LONG,
                                                     gravity: ToastGravity.TOP,
                                                     timeInSecForIos: 5,
-                                                    backgroundColor: Colors
-                                                        .black
+                                                    backgroundColor: Colors.red
                                                         .withOpacity(0.6),
                                                     textColor: Colors.white,
                                                     fontSize: 20.0);
@@ -321,7 +298,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                                 JavascriptMode.unrestricted,
                                           ),
                                         ),
-                                      );
+                                      ); */
                                       print(id);
                                     },
                                   ),

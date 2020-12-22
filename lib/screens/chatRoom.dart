@@ -195,8 +195,24 @@ class _ChatRoomState extends State<ChatRoom> {
                         .snapshots(),
                     builder: (context, snapshot) {
                       Timer(Duration(milliseconds: 500), scrollToBottom);
-                      return snapshot.hasData
-                          ? ListView.builder(
+
+                      if (snapshot.hasData) {
+                        if (snapshot.data.documents.length == 0) {
+                          return Container(
+                            color: Colors.grey[200],
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: size.height * 0.3,
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListView.builder(
                               scrollDirection: Axis.vertical,
                               controller: _scrollController,
                               itemCount: snapshot.data.documents.length,
@@ -210,8 +226,21 @@ class _ChatRoomState extends State<ChatRoom> {
                                   sendByMe:
                                       user.mobile == documentSnapshot["sendBy"],
                                 );
-                              })
-                          : Container();
+                              }),
+                        );
+                      } else {
+                        return Container(
+                          color: Colors.grey[200],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: size.height * 0.3,
+                              ),
+                            ],
+                          ),
+                        );
+                      }
                     },
                   ),
                 ),

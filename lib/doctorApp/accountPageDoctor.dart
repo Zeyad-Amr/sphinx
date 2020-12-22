@@ -101,7 +101,7 @@ class _AccountPageDoctorState extends State<AccountPageDoctor> {
         items: <Widget>[
           Icon(Icons.home, size: 30, color: kPrimaryColor),
           Icon(Icons.message, size: 30, color: kPrimaryColor),
-          Icon(Icons.calendar_today, size: 30, color: kPrimaryColor),
+          Icon(Icons.date_range, size: 30, color: kPrimaryColor),
           Icon(Icons.portrait, size: 30, color: kPrimaryColor),
         ],
         onTap: (index) {

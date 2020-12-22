@@ -38,166 +38,170 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (BuildContext context, StateSetter state) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          body: Container(
-            height: size.height,
-            width: double.infinity,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Positioned(
-                  top: size.height * -0.35, //size.height *  -0.03
-                  child: Image.asset('assets/images/01.png'),
-                  width: size.width,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: size.height * 0.04,
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.02,
-                        ),
-                        BackButton(
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
-                    Image.asset(
-                      'assets/icons/bo5.png',
-                      height: size.height * 0.22,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.15,
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      width: size.width * 0.85,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
+          body: SingleChildScrollView(
+            child: Container(
+              height: size.height,
+              width: double.infinity,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Positioned(
+                    top: size.height * -0.35, //size.height *  -0.03
+                    child: Image.asset('assets/images/01.png'),
+                    width: size.width,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: size.height * 0.04,
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      Row(
                         children: [
-                          Column(
-                            children: [
-                              Text(
-                                translator.translate('loginPage 1'),
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
-                              Text(
-                                translator.translate('loginPage 2'),
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
-                              TextFormField(
-                                autofocus: true,
-                                controller: _phoneNumberController,
-                                keyboardType: TextInputType.phone,
-                                validator: (value) {
-                                  return !isValid
-                                      ? translator.translate('loginPage label')
-                                      : null;
-                                },
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(11),
-                                ],
-                                textAlign: translator.currentLanguage == 'en'
-                                    ? TextAlign.start
-                                    : TextAlign.end,
-                                textAlignVertical: TextAlignVertical.center,
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                decoration: translator.currentLanguage == 'en'
-                                    ? InputDecoration(
-                                        hintText: translator
-                                            .translate('loginPage hintText'),
-                                        prefixText: '+2   ',
-                                        prefixIcon: Icon(
-                                          Icons.phone_android,
-                                          color: kPrimaryColor,
-                                        ),
-                                        prefixStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .copyWith(
-                                                fontWeight: FontWeight.bold),
-                                        suffixIcon: isValid
-                                            ? Icon(Icons.done)
-                                            : Icon(Icons.error,
-                                                color: Colors.red),
-                                      )
-                                    : InputDecoration(
-                                        hintText: translator
-                                            .translate('loginPage hintText'),
-                                        suffixText: '   +2',
-                                        suffixIcon: Icon(
-                                          Icons.phone_android,
-                                          color: kPrimaryColor,
-                                        ),
-                                        suffixStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .copyWith(
-                                                fontWeight: FontWeight.bold),
-                                        prefixIcon: isValid
-                                            ? Icon(Icons.done)
-                                            : Icon(Icons.error,
-                                                color: Colors.red),
-                                      ),
-                                autovalidateMode: AutovalidateMode.always,
-                                autocorrect: false,
-                                maxLengthEnforced: true,
-                                onChanged: (text) {
-                                  validate(state);
-                                },
-                              ),
-                            ],
-                          ),
                           SizedBox(
-                            height: size.height * 0.02,
+                            width: size.width * 0.02,
                           ),
-                          Row(
-                            children: [
-                              RoundedButton(
-                                press: () {
-                                  if (isValid) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => OTPScreen(
-                                            mobileNumber:
-                                                _phoneNumberController.text,
-                                          ),
-                                        ));
-                                  } else {
-                                    validate(state);
-                                  }
-                                },
-                                text: translator.translate('verify'),
-                                buttonColor: kPrimaryColor,
-                                textColor: Colors.white,
-                                widthRatioSize: 0.8,
-                                fontS: size.height * 0.02,
-                                paddingRatioSize: 0.02,
-                              ),
-                            ],
-                          )
+                          BackButton(
+                            color: Colors.white,
+                          ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-                Positioned(
-                  bottom: size.height * -0.1, //size.height *  -0.03
-                  right: size.width * -0.2,
-                  child: Image.asset('assets/images/04.png'),
-                  width: size.width * 0.6,
-                ),
-              ],
+                      Image.asset(
+                        'assets/icons/bo5.png',
+                        height: size.height * 0.22,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.15,
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        width: size.width * 0.85,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  translator.translate('loginPage 1'),
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                ),
+                                Text(
+                                  translator.translate('loginPage 2'),
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                ),
+                                TextFormField(
+                                  autofocus: true,
+                                  controller: _phoneNumberController,
+                                  keyboardType: TextInputType.phone,
+                                  validator: (value) {
+                                    return !isValid
+                                        ? translator
+                                            .translate('loginPage label')
+                                        : null;
+                                  },
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(11),
+                                  ],
+                                  textAlign: translator.currentLanguage == 'en'
+                                      ? TextAlign.start
+                                      : TextAlign.end,
+                                  textAlignVertical: TextAlignVertical.center,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  decoration: translator.currentLanguage == 'en'
+                                      ? InputDecoration(
+                                          hintText: translator
+                                              .translate('loginPage hintText'),
+                                          prefixText: '+2   ',
+                                          prefixIcon: Icon(
+                                            Icons.phone_android,
+                                            color: kPrimaryColor,
+                                          ),
+                                          prefixStyle: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold),
+                                          suffixIcon: isValid
+                                              ? Icon(Icons.done)
+                                              : Icon(Icons.error,
+                                                  color: Colors.red),
+                                        )
+                                      : InputDecoration(
+                                          hintText: translator
+                                              .translate('loginPage hintText'),
+                                          suffixText: '   +2',
+                                          suffixIcon: Icon(
+                                            Icons.phone_android,
+                                            color: kPrimaryColor,
+                                          ),
+                                          suffixStyle: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold),
+                                          prefixIcon: isValid
+                                              ? Icon(Icons.done)
+                                              : Icon(Icons.error,
+                                                  color: Colors.red),
+                                        ),
+                                  autovalidateMode: AutovalidateMode.always,
+                                  autocorrect: false,
+                                  maxLengthEnforced: true,
+                                  onChanged: (text) {
+                                    validate(state);
+                                  },
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: size.height * 0.02,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                RoundedButton(
+                                  press: () {
+                                    if (isValid) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => OTPScreen(
+                                              mobileNumber:
+                                                  _phoneNumberController.text,
+                                            ),
+                                          ));
+                                    } else {
+                                      validate(state);
+                                    }
+                                  },
+                                  text: translator.translate('verify'),
+                                  buttonColor: kPrimaryColor,
+                                  textColor: Colors.white,
+                                  widthRatioSize: 0.7,
+                                  fontS: size.height * 0.02,
+                                  paddingRatioSize: 0.02,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    bottom: size.height * -0.1, //size.height *  -0.03
+                    right: size.width * -0.2,
+                    child: Image.asset('assets/images/04.png'),
+                    width: size.width * 0.6,
+                  ),
+                ],
+              ),
             ),
           ),
         );

@@ -54,7 +54,7 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Text(
-                                "You haven't any messages",
+                                 translator.translate('noItems'),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6
@@ -302,7 +302,7 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Text(
-                              "You haven't any messages",
+                               translator.translate('noItems'),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6

@@ -10,9 +10,6 @@ import 'renal_biopsy.dart';
 import 'other_services.dart';
 import 'intervetion_radiology.dart';
 
-
-
-
 class ServiceList extends StatefulWidget {
   @override
   _ServiceListState createState() => _ServiceListState();
@@ -89,20 +86,17 @@ class _ServiceListState extends State<ServiceList> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                        top: 15.0,
-                                        bottom: 8),
+                                        top: 15.0, bottom: 8),
                                     child: Container(
                                       constraints: BoxConstraints(
-                                          maxWidth: size.width * 0.55),
+                                          maxWidth: size.width * 0.5),
                                       child: Text(translator.translate('labs'),
                                           overflow: TextOverflow.ellipsis,
                                           softWrap: false,
-                                          maxLines: 1,
+                                          maxLines: 2,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5
+                                              .headline6
                                               .copyWith(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white,
@@ -170,21 +164,18 @@ class _ServiceListState extends State<ServiceList> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                        top: 15.0,
-                                        bottom: 8),
+                                        top: 15.0, bottom: 8),
                                     child: Container(
                                       constraints: BoxConstraints(
-                                          maxWidth: size.width * 0.55),
+                                          maxWidth: size.width * 0.5),
                                       child: Text(
                                           translator.translate('radiology'),
                                           overflow: TextOverflow.ellipsis,
                                           softWrap: false,
-                                          maxLines: 1,
+                                          maxLines: 2,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5
+                                              .headline6
                                               .copyWith(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white,
@@ -252,21 +243,18 @@ class _ServiceListState extends State<ServiceList> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                        top: 15.0,
-                                        bottom: 8),
+                                        top: 15.0, bottom: 8),
                                     child: Container(
                                       constraints: BoxConstraints(
-                                          maxWidth: size.width * 0.55),
+                                          maxWidth: size.width * 0.5),
                                       child: Text(
                                           translator.translate('medication'),
                                           overflow: TextOverflow.ellipsis,
                                           softWrap: false,
-                                          maxLines: 1,
+                                          maxLines: 2,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5
+                                              .headline6
                                               .copyWith(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white,
@@ -334,21 +322,18 @@ class _ServiceListState extends State<ServiceList> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                        top: 15.0,
-                                        bottom: 8),
+                                        top: 15.0, bottom: 8),
                                     child: Container(
                                       constraints: BoxConstraints(
-                                          maxWidth: size.width * 0.55),
+                                          maxWidth: size.width * 0.5),
                                       child: Text(
                                           translator.translate('renalBiopsy'),
                                           overflow: TextOverflow.ellipsis,
                                           softWrap: false,
-                                          maxLines: 1,
+                                          maxLines: 2,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5
+                                              .headline6
                                               .copyWith(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white,
@@ -416,21 +401,18 @@ class _ServiceListState extends State<ServiceList> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                        top: 15.0,
-                                        bottom: 8),
+                                        top: 15.0, bottom: 8),
                                     child: Container(
                                       constraints: BoxConstraints(
-                                          maxWidth: size.width * 0.55),
+                                          maxWidth: size.width * 0.5),
                                       child: Text(
                                           translator.translate('int_radiology'),
                                           overflow: TextOverflow.ellipsis,
                                           softWrap: false,
-                                          maxLines: 1,
+                                          maxLines: 2,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5
+                                              .headline6
                                               .copyWith(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white,
@@ -498,21 +480,18 @@ class _ServiceListState extends State<ServiceList> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                        top: 15.0,
-                                        bottom: 8),
+                                        top: 15.0, bottom: 8),
                                     child: Container(
                                       constraints: BoxConstraints(
-                                          maxWidth: size.width * 0.55),
+                                          maxWidth: size.width * 0.5),
                                       child: Text(
                                           translator.translate('otherServices'),
                                           overflow: TextOverflow.ellipsis,
                                           softWrap: false,
-                                          maxLines: 1,
+                                          maxLines: 2,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5
+                                              .headline6
                                               .copyWith(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white,
