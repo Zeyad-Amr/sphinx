@@ -52,7 +52,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: 30,
+                  height: size.width * 0.1,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -62,17 +62,15 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: BackButton(
-                            color: kWhiteColor,
-                          )),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: BackButton(
+                          color: kWhiteColor,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -89,7 +87,7 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.08,
+                  height: size.width * 0.1,
                 ),
                 Expanded(
                   child: Stack(

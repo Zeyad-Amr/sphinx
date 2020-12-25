@@ -101,8 +101,10 @@ class _AppointmentWidgetDoctorState extends State<AppointmentWidgetDoctor> {
                                           age: documentSnapshot['age'],
                                           country: documentSnapshot['country'],
                                           gender: documentSnapshot['gender'],
-                                          doctorName:
+                                          doctorNameEn:
                                               documentSnapshot['DoctorNameEn'],
+                                          doctorNameAr:
+                                              documentSnapshot['DoctorNameAr'],
                                           doctorPhone:
                                               documentSnapshot['DoctorPhone'],
                                           pateintPhone:

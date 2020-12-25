@@ -79,18 +79,29 @@ class _RequestsListState extends State<RequestsList> {
                                         documentSnapshot['DoctorNameEn'],
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5
+                                            .headline6
                                             .copyWith(
-                                                fontWeight: FontWeight.bold),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20),
                                       )
                                     : Text(
                                         documentSnapshot['DoctorNameAr'],
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5
+                                            .headline6
                                             .copyWith(
-                                                fontWeight: FontWeight.bold),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20),
                                       ),
+                                Text(
+                                  translator.translate('patientName') +
+                                      ': ' +
+                                      documentSnapshot['name'],
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      .copyWith(fontSize: 18),
+                                ),
                               ],
                             ),
                             subtitle: Column(
@@ -102,24 +113,20 @@ class _RequestsListState extends State<RequestsList> {
                                             documentSnapshot['Id'],
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .bodyText1
                                             .copyWith(
-                                                color: kPrimaryLightColor),
+                                                color: kPrimaryLightColor,
+                                                fontSize: 14),
                                       )
                                     : Text(
                                         'كود الحجز: ' + documentSnapshot['Id'],
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6
+                                            .bodyText1
                                             .copyWith(
-                                                color: kPrimaryLightColor),
+                                                color: kPrimaryLightColor,
+                                                fontSize: 14),
                                       ),
-                                Text(
-                                  translator.translate('patientName') +
-                                      ': ' +
-                                      documentSnapshot['name'],
-                                  style: Theme.of(context).textTheme.headline6,
-                                ),
                                 Text(
                                   translator.translate('mob') +
                                       ': ' +

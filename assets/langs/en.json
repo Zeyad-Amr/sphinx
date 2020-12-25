@@ -159,7 +159,14 @@
     "fawryId":"Fawry Code",
     "send":"Send",
     "sureDeletethis":"Are you sure you want to delete?",
-    "sureSendthis":"Are you sure you want to send?"
+    "sureSendthis":"Are you sure you want to send?",
+
+
+    "reqMessage":"Your request has been sent to doctor, your consultation date will be set soon.",
+    "AppSetMessage":"Your consultation date have been set, check your appointments.",
+    "AppEndMessage":"Your consultation has been ended.",
+    "fawryMessage":"Pay the fees at the nearest Fawry branch, your fawry code is",
+    "bookServMessage":"Visit the center and get your service, your reservation code is"
 
     
     

@@ -161,6 +161,31 @@ exports.newService = functions.firestore.document('BookedServices/{BookedService
 );
 
 
+exports.newfawryreq = functions.firestore.document('fawryRequests/{fawryRequestsId}').onCreate
+(
+    async (snapshot,context)=>
+    {
+        var tokens=[];
+
+        const adminData =  db.collection('users');
+        const adminTokens = await adminData.get();
+        adminTokens.forEach(doc=>{
+            if(doc.data().info =='admin'){
+               if(doc.data().token !== ""){
+                tokens.push(doc.data().token);
+               }
+            }
+            
+        });
+        
+        var payload = {notification: {title:'New Fawry Payment' , body:snapshot.data().name +' has received fawry code' },
+        data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
+        const respond = await admin.messaging().sendToDevice(tokens,payload); 
+    }
+);
+
+
+
 
 
 exports.newChatMessage = functions.firestore.document('chatRooms/{chatRoomId}/chats/{message}').onCreate
@@ -222,9 +247,3 @@ exports.videoCall = functions.firestore.document('videoCalls/{call}').onCreate
         const respond = await admin.messaging().sendToDevice(tokens,payload); 
     }
 );
-
-/* 'callBy':snapshot.data().callBy,
-'callByName':snapshot.data().callByName,
-'callTo':snapshot.data().callTo,
-'callToName':snapshot.data().callToName,
-'callId':snapshot.data().callId */

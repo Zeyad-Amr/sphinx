@@ -11,7 +11,8 @@ import '../../components/constants.dart';
 class MessageDetailsDoctorScreen extends StatefulWidget {
   final String doctorPhone,
       pateintPhone,
-      doctorName,
+      doctorNameEn,
+      doctorNameAr,
       age,
       gender,
       country,
@@ -23,7 +24,8 @@ class MessageDetailsDoctorScreen extends StatefulWidget {
       {Key key,
       @required this.doctorPhone,
       @required this.pateintPhone,
-      @required this.doctorName,
+      @required this.doctorNameEn,
+      @required this.doctorNameAr,
       @required this.age,
       @required this.gender,
       @required this.country,
@@ -39,6 +41,7 @@ class MessageDetailsDoctorScreen extends StatefulWidget {
 class _MessageDetailsDoctorScreenState
     extends State<MessageDetailsDoctorScreen> {
   final DateFormat dateFormat = DateFormat('yyyy-MM-dd K:mm a');
+  final DateFormat dateorderFormat = DateFormat('yyyyMMddkkmm');
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +62,7 @@ class _MessageDetailsDoctorScreenState
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: 30,
+                  height: size.width * 0.1,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -69,17 +72,15 @@ class _MessageDetailsDoctorScreenState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: BackButton(
-                            color: kWhiteColor,
-                          )),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: BackButton(
+                          color: kWhiteColor,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -96,7 +97,7 @@ class _MessageDetailsDoctorScreenState
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.08,
+                  height: size.width * 0.1,
                 ),
                 Expanded(
                   child: Stack(
@@ -217,6 +218,29 @@ class _MessageDetailsDoctorScreenState
                                                                 .updateData({
                                                               'state': 1,
                                                               'endDate': dateFormat
+                                                                  .format(
+                                                                      DateTime
+                                                                          .now())
+                                                            });
+                                                            Firestore.instance
+                                                                .collection(
+                                                                    'messages')
+                                                                .document(dateorderFormat
+                                                                    .format(DateTime
+                                                                        .now()))
+                                                                .setData({
+                                                              'patientName': widget
+                                                                  .patientName,
+                                                              'patientPhone': widget
+                                                                  .pateintPhone,
+                                                              'message':
+                                                                  'AppEndMessage',
+                                                              'code': 'null',
+                                                              'serviceEn': widget
+                                                                  .doctorNameEn,
+                                                              'serviceAr': widget
+                                                                  .doctorNameAr,
+                                                              'date': dateorderFormat
                                                                   .format(
                                                                       DateTime
                                                                           .now())
@@ -397,7 +421,7 @@ class _MessageDetailsDoctorScreenState
                                               sendTo: widget.pateintPhone,
                                               sendToName: widget.patientName,
                                               sendBy: widget.doctorPhone,
-                                              sendByName: widget.doctorName,
+                                              sendByName: widget.doctorNameEn,
                                             ),
                                           ),
                                         );
@@ -438,7 +462,7 @@ class _MessageDetailsDoctorScreenState
                                           "imageUrl": widget.imageUrl,
                                           "callBy": widget.doctorPhone,
                                           "callTo": widget.pateintPhone,
-                                          "callByName": widget.doctorName,
+                                          "callByName": widget.doctorNameEn,
                                           "callToName": widget.patientName,
                                           "callId":
                                               '${widget.doctorPhone.toString().split('').getRange(2, 13).join().toString()}_${widget.pateintPhone.toString().split('').getRange(2, 13).join().toString()}'

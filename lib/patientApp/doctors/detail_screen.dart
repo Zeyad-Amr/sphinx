@@ -45,6 +45,7 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     final DateFormat dateFormat = DateFormat('yyyy-MM-dd K:mm a');
+    final DateFormat dateorderFormat = DateFormat('yyyyMMddkkmm');
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -261,9 +262,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                     .instance
                                                                     .collection(
                                                                         'requests')
-                                                                    .document(DateTime
-                                                                            .now()
-                                                                        .toString())
+                                                                    .document(
+                                                                        dateorderFormat
+                                                                            .format(DateTime.now()))
                                                                     .setData({
                                                                   'Id': id,
                                                                   'name':
@@ -304,6 +305,34 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                           .now()),
                                                                   'imgUrl': widget
                                                                       .imageUrl
+                                                                });
+                                                                Firestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'messages')
+                                                                    .document(
+                                                                        dateorderFormat
+                                                                            .format(DateTime.now()))
+                                                                    .setData({
+                                                                  'patientName':
+                                                                      currentUser
+                                                                          .name,
+                                                                  'patientPhone':
+                                                                      currentUser
+                                                                          .mobile,
+                                                                  'message':
+                                                                      'reqMessage',
+                                                                  'code':
+                                                                      'null',
+                                                                  'serviceEn':
+                                                                      widget
+                                                                          .docNameEn,
+                                                                  'serviceAr':
+                                                                      widget
+                                                                          .docNameAr,
+                                                                  'date': dateorderFormat
+                                                                      .format(DateTime
+                                                                          .now())
                                                                 });
                                                                 Navigator.of(
                                                                         context)
@@ -432,9 +461,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                     .instance
                                                                     .collection(
                                                                         'fawryRequests')
-                                                                    .document(DateTime
-                                                                            .now()
-                                                                        .toString())
+                                                                    .document(
+                                                                        dateorderFormat
+                                                                            .format(DateTime.now()))
                                                                     .setData({
                                                                   'Id': id,
                                                                   'name':
@@ -482,6 +511,37 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                           ''),
                                                                   'about':
                                                                       'doctor'
+                                                                });
+                                                                Firestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'messages')
+                                                                    .document(
+                                                                        dateorderFormat
+                                                                            .format(DateTime.now()))
+                                                                    .setData({
+                                                                  'patientName':
+                                                                      currentUser
+                                                                          .name,
+                                                                  'patientPhone':
+                                                                      currentUser
+                                                                          .mobile,
+                                                                  'message':
+                                                                      'fawryMessage',
+                                                                  'code': output
+                                                                      .replaceRange(
+                                                                          0,
+                                                                          72,
+                                                                          ''),
+                                                                  'serviceEn':
+                                                                      widget
+                                                                          .docNameEn,
+                                                                  'serviceAr':
+                                                                      widget
+                                                                          .docNameAr,
+                                                                  'date': dateorderFormat
+                                                                      .format(DateTime
+                                                                          .now())
                                                                 });
                                                                 Navigator.of(
                                                                         context)

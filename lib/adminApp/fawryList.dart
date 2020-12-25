@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:sphinx/components/constants.dart';
@@ -13,6 +14,8 @@ class _FawryListState extends State<FawryList> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final DateFormat dateorderFormat = DateFormat('yyyyMMddkkmm');
+
     return Scaffold(
       appBar: AppBar(
         title: Text(translator.translate('fawryReq')),
@@ -430,7 +433,7 @@ class _FawryListState extends State<FawryList> {
                                                                         Firestore
                                                                             .instance
                                                                             .collection('BookedServices')
-                                                                            .document(DateTime.now().toString())
+                                                                            .document(dateorderFormat.format(DateTime.now()))
                                                                             .setData({
                                                                           'Id':
                                                                               documentSnapshot['Id'],
@@ -458,6 +461,26 @@ class _FawryListState extends State<FawryList> {
                                                                               documentSnapshot['collectionAr'],
                                                                           'date':
                                                                               documentSnapshot['date'],
+                                                                        });
+                                                                        Firestore
+                                                                            .instance
+                                                                            .collection('messages')
+                                                                            .document(dateorderFormat.format(DateTime.now()))
+                                                                            .setData({
+                                                                          'patientName':
+                                                                              documentSnapshot['name'],
+                                                                          'patientPhone':
+                                                                              documentSnapshot['phone'],
+                                                                          'message':
+                                                                              'bookServMessage',
+                                                                          'code':
+                                                                              documentSnapshot['Id'],
+                                                                          'serviceEn':
+                                                                              documentSnapshot['serviceNameEn'],
+                                                                          'serviceAr':
+                                                                              documentSnapshot['serviceNameAr'],
+                                                                          'date':
+                                                                              dateorderFormat.format(DateTime.now())
                                                                         });
                                                                         Navigator.of(context)
                                                                             .pop();
@@ -492,11 +515,10 @@ class _FawryListState extends State<FawryList> {
                                             documentSnapshot['name'],
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline5
+                                                .headline6
                                                 .copyWith(
-                                                    fontSize: 24,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
                                           ),
                                           Text(
                                             translator.translate('mob') +
@@ -509,11 +531,8 @@ class _FawryListState extends State<FawryList> {
                                                     .toString(),
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6
-                                                .copyWith(
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                .bodyText1
+                                                .copyWith(fontSize: 18),
                                           ),
                                           translator.currentLanguage == 'en'
                                               ? Text(
@@ -521,22 +540,16 @@ class _FawryListState extends State<FawryList> {
                                                       'DoctorNameEn'],
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6
-                                                      .copyWith(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold),
+                                                      .bodyText1
+                                                      .copyWith(fontSize: 18),
                                                 )
                                               : Text(
                                                   documentSnapshot[
                                                       'DoctorNameAr'],
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6
-                                                      .copyWith(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold),
+                                                      .bodyText1
+                                                      .copyWith(fontSize: 18),
                                                 ),
                                           Text(
                                             translator.translate('fawryId') +
@@ -544,10 +557,10 @@ class _FawryListState extends State<FawryList> {
                                                 documentSnapshot['fawryId'],
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6
+                                                .bodyText1
                                                 .copyWith(
                                                     color: Colors.red,
-                                                    fontSize: 20),
+                                                    fontSize: 14),
                                           ),
                                         ],
                                       ),
@@ -561,22 +574,22 @@ class _FawryListState extends State<FawryList> {
                                                       documentSnapshot['Id'],
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6
+                                                      .bodyText1
                                                       .copyWith(
-                                                          fontSize: 18,
                                                           color:
-                                                              kPrimaryLightColor),
+                                                              kPrimaryLightColor,
+                                                          fontSize: 14),
                                                 )
                                               : Text(
                                                   'كود الحجز: ' +
                                                       documentSnapshot['Id'],
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6
+                                                      .bodyText1
                                                       .copyWith(
-                                                          fontSize: 18,
                                                           color:
-                                                              kPrimaryLightColor),
+                                                              kPrimaryLightColor,
+                                                          fontSize: 14),
                                                 ),
                                           translator.currentLanguage == 'en'
                                               ? Text(
@@ -584,20 +597,20 @@ class _FawryListState extends State<FawryList> {
                                                       documentSnapshot['date'],
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6
+                                                      .bodyText1
                                                       .copyWith(
-                                                          fontSize: 18,
-                                                          color: kPrimaryColor),
+                                                          color: kPrimaryColor,
+                                                          fontSize: 14),
                                                 )
                                               : Text(
                                                   'الموعد: ' +
                                                       documentSnapshot['date'],
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6
+                                                      .bodyText1
                                                       .copyWith(
-                                                          fontSize: 18,
-                                                          color: kPrimaryColor),
+                                                          color: kPrimaryColor,
+                                                          fontSize: 14),
                                                 ),
                                         ],
                                       ),
@@ -839,7 +852,7 @@ class _FawryListState extends State<FawryList> {
                                                                         Firestore
                                                                             .instance
                                                                             .collection('requests')
-                                                                            .document(DateTime.now().toString())
+                                                                            .document(dateorderFormat.format(DateTime.now()))
                                                                             .setData({
                                                                           'Id':
                                                                               documentSnapshot['Id'],
@@ -871,6 +884,26 @@ class _FawryListState extends State<FawryList> {
                                                                               documentSnapshot['specialtyEn'],
                                                                           'DoctorPhone':
                                                                               documentSnapshot['DoctorPhone'],
+                                                                        });
+                                                                        Firestore
+                                                                            .instance
+                                                                            .collection('messages')
+                                                                            .document(dateorderFormat.format(DateTime.now()))
+                                                                            .setData({
+                                                                          'patientName':
+                                                                              documentSnapshot['name'],
+                                                                          'patientPhone':
+                                                                              documentSnapshot['phone'],
+                                                                          'message':
+                                                                              'reqMessage',
+                                                                          'code':
+                                                                              'null',
+                                                                          'serviceEn':
+                                                                              documentSnapshot['DoctorNameEn'],
+                                                                          'serviceAr':
+                                                                              documentSnapshot['DoctorNameAr'],
+                                                                          'date':
+                                                                              dateorderFormat.format(DateTime.now())
                                                                         });
                                                                         Navigator.of(context)
                                                                             .pop();

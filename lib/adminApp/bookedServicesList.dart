@@ -79,18 +79,29 @@ class _BookedServicesState extends State<BookedServices> {
                                           documentSnapshot['serviceNameEn'],
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5
+                                              .headline6
                                               .copyWith(
-                                                  fontWeight: FontWeight.bold),
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
                                         )
                                       : Text(
                                           documentSnapshot['serviceNameAr'],
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5
+                                              .headline6
                                               .copyWith(
-                                                  fontWeight: FontWeight.bold),
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
                                         ),
+                                  Text(
+                                    translator.translate('patientName') +
+                                        ': ' +
+                                        documentSnapshot['name'],
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .copyWith(fontSize: 18),
+                                  ),
                                 ],
                               ),
                               subtitle: Column(
@@ -102,41 +113,40 @@ class _BookedServicesState extends State<BookedServices> {
                                               documentSnapshot['Id'],
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline6
+                                              .bodyText1
                                               .copyWith(
-                                                  color: kPrimaryLightColor),
+                                                  color: kPrimaryLightColor,
+                                                  fontSize: 14),
                                         )
                                       : Text(
                                           'كود الحجز: ' +
                                               documentSnapshot['Id'],
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline6
+                                              .bodyText1
                                               .copyWith(
-                                                  color: kPrimaryLightColor),
+                                                  color: kPrimaryLightColor,
+                                                  fontSize: 14),
                                         ),
                                   translator.currentLanguage == 'en'
                                       ? Text(
                                           'Date: ' + documentSnapshot['date'],
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline6
-                                              .copyWith(color: kPrimaryColor),
+                                              .bodyText1
+                                              .copyWith(
+                                                  color: kPrimaryColor,
+                                                  fontSize: 14),
                                         )
                                       : Text(
                                           'الموعد: ' + documentSnapshot['date'],
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline6
-                                              .copyWith(color: kPrimaryColor),
+                                              .bodyText1
+                                              .copyWith(
+                                                  color: kPrimaryColor,
+                                                  fontSize: 14),
                                         ),
-                                  Text(
-                                    translator.translate('patientName') +
-                                        ': ' +
-                                        documentSnapshot['name'],
-                                    style:
-                                        Theme.of(context).textTheme.headline6,
-                                  ),
                                   Text(
                                     translator.translate('mob') +
                                         ': ' +

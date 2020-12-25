@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/adminApp/fawryList.dart';
+import 'package:sphinx/adminApp/services/servicesList.dart';
 import 'package:sphinx/components/constants.dart';
-import 'services/servicesList.dart';
-import 'doctors/addDoctor.dart';
 import 'bookedServicesList.dart';
 import 'appointmentsList.dart';
 import 'requestsList.dart';
-import 'endedAppointmentList.dart';
 import 'usersList.dart';
 
 class HomeWidgetAdmin extends StatefulWidget {
@@ -99,7 +97,7 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
                                 translator.translate('services')) {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => ServicesList(),
+                              builder: (context) => ServicesListAdmin(),
                             ),
                           );
                         } else if (data.title ==

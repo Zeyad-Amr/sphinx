@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
               translator.delegates, // Android + iOS Delegates
           locale: translator.locale, // Active locale
           supportedLocales: translator.locals(), // Locals list
-          title: 'Sphinx KCC',
+          title: translator.translate('sphinx'),
           theme: ThemeData(
               primaryColor: kPrimaryColor,
               scaffoldBackgroundColor: Colors.white,

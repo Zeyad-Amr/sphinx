@@ -9,10 +9,8 @@ class AddService extends StatefulWidget {
   final String collection;
   final String services;
 
-   const AddService(
-      {Key key,
-      @required this.collection,
-      @required this.services})
+  const AddService(
+      {Key key, @required this.collection, @required this.services})
       : super(key: key);
 
   @override
@@ -24,7 +22,8 @@ class _AddServiceState extends State<AddService> {
   int pe, pf;
 
   Future<void> addServices({String nameEn, String nameAr, int pE, int pF}) {
-    CollectionReference service = Firestore.instance.collection('services_collections/collections/${widget.collection}');
+    CollectionReference service = Firestore.instance
+        .collection('services_collections/collections/${widget.collection}');
     return service
         .document(nameEn)
         .setData({
@@ -39,8 +38,12 @@ class _AddServiceState extends State<AddService> {
 
   Future<void> updateServices(
       {String oldName, String nameEn, String nameAr, int pE, int pF}) {
-    CollectionReference service = Firestore.instance.collection('services_collections/collections/${widget.collection}');
-    Firestore.instance.collection("services_collections/collections/${widget.collection}").document(oldName).delete();
+    CollectionReference service = Firestore.instance
+        .collection('services_collections/collections/${widget.collection}');
+    Firestore.instance
+        .collection("services_collections/collections/${widget.collection}")
+        .document(oldName)
+        .delete();
     return service
         .document(nameEn)
         .setData({
@@ -54,8 +57,9 @@ class _AddServiceState extends State<AddService> {
   }
 
   deleteData(String name) {
-    DocumentReference documentReference =
-        Firestore.instance.collection("services_collections/collections/${widget.collection}").document(name);
+    DocumentReference documentReference = Firestore.instance
+        .collection("services_collections/collections/${widget.collection}")
+        .document(name);
 
     documentReference.delete().whenComplete(() {
       return Fluttertoast.showToast(
@@ -254,7 +258,8 @@ class _AddServiceState extends State<AddService> {
               Expanded(
                 child: StreamBuilder(
                   stream: Firestore.instance
-                      .collection("services_collections/collections/${widget.collection}")
+                      .collection(
+                          "services_collections/collections/${widget.collection}")
                       .orderBy('name_en')
                       .snapshots(),
                   builder: (context, snapshot) {
@@ -282,13 +287,15 @@ class _AddServiceState extends State<AddService> {
                                             documentSnapshot['name_en'],
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6,
+                                                .bodyText1
+                                                .copyWith(fontSize: 16),
                                           )
                                         : Text(
                                             documentSnapshot['name_ar'],
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6,
+                                                .bodyText1
+                                                .copyWith(fontSize: 16),
                                           ),
                                     leading: Container(
                                       width: size.width * 0.08,

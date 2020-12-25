@@ -502,13 +502,15 @@ class _AddDoctorState extends State<AddDoctor> {
                                             documentSnapshot['name_en'],
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6,
+                                                .bodyText1
+                                                .copyWith(fontSize: 16),
                                           )
                                         : Text(
                                             documentSnapshot['name_ar'],
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6,
+                                                .bodyText1
+                                                .copyWith(fontSize: 16),
                                           ),
                                     leading: Container(
                                       width: 60,

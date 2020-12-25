@@ -176,6 +176,7 @@ class _DoctorListState extends State<DoctorList> {
                                                     .copyWith(
                                                         fontWeight:
                                                             FontWeight.bold,
+                                                        color: kPrimaryColor,
                                                         fontSize: 15),
                                               )
                                             : Text(
@@ -202,7 +203,10 @@ class _DoctorListState extends State<DoctorList> {
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .bodyText2
-                                                      .copyWith(fontSize: 14),
+                                                      .copyWith(
+                                                          color:
+                                                              kPrimaryLightColor,
+                                                          fontSize: 14),
                                                 ),
                                               )
                                             : Padding(
@@ -222,7 +226,10 @@ class _DoctorListState extends State<DoctorList> {
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .bodyText2
-                                                      .copyWith(fontSize: 14),
+                                                      .copyWith(
+                                                          color:
+                                                              kPrimaryLightColor,
+                                                          fontSize: 14),
                                                 ),
                                               ),
                                       ],

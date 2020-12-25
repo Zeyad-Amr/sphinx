@@ -1,14 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class User with ChangeNotifier {
-  String _name, _mobile, _email, _gender, _age, _country, _userUID, _info;
+  String _name,
+      _mobile,
+      _email,
+      _gender,
+      _age,
+      _country,
+      _userUID,
+      _info,
+      _token;
   FirebaseUser _user;
-
+  final fbm = FirebaseMessaging();
   String _countryCode;
 
-// Firebase User Settter and Getter .............................
+// Token User Settter and Getter .............................
 
 // Firebase User Settter and Getter .............................
   set user(FirebaseUser value) {
@@ -113,8 +122,11 @@ class User with ChangeNotifier {
   }
 
   // Add User
-  Future<void> addUser(FirebaseUser currentUser) {
+  Future<void> addUser(FirebaseUser currentUser) async {
     CollectionReference user = Firestore.instance.collection('users');
+
+    String deviceToken = await fbm.getToken();
+
     // Call the user's CollectionReference to add a new user
     return user
         .document(this._mobile)
@@ -127,14 +139,17 @@ class User with ChangeNotifier {
           'mobile': this._mobile,
           'userUID': currentUser.uid,
           'countryCode': this._countryCode,
-          'info': 'patient'
+          'info': 'patient',
+          'token': deviceToken
         })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<void> updateUserData(FirebaseUser currentUser) {
+  Future<void> updateUserData(FirebaseUser currentUser) async {
     CollectionReference user = Firestore.instance.collection('users');
+
+    String deviceToken = await fbm.getToken();
     // Call the user's CollectionReference to add a new user
     return user
         .document(this._mobile)
@@ -145,6 +160,7 @@ class User with ChangeNotifier {
           'age': this._age,
           'gender': this._gender,
           'countryCode': this._countryCode,
+          'token': deviceToken
         })
         .then((value) => print("User Data Updayed"))
         .catchError((error) => print("Failed to update user data: $error"));

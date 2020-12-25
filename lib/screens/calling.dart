@@ -53,10 +53,25 @@ class _CallingState extends State<Calling> {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: 30,
+                  height: size.width * 0.1,
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.07,
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: BackButton(
+                          color: kWhiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -73,7 +88,7 @@ class _CallingState extends State<Calling> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.08,
+                  height: size.width * 0.1,
                 ),
                 Expanded(
                   child: Stack(
@@ -210,6 +225,8 @@ class _CallingState extends State<Calling> {
                                         print(currentUser.email);
                                         print(currentUser.name);
                                         print('Idddddddddddd ${widget.callId}');
+                                         FlutterRingtonePlayer.stop();
+                                          Navigator.of(context).pop();
                                         /*    Firestore.instance
                       .collection('videoCalls')
                       .document('${widget.doctorPhone}_${widget.pateintPhone}' +

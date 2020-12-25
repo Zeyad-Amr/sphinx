@@ -16,7 +16,7 @@ class GoLogin extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Positioned(
-              top: size.height * -0.23, //size.height *  -0.03
+              top: size.width * -0.5, //size.height *  -0.03
               child: Image.asset('assets/images/03.png'),
               width: size.width,
             ),

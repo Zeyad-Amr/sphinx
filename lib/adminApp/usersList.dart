@@ -81,16 +81,17 @@ class _UsersListState extends State<UsersList> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  documentSnapshot['name'],
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: false,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline5
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                )
+                                Text(documentSnapshot['name'],
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: false,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6
+                                        .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                            fontSize: 20)),
                               ],
                             ),
                             subtitle: Column(
@@ -104,10 +105,10 @@ class _UsersListState extends State<UsersList> {
                                   softWrap: false,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline6
+                                      .bodyText1
                                       .copyWith(
-                                          color:
-                                              kPrimaryColor.withOpacity(0.7)),
+                                          color: kPrimaryLightColor,
+                                          fontSize: 18),
                                 )
                               ],
                             ),

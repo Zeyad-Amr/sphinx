@@ -391,6 +391,11 @@ class _DataEnteringState extends State<DataEntering> {
                                                             selectMode = true;
                                                             countryValid = true;
                                                           });
+                                                          setState(() {
+                                                            countryValue =
+                                                                selectedCountry
+                                                                    .name;
+                                                          });
                                                           currentUser.country =
                                                               selectedCountry
                                                                   .name;
@@ -422,6 +427,10 @@ class _DataEnteringState extends State<DataEntering> {
                                                       selectMode = true;
                                                       countryValid = true;
                                                     });
+                                                    setState(() {
+                                                      countryValue =
+                                                          selectedCountry.name;
+                                                    });
                                                     currentUser.country =
                                                         selectedCountry.name;
                                                     currentUser.countryCode =
@@ -452,15 +461,14 @@ class _DataEnteringState extends State<DataEntering> {
                           ),
 
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               // Age .............................................
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 25.0),
+                                      padding: EdgeInsets.only(top: 25.0),
                                       child: new Row(
                                         children: <Widget>[
                                           new Column(
@@ -480,8 +488,7 @@ class _DataEnteringState extends State<DataEntering> {
                                         ],
                                       )),
                                   Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 25.0, right: 25.0, top: 2.0),
+                                    padding: EdgeInsets.only(top: 2.0),
                                     child: new Row(
                                       children: <Widget>[
                                         DropdownButton<String>(
@@ -529,82 +536,76 @@ class _DataEnteringState extends State<DataEntering> {
                                 ],
                               ),
                               // Gender .................................................................
-                              Padding(
-                                padding: const EdgeInsets.only(right: 20.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 25.0, right: 25.0, top: 25.0),
-                                        child: new Row(
-                                          children: <Widget>[
-                                            new Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: <Widget>[
-                                                new Text(
-                                                  translator
-                                                      .translate('gender'),
-                                                  style: TextStyle(
-                                                      fontSize: 18.0,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        )),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 2.0),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 25.0),
                                       child: new Row(
                                         children: <Widget>[
-                                          DropdownButton<String>(
-                                            hint: Text(translator
-                                                .translate('choosegender')),
-                                            value: currentUser.gender == 'Male'
-                                                ? translator.translate('male')
-                                                : currentUser.gender == 'Female'
-                                                    ? translator
-                                                        .translate('female')
-                                                    : currentUser.gender,
-                                            icon: Icon(
-                                              Icons.keyboard_arrow_down,
-                                              color: Colors.black,
-                                            ),
-                                            iconSize: 24,
-                                            elevation: 16,
-                                            style:
-                                                TextStyle(color: kPrimaryColor),
-                                            underline: Container(
-                                              height: 2,
-                                              color: Colors.transparent,
-                                            ),
-                                            onChanged: (String newValue) {
-                                              setState(() {
-                                                genderValue = newValue;
-                                                currentUser.gender = newValue;
-                                              });
-                                              validate(state);
-                                            },
-                                            items: <String>[
-                                              translator.translate('male'),
-                                              translator.translate('female'),
-                                            ].map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(value),
-                                              );
-                                            }).toList(),
-                                          )
+                                          new Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              new Text(
+                                                translator.translate('gender'),
+                                                style: TextStyle(
+                                                    fontSize: 18.0,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
                                         ],
-                                      ),
+                                      )),
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 2.0),
+                                    child: new Row(
+                                      children: <Widget>[
+                                        DropdownButton<String>(
+                                          hint: Text(translator
+                                              .translate('choosegender')),
+                                          value: currentUser.gender == 'Male'
+                                              ? translator.translate('male')
+                                              : currentUser.gender == 'Female'
+                                                  ? translator
+                                                      .translate('female')
+                                                  : currentUser.gender,
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_down,
+                                            color: Colors.black,
+                                          ),
+                                          iconSize: 24,
+                                          elevation: 16,
+                                          style:
+                                              TextStyle(color: kPrimaryColor),
+                                          underline: Container(
+                                            height: 2,
+                                            color: Colors.transparent,
+                                          ),
+                                          onChanged: (String newValue) {
+                                            setState(() {
+                                              genderValue = newValue;
+                                              currentUser.gender = newValue;
+                                            });
+                                            validate(state);
+                                          },
+                                          items: <String>[
+                                            translator.translate('male'),
+                                            translator.translate('female'),
+                                          ].map<DropdownMenuItem<String>>(
+                                              (String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                        )
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               )
                             ],
                           ),
@@ -630,7 +631,7 @@ class _DataEnteringState extends State<DataEntering> {
                                     emailValid &&
                                     ageValid &&
                                     genderValid &&
-                                    countryValid) {
+                                    countryValue != null) {
                                   currentUser.addUser(widget.user);
                                   Navigator.pushAndRemoveUntil(
                                       context,
@@ -651,6 +652,7 @@ class _DataEnteringState extends State<DataEntering> {
                                 print('3 $ageValid');
                                 print('4 $genderValid');
                                 print('5 $countryValid');
+                                print('countryValue $countryValue');
                                 print('name ${currentUser.name}');
                                 print('email ${currentUser.email}');
                                 print('age ${currentUser.age}');

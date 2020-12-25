@@ -14,6 +14,8 @@ class RequestsList extends StatefulWidget {
 class _RequestsListState extends State<RequestsList> {
   DateTime fullselectedDate;
   final DateFormat dateFormat = DateFormat('yyyy-MM-dd K:mm a');
+  final DateFormat dateorderFormat = DateFormat('yyyyMMddkkmm');
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -458,7 +460,7 @@ class _RequestsListState extends State<RequestsList> {
                                                                               Colors.grey,
                                                                           onPressed:
                                                                               () {
-                                                                            Firestore.instance.collection('appointments').document(DateTime.now().toString()).setData({
+                                                                            Firestore.instance.collection('appointments').document(dateorderFormat.format(DateTime.now())).setData({
                                                                               'Id': documentSnapshot['Id'],
                                                                               'AppointmentDate': dateFormat.format(fullselectedDate).toString(),
                                                                               'patientName': documentSnapshot['name'],
@@ -477,6 +479,15 @@ class _RequestsListState extends State<RequestsList> {
                                                                             });
                                                                             Firestore.instance.collection('requests').document(documentSnapshot.documentID).updateData({
                                                                               'state': 1
+                                                                            });
+                                                                            Firestore.instance.collection('messages').document(dateorderFormat.format(DateTime.now())).setData({
+                                                                              'patientName': documentSnapshot['name'],
+                                                                              'patientPhone': documentSnapshot['phone'],
+                                                                              'message': 'AppSetMessage',
+                                                                              'code': 'null',
+                                                                              'serviceEn': documentSnapshot['DoctorNameEn'],
+                                                                              'serviceAr': documentSnapshot['DoctorNameAr'],
+                                                                              'date': dateorderFormat.format(DateTime.now())
                                                                             });
 
                                                                             Navigator.of(context).pop();

@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.center,
                 children: [
                   Positioned(
-                    top: size.height * -0.43, //size.height *  -0.03
+                    top: size.width * -0.9, //size.height *  -0.03
                     child: Image.asset('assets/images/01.png'),
                     width: size.width,
                   ),

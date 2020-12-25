@@ -6,12 +6,12 @@ import 'package:sphinx/components/constants.dart';
 
 import 'addService.dart';
 
-class ServicesList extends StatefulWidget {
+class ServicesListAdmin extends StatefulWidget {
   @override
-  _ServicesListState createState() => _ServicesListState();
+  _ServicesListAdminState createState() => _ServicesListAdminState();
 }
 
-class _ServicesListState extends State<ServicesList> {
+class _ServicesListAdminState extends State<ServicesListAdmin> {
   TextEditingController editingController = TextEditingController();
   FirebaseUser user;
   String userNation;
@@ -40,7 +40,7 @@ class _ServicesListState extends State<ServicesList> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 5.0, left: 5, right: 5, bottom: 5),
+                        top: 10.0, left: 5, right: 5, bottom: 10),
                     child: Column(
                       children: [
                         FlatButton(
@@ -83,24 +83,21 @@ class _ServicesListState extends State<ServicesList> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                      top: 15.0,
-                                      bottom: 8),
+                                      top: 15.0, bottom: 8),
                                   child: Container(
                                     constraints: BoxConstraints(
-                                        maxWidth: size.width * 0.55),
+                                        maxWidth: size.width * 0.5),
                                     child: Text(translator.translate('doctors'),
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
-                                        maxLines: 1,
+                                        maxLines: 2,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5
+                                            .headline6
                                             .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            )),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                   ),
                                 ),
                               ],
@@ -121,7 +118,7 @@ class _ServicesListState extends State<ServicesList> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 5.0, left: 5, right: 5, bottom: 5),
+                        top: 10.0, left: 5, right: 5, bottom: 10),
                     child: Column(
                       children: [
                         FlatButton(
@@ -167,24 +164,21 @@ class _ServicesListState extends State<ServicesList> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                      top: 15.0,
-                                      bottom: 8),
+                                      top: 15.0, bottom: 8),
                                   child: Container(
                                     constraints: BoxConstraints(
-                                        maxWidth: size.width * 0.55),
+                                        maxWidth: size.width * 0.5),
                                     child: Text(translator.translate('labs'),
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
-                                        maxLines: 1,
+                                        maxLines: 2,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5
+                                            .headline6
                                             .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            )),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                   ),
                                 ),
                               ],
@@ -205,7 +199,7 @@ class _ServicesListState extends State<ServicesList> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 5.0, left: 5, right: 5, bottom: 5),
+                        top: 10.0, left: 5, right: 5, bottom: 10),
                     child: Column(
                       children: [
                         FlatButton(
@@ -251,25 +245,22 @@ class _ServicesListState extends State<ServicesList> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                      top: 15.0,
-                                      bottom: 8),
+                                      top: 15.0, bottom: 8),
                                   child: Container(
                                     constraints: BoxConstraints(
-                                        maxWidth: size.width * 0.55),
+                                        maxWidth: size.width * 0.5),
                                     child: Text(
                                         translator.translate('radiology'),
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
-                                        maxLines: 1,
+                                        maxLines: 2,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5
+                                            .headline6
                                             .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            )),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                   ),
                                 ),
                               ],
@@ -290,7 +281,7 @@ class _ServicesListState extends State<ServicesList> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 5.0, left: 5, right: 5, bottom: 5),
+                        top: 10.0, left: 5, right: 5, bottom: 10),
                     child: Column(
                       children: [
                         FlatButton(
@@ -336,25 +327,22 @@ class _ServicesListState extends State<ServicesList> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                      top: 15.0,
-                                      bottom: 8),
+                                      top: 15.0, bottom: 8),
                                   child: Container(
                                     constraints: BoxConstraints(
-                                        maxWidth: size.width * 0.55),
+                                        maxWidth: size.width * 0.5),
                                     child: Text(
                                         translator.translate('medication'),
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
-                                        maxLines: 1,
+                                        maxLines: 2,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5
+                                            .headline6
                                             .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            )),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                   ),
                                 ),
                               ],
@@ -375,7 +363,7 @@ class _ServicesListState extends State<ServicesList> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 5.0, left: 5, right: 5, bottom: 5),
+                        top: 10.0, left: 5, right: 5, bottom: 10),
                     child: Column(
                       children: [
                         FlatButton(
@@ -421,25 +409,22 @@ class _ServicesListState extends State<ServicesList> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                      top: 15.0,
-                                      bottom: 8),
+                                      top: 15.0, bottom: 8),
                                   child: Container(
                                     constraints: BoxConstraints(
-                                        maxWidth: size.width * 0.55),
+                                        maxWidth: size.width * 0.5),
                                     child: Text(
                                         translator.translate('renalBiopsy'),
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
-                                        maxLines: 1,
+                                        maxLines: 2,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5
+                                            .headline6
                                             .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            )),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                   ),
                                 ),
                               ],
@@ -460,7 +445,7 @@ class _ServicesListState extends State<ServicesList> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 5.0, left: 5, right: 5, bottom: 5),
+                        top: 10.0, left: 5, right: 5, bottom: 10),
                     child: Column(
                       children: [
                         FlatButton(
@@ -506,25 +491,22 @@ class _ServicesListState extends State<ServicesList> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                      top: 15.0,
-                                      bottom: 8),
+                                      top: 15.0, bottom: 8),
                                   child: Container(
                                     constraints: BoxConstraints(
-                                        maxWidth: size.width * 0.55),
+                                        maxWidth: size.width * 0.5),
                                     child: Text(
                                         translator.translate('int_radiology'),
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
-                                        maxLines: 1,
+                                        maxLines: 2,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5
+                                            .headline6
                                             .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            )),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                   ),
                                 ),
                               ],
@@ -545,7 +527,7 @@ class _ServicesListState extends State<ServicesList> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 5.0, left: 5, right: 5, bottom: 5),
+                        top: 10.0, left: 5, right: 5, bottom: 10),
                     child: Column(
                       children: [
                         FlatButton(
@@ -591,25 +573,22 @@ class _ServicesListState extends State<ServicesList> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 10,
-                                      right: 10,
-                                      top: 15.0,
-                                      bottom: 8),
+                                      top: 15.0, bottom: 8),
                                   child: Container(
                                     constraints: BoxConstraints(
-                                        maxWidth: size.width * 0.55),
+                                        maxWidth: size.width * 0.5),
                                     child: Text(
                                         translator.translate('otherServices'),
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
-                                        maxLines: 1,
+                                        maxLines: 2,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5
+                                            .headline6
                                             .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            )),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                   ),
                                 ),
                               ],

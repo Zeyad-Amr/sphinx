@@ -143,7 +143,7 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
   @override
   Widget build(BuildContext context) {
     final DateFormat dateFormat = DateFormat('yyyy-MM-dd K:mm a');
-
+    final DateFormat dateorderFormat = DateFormat('yyyyMMddkkmm');
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -204,17 +204,20 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                   const EdgeInsets.symmetric(
                                                       vertical: 8.0),
                                               child: Text(
-                                                  translator.translate('cost') +
-                                                      ' ' +
-                                                      documentSnapshot[
-                                                              'costEgy']
-                                                          .toString() +
-                                                      ' ' +
-                                                      translator
-                                                          .translate('L.E'),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText2),
+                                                translator.translate('cost') +
+                                                    ' ' +
+                                                    documentSnapshot['costEgy']
+                                                        .toString() +
+                                                    ' ' +
+                                                    translator.translate('L.E'),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith(
+                                                        color:
+                                                            kPrimaryLightColor,
+                                                        fontSize: 14),
+                                              ),
                                             )
                                           : Padding(
                                               padding:
@@ -227,6 +230,13 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                         .toString() +
                                                     ' ' +
                                                     translator.translate('L.E'),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith(
+                                                        color:
+                                                            kPrimaryLightColor,
+                                                        fontSize: 14),
                                               ),
                                             ),
                                       title: translator.currentLanguage == 'en'
@@ -234,13 +244,21 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                               documentSnapshot['name_en'],
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline6,
+                                                  .headline6
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 18),
                                             )
                                           : Text(
                                               documentSnapshot['name_ar'],
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .headline6,
+                                                  .headline6
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 18),
                                             ),
                                       leading: Container(
                                         width: size.width * 0.08,
@@ -367,7 +385,7 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                                           Firestore
                                                                               .instance
                                                                               .collection('BookedServices')
-                                                                              .document(DateTime.now().toString())
+                                                                              .document(dateorderFormat.format(DateTime.now()))
                                                                               .setData({
                                                                             'Id':
                                                                                 id,
@@ -396,6 +414,26 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                                                 'الإشعة التداخلية',
                                                                             'date':
                                                                                 dateFormat.format(DateTime.now()),
+                                                                          });
+                                                                          Firestore
+                                                                              .instance
+                                                                              .collection('messages')
+                                                                              .document(dateorderFormat.format(DateTime.now()))
+                                                                              .setData({
+                                                                            'patientName':
+                                                                                currentUser.name,
+                                                                            'patientPhone':
+                                                                                currentUser.mobile,
+                                                                            'message':
+                                                                                'bookServMessage',
+                                                                            'code':
+                                                                                id,
+                                                                            'serviceEn':
+                                                                                documentSnapshot['name_en'],
+                                                                            'serviceAr':
+                                                                                documentSnapshot['name_ar'],
+                                                                            'date':
+                                                                                dateorderFormat.format(DateTime.now())
                                                                           });
                                                                           Navigator.of(context)
                                                                               .pop();
@@ -484,7 +522,7 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                                           Firestore
                                                                               .instance
                                                                               .collection('fawryRequests')
-                                                                              .document(DateTime.now().toString())
+                                                                              .document(dateorderFormat.format(DateTime.now()))
                                                                               .setData({
                                                                             'Id':
                                                                                 id,
@@ -519,6 +557,28 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                                                 ''),
                                                                             'about':
                                                                                 'service'
+                                                                          });
+                                                                          Firestore
+                                                                              .instance
+                                                                              .collection('messages')
+                                                                              .document(dateorderFormat.format(DateTime.now()))
+                                                                              .setData({
+                                                                            'patientName':
+                                                                                currentUser.name,
+                                                                            'patientPhone':
+                                                                                currentUser.mobile,
+                                                                            'message':
+                                                                                'fawryMessage',
+                                                                            'code': output.replaceRange(
+                                                                                0,
+                                                                                72,
+                                                                                ''),
+                                                                            'serviceEn':
+                                                                                documentSnapshot['name_en'],
+                                                                            'serviceAr':
+                                                                                documentSnapshot['name_ar'],
+                                                                            'date':
+                                                                                dateorderFormat.format(DateTime.now())
                                                                           });
                                                                           Navigator.of(context)
                                                                               .pop();

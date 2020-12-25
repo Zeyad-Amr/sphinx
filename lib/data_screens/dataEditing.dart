@@ -469,7 +469,7 @@ class _DataEditingState extends State<DataEditing> {
 
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     // Age .............................................
                                     Column(
@@ -477,10 +477,7 @@ class _DataEditingState extends State<DataEditing> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 25.0,
-                                                right: 25.0,
-                                                top: 5.0),
+                                            padding: EdgeInsets.only(top: 5.0),
                                             child: new Row(
                                               children: <Widget>[
                                                 new Column(
@@ -502,10 +499,7 @@ class _DataEditingState extends State<DataEditing> {
                                               ],
                                             )),
                                         Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 25.0,
-                                              right: 25.0,
-                                              top: 2.0),
+                                          padding: EdgeInsets.only(top: 2.0),
                                           child: new Row(
                                             children: <Widget>[
                                               DropdownButton<String>(
@@ -552,110 +546,95 @@ class _DataEditingState extends State<DataEditing> {
                                       ],
                                     ),
                                     // Gender .................................................................
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 20.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 25.0,
-                                                  right: 25.0,
-                                                  top: 5.0),
-                                              child: new Row(
-                                                children: <Widget>[
-                                                  new Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: <Widget>[
-                                                      new Text(
-                                                        translator.translate(
-                                                            'gender'),
-                                                        style: TextStyle(
-                                                            fontSize: 18.0,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              )),
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 25.0,
-                                                right: 25.0,
-                                                top: 2.0),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                            padding: EdgeInsets.only(top: 5.0),
                                             child: new Row(
                                               children: <Widget>[
-                                                DropdownButton<String>(
-                                                  hint: Text(
-                                                      translator.translate(
-                                                          'choosegender')),
-                                                  value: currentUser.gender ==
-                                                              'Male' ||
-                                                          currentUser.gender ==
-                                                              'ذكر'
-                                                      ? translator
-                                                          .translate('male')
-                                                      : currentUser.gender ==
-                                                                  'Female' ||
-                                                              currentUser
-                                                                      .gender ==
-                                                                  'أنثي'
-                                                          ? translator
-                                                              .translate(
-                                                                  'female')
-                                                          : currentUser.gender,
-                                                  icon: Icon(
-                                                    Icons.keyboard_arrow_down,
-                                                    color: Colors.black,
-                                                  ),
-                                                  iconSize: 24,
-                                                  elevation: 16,
-                                                  style: TextStyle(
-                                                      color: kPrimaryColor),
-                                                  underline: Container(
-                                                    height: 2,
-                                                    color: Colors.transparent,
-                                                  ),
-                                                  onChanged: (String newValue) {
-                                                    setState(() {
-                                                      if (newValue == 'Male' ||
-                                                          newValue == 'ذكر') {
-                                                        currentUser.gender =
-                                                            'Male';
-                                                      } else {
-                                                        currentUser.gender =
-                                                            'Female';
-                                                      }
-                                                    });
-                                                  },
-                                                  items: <String>[
-                                                    translator
-                                                        .translate('male'),
-                                                    translator
-                                                        .translate('female'),
-                                                  ].map<
-                                                          DropdownMenuItem<
-                                                              String>>(
-                                                      (String value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    );
-                                                  }).toList(),
-                                                )
+                                                new Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: <Widget>[
+                                                    new Text(
+                                                      translator
+                                                          .translate('gender'),
+                                                      style: TextStyle(
+                                                          fontSize: 18.0,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ],
+                                                ),
                                               ],
-                                            ),
+                                            )),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 2.0),
+                                          child: new Row(
+                                            children: <Widget>[
+                                              DropdownButton<String>(
+                                                hint: Text(translator
+                                                    .translate('choosegender')),
+                                                value: currentUser.gender ==
+                                                            'Male' ||
+                                                        currentUser.gender ==
+                                                            'ذكر'
+                                                    ? translator
+                                                        .translate('male')
+                                                    : currentUser
+                                                                    .gender ==
+                                                                'Female' ||
+                                                            currentUser
+                                                                    .gender ==
+                                                                'أنثي'
+                                                        ? translator
+                                                            .translate('female')
+                                                        : currentUser.gender,
+                                                icon: Icon(
+                                                  Icons.keyboard_arrow_down,
+                                                  color: Colors.black,
+                                                ),
+                                                iconSize: 24,
+                                                elevation: 16,
+                                                style: TextStyle(
+                                                    color: kPrimaryColor),
+                                                underline: Container(
+                                                  height: 2,
+                                                  color: Colors.transparent,
+                                                ),
+                                                onChanged: (String newValue) {
+                                                  setState(() {
+                                                    if (newValue == 'Male' ||
+                                                        newValue == 'ذكر') {
+                                                      currentUser.gender =
+                                                          'Male';
+                                                    } else {
+                                                      currentUser.gender =
+                                                          'Female';
+                                                    }
+                                                  });
+                                                },
+                                                items: <String>[
+                                                  translator.translate('male'),
+                                                  translator
+                                                      .translate('female'),
+                                                ].map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                                  return DropdownMenuItem<
+                                                      String>(
+                                                    value: value,
+                                                    child: Text(value),
+                                                  );
+                                                }).toList(),
+                                              )
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     )
                                   ],
                                 ),

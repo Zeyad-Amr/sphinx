@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +17,32 @@ class MessegesWidget extends StatefulWidget {
 }
 
 class _MessegesWidgetState extends State<MessegesWidget> {
+  ScrollController _scrollController;
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    Timer(Duration(milliseconds: 200), scrollToBottom);
+  }
+
+  void scrollToBottom() {
+    try {
+      final bottomOffset = _scrollController.position.maxScrollExtent;
+      _scrollController.animateTo(
+        bottomOffset,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    } catch (e) {
+      print('scroll to bottom error :: $e ');
+    }
+  }
+
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -36,12 +64,12 @@ class _MessegesWidgetState extends State<MessegesWidget> {
             child: Consumer<User>(
               builder: (context, currentUser, child) => StreamBuilder(
                 stream: Firestore.instance
-                    .collection("appointments")
+                    .collection("messages")
                     .where('patientPhone', isEqualTo: currentUser.mobile)
-                    .where('state', isEqualTo: 0)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
+                    Timer(Duration(milliseconds: 500), scrollToBottom);
                     if (snapshot.data.documents.length == 0) {
                       return Container(
                         color: Colors.grey[200],
@@ -72,6 +100,8 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                       padding: const EdgeInsets.all(8.0),
                       child: ListView.builder(
                         shrinkWrap: true,
+                        controller: _scrollController,
+                        reverse: true,
                         itemCount: snapshot.data.documents.length,
                         itemBuilder: (context, index) {
                           DocumentSnapshot documentSnapshot =
@@ -93,7 +123,7 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                     children: [
                                       translator.currentLanguage == 'en'
                                           ? Text(
-                                              documentSnapshot['DoctorNameEn'],
+                                              documentSnapshot['serviceEn'],
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline6
@@ -103,7 +133,7 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                                       fontSize: 20),
                                             )
                                           : Text(
-                                              documentSnapshot['DoctorNameAr'],
+                                              documentSnapshot['serviceAr'],
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline6
@@ -118,10 +148,13 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      translator.currentLanguage == 'en'
+                                      documentSnapshot['code'] != 'null'
                                           ? Text(
-                                              'Reservation code: ' +
-                                                  documentSnapshot['Id'],
+                                              translator.translate(
+                                                      documentSnapshot[
+                                                          'message']) +
+                                                  ' ' +
+                                                  documentSnapshot['code'],
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1
@@ -130,38 +163,15 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                                       fontSize: 14),
                                             )
                                           : Text(
-                                              'كود الحجز: ' +
-                                                  documentSnapshot['Id'],
+                                              translator.translate(
+                                                  documentSnapshot['message']),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1
                                                   .copyWith(
                                                       color: kPrimaryLightColor,
                                                       fontSize: 14),
-                                            ),
-                                      translator.currentLanguage == 'en'
-                                          ? Text(
-                                              'Date: ' +
-                                                  documentSnapshot[
-                                                      'AppointmentDate'],
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1
-                                                  .copyWith(
-                                                      color: kPrimaryColor,
-                                                      fontSize: 14),
                                             )
-                                          : Text(
-                                              'الموعد: ' +
-                                                  documentSnapshot[
-                                                      'AppointmentDate'],
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1
-                                                  .copyWith(
-                                                      color: kPrimaryColor,
-                                                      fontSize: 14),
-                                            ),
                                     ],
                                   ),
                                   leading: Container(
