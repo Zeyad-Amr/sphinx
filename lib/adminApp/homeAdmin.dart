@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:sphinx/adminApp/fawryList.dart';
 import 'package:sphinx/components/constants.dart';
 import 'services/servicesList.dart';
 import 'doctors/addDoctor.dart';
@@ -20,14 +21,15 @@ class HomeWidgetAdmin extends StatefulWidget {
 
 class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
   Items item1 = new Items(
-    title: translator.translate('doctors'),
-    img: "assets/icons/doctorw.png",
+    title: translator.translate('users'),
+    img: "assets/icons/user.png",
   );
 
   Items item2 = new Items(
-    title: translator.translate('services'),
-    subtitle: "Bocali, Apple",
-    img: "assets/icons/servicesw.png",
+    title: translator.translate('doctors') +
+        ' & ' +
+        translator.translate('services'),
+    img: "assets/icons/ds.png",
   );
   Items item3 = new Items(
     title: translator.translate('requests'),
@@ -42,8 +44,8 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
     img: "assets/icons/bookedServices.png",
   );
   Items item6 = new Items(
-    title: translator.translate('users'),
-    img: "assets/icons/user.png",
+    title: translator.translate('fawryReq'),
+    img: "assets/icons/fawryw.png",
   );
 
   @override
@@ -85,14 +87,16 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
                   children: myList.map((data) {
                     return GestureDetector(
                       onTap: () {
-                        if (data.title == translator.translate('doctors')) {
+                        if (data.title == translator.translate('fawryReq')) {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => AddDoctor(),
+                              builder: (context) => FawryList(),
                             ),
                           );
                         } else if (data.title ==
-                            translator.translate('services')) {
+                            translator.translate('doctors') +
+                                ' & ' +
+                                translator.translate('services')) {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => ServicesList(),

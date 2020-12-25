@@ -60,7 +60,7 @@ class _HomeWidgetDoctorState extends State<HomeWidgetDoctor> {
                     );
                   },
                   child: Container(
-                    height: size.height * 0.2,
+                    height: size.width * 0.35,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20.0),
@@ -84,7 +84,7 @@ class _HomeWidgetDoctorState extends State<HomeWidgetDoctor> {
                               size: size.width * 0.2,
                             )),
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Padding(
@@ -96,17 +96,10 @@ class _HomeWidgetDoctorState extends State<HomeWidgetDoctor> {
                                       .headline5
                                       .copyWith(fontWeight: FontWeight.bold)),
                             ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    translator.translate('appReq'),
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
+                            Text(
+                              translator.translate('appReq'),
+                              style: TextStyle(
+                                color: Colors.grey,
                               ),
                             ),
                           ],

@@ -216,7 +216,7 @@ class _AddDoctorState extends State<AddDoctor> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Container(
-                              height: size.height * 0.85,
+                              height: size.height * 0.75,
                               margin: EdgeInsets.only(
                                 top: 10,
                                 bottom: 10,
@@ -229,11 +229,15 @@ class _AddDoctorState extends State<AddDoctor> {
                                   crossAxisAlignment:
                                       CrossAxisAlignment.stretch,
                                   children: <Widget>[
-                                    Text(
-                                      translator.translate('enter_doctor_data'),
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        translator
+                                            .translate('enter_doctor_data'),
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                     TextField(
                                       inputFormatters: [
@@ -563,7 +567,7 @@ class _AddDoctorState extends State<AddDoctor> {
                                                     ),
                                                     child: Container(
                                                       height:
-                                                          size.height * 0.85,
+                                                          size.height * 0.75,
                                                       margin: EdgeInsets.only(
                                                         top: 10,
                                                         bottom: 10,
@@ -580,14 +584,21 @@ class _AddDoctorState extends State<AddDoctor> {
                                                               CrossAxisAlignment
                                                                   .stretch,
                                                           children: <Widget>[
-                                                            Text(
-                                                              translator.translate(
-                                                                  'update_doctor_data'),
-                                                              style: TextStyle(
-                                                                  fontSize: 20,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Text(
+                                                                translator
+                                                                    .translate(
+                                                                        'update_doctor_data'),
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        20,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
                                                             ),
                                                             TextFormField(
                                                               inputFormatters: [

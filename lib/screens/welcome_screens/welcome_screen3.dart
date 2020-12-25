@@ -18,7 +18,7 @@ class WelcomeScreen3 extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Positioned(
-              top: size.height * -0.15, //size.height *  -0.03
+              top: size.height * -0.13, //size.height *  -0.03
               child: Image.asset('assets/images/03.png'),
               width: size.width,
             ),

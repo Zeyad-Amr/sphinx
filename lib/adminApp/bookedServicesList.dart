@@ -14,7 +14,7 @@ class _BookedServicesState extends State<BookedServices> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text(translator.translate('BookedServices')),
+        title: Text(translator.translate('bookedSerives')),
       ),
       body: Container(
         height: size.height,

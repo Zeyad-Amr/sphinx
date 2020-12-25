@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:ndialog/ndialog.dart';
 import 'package:sphinx/components/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -308,138 +309,264 @@ class _RenalBiopsyListState extends State<RenalBiopsyList> {
                                                 ////////////////////////////Book Function ////////////////////
                                                 String id = uniqueId();
                                                 print(id);
-                                                print('hellalalalo');
 
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        WebView(
-                                                      onPageStarted: (input) {},
-                                                      onPageFinished: (output) {
-                                                        print(
-                                                            'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
-                                                        print(output);
-                                                        if (output.contains(
-                                                            'NBESuccess.php')) {
-                                                          Firestore.instance
-                                                              .collection(
-                                                                  'BookedServices')
-                                                              .document(DateTime
-                                                                      .now()
-                                                                  .toString())
-                                                              .setData({
-                                                            'Id': id,
-                                                            'serviceNameEn':
-                                                                documentSnapshot[
-                                                                    'name_en'],
-                                                            'serviceNameAr':
-                                                                documentSnapshot[
-                                                                    'name_ar'],
-                                                            'phone': currentUser
-                                                                .mobile,
-                                                            'name': currentUser
-                                                                .name,
-                                                            'age':
-                                                                currentUser.age,
-                                                            'gender':
-                                                                currentUser
-                                                                    .gender,
-                                                            'country':
-                                                                currentUser
-                                                                    .country,
-                                                            'cost': userNation ==
-                                                                    'مصر‎'
-                                                                ? documentSnapshot[
-                                                                    'costEgy']
-                                                                : documentSnapshot[
-                                                                    'costForg'],
-                                                            'state': 0,
-                                                            'collectionEn':
-                                                                'Renal Biopsy',
-                                                            'collectionAr':
-                                                                'أخذ عينه من الكلي',
-                                                            'date': dateFormat
-                                                                .format(DateTime
-                                                                    .now()),
-                                                          });
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                          Fluttertoast.showToast(
-                                                              msg: translator
-                                                                  .translate(
-                                                                      'successPay'),
-                                                              toastLength: Toast
-                                                                  .LENGTH_LONG,
-                                                              gravity:
-                                                                  ToastGravity
-                                                                      .TOP,
-                                                              timeInSecForIos:
-                                                                  5,
-                                                              backgroundColor:
-                                                                  Colors.green
-                                                                      .withOpacity(
-                                                                          0.6),
-                                                              textColor:
-                                                                  Colors.white,
-                                                              fontSize: 20.0);
-                                                        } else if (output.contains(
-                                                            'NBEFailed.php')) {
-                                                          print(
-                                                              'OUTPUT IS ................. $output');
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                          Fluttertoast.showToast(
-                                                              msg: translator
-                                                                  .translate(
-                                                                      'failedPay'),
-                                                              toastLength: Toast
-                                                                  .LENGTH_LONG,
-                                                              gravity:
-                                                                  ToastGravity
-                                                                      .TOP,
-                                                              timeInSecForIos:
-                                                                  5,
-                                                              backgroundColor:
-                                                                  Colors.red
-                                                                      .withOpacity(
-                                                                          0.6),
-                                                              textColor:
-                                                                  Colors.white,
-                                                              fontSize: 20.0);
-                                                        } else if (output.contains(
-                                                            'NBECancel.php')) {
-                                                          print(
-                                                              'OUTPUT IS ................. $output');
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                          Fluttertoast.showToast(
-                                                              msg: translator
-                                                                  .translate(
-                                                                      'canceledPay'),
-                                                              toastLength: Toast
-                                                                  .LENGTH_LONG,
-                                                              gravity:
-                                                                  ToastGravity
-                                                                      .TOP,
-                                                              timeInSecForIos:
-                                                                  5,
-                                                              backgroundColor:
-                                                                  Colors.red
-                                                                      .withOpacity(
-                                                                          0.6),
-                                                              textColor:
-                                                                  Colors.white,
-                                                              fontSize: 20.0);
-                                                        }
-                                                      },
-                                                      initialUrl:
-                                                          "https://onlineconsultation.sphinxkc.com/NBEPayment.php?s_name=${currentUser.name}&s_price=$cost&OID=$id",
-                                                      javascriptMode:
-                                                          JavascriptMode
-                                                              .unrestricted,
-                                                    ),
+                                                DialogBackground(
+                                                  color: Colors.black
+                                                      .withOpacity(.2),
+                                                  blur: 0.5,
+                                                  dialog: AlertDialog(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
+                                                            side: BorderSide(
+                                                                color: Colors
+                                                                    .grey)),
+                                                    actions: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: [
+                                                            FlatButton(
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/icons/visa.png',
+                                                                width:
+                                                                    size.width *
+                                                                        0.3,
+                                                              ),
+                                                              onPressed: () {
+                                                                /////////////////// Visa Payment ///////////////////////////
+
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .push(
+                                                                  MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            WebView(
+                                                                      onPageStarted:
+                                                                          (input) {},
+                                                                      onPageFinished:
+                                                                          (output) {
+                                                                        print(
+                                                                            'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
+                                                                        print(
+                                                                            output);
+                                                                        if (output
+                                                                            .contains('NBESuccess.php')) {
+                                                                          Firestore
+                                                                              .instance
+                                                                              .collection('BookedServices')
+                                                                              .document(DateTime.now().toString())
+                                                                              .setData({
+                                                                            'Id':
+                                                                                id,
+                                                                            'serviceNameEn':
+                                                                                documentSnapshot['name_en'],
+                                                                            'serviceNameAr':
+                                                                                documentSnapshot['name_ar'],
+                                                                            'phone':
+                                                                                currentUser.mobile,
+                                                                            'name':
+                                                                                currentUser.name,
+                                                                            'age':
+                                                                                currentUser.age,
+                                                                            'gender':
+                                                                                currentUser.gender,
+                                                                            'country':
+                                                                                currentUser.country,
+                                                                            'cost': userNation == 'مصر‎'
+                                                                                ? documentSnapshot['costEgy']
+                                                                                : documentSnapshot['costForg'],
+                                                                            'state':
+                                                                                0,
+                                                                            'collectionEn':
+                                                                                'Renal Biopsy',
+                                                                            'collectionAr':
+                                                                                'أخذ عينه من الكلي',
+                                                                            'date':
+                                                                                dateFormat.format(DateTime.now()),
+                                                                          });
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                          Fluttertoast.showToast(
+                                                                              msg: translator.translate('successPay'),
+                                                                              toastLength: Toast.LENGTH_LONG,
+                                                                              gravity: ToastGravity.TOP,
+                                                                              timeInSecForIos: 5,
+                                                                              backgroundColor: Colors.green.withOpacity(0.6),
+                                                                              textColor: Colors.white,
+                                                                              fontSize: 20.0);
+                                                                        } else if (output
+                                                                            .contains('NBEFailed.php')) {
+                                                                          print(
+                                                                              'OUTPUT IS ................. $output');
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                          Fluttertoast.showToast(
+                                                                              msg: translator.translate('failedPay'),
+                                                                              toastLength: Toast.LENGTH_LONG,
+                                                                              gravity: ToastGravity.TOP,
+                                                                              timeInSecForIos: 5,
+                                                                              backgroundColor: Colors.red.withOpacity(0.6),
+                                                                              textColor: Colors.white,
+                                                                              fontSize: 20.0);
+                                                                        } else if (output
+                                                                            .contains('NBECancel.php')) {
+                                                                          print(
+                                                                              'OUTPUT IS ................. $output');
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                          Fluttertoast.showToast(
+                                                                              msg: translator.translate('canceledPay'),
+                                                                              toastLength: Toast.LENGTH_LONG,
+                                                                              gravity: ToastGravity.TOP,
+                                                                              timeInSecForIos: 5,
+                                                                              backgroundColor: Colors.red.withOpacity(0.6),
+                                                                              textColor: Colors.white,
+                                                                              fontSize: 20.0);
+                                                                        }
+                                                                      },
+                                                                      initialUrl:
+                                                                          "https://onlineconsultation.sphinxkc.com/NBEPayment.php?s_name=${documentSnapshot['name_en']}&s_price=$cost&OID=$id",
+                                                                      javascriptMode:
+                                                                          JavascriptMode
+                                                                              .unrestricted,
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                            FlatButton(
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/icons/fawry.png',
+                                                                width:
+                                                                    size.width *
+                                                                        0.3,
+                                                              ),
+                                                              onPressed: () {
+                                                                /////////////////// Fawry Payment ///////////////////////////
+
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .push(
+                                                                  MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            WebView(
+                                                                      onPageStarted:
+                                                                          (input) {},
+                                                                      onPageFinished:
+                                                                          (output) {
+                                                                        print(
+                                                                            'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
+                                                                        print(
+                                                                            output);
+                                                                        if (output
+                                                                            .contains('FawrySuccess.php')) {
+                                                                          Firestore
+                                                                              .instance
+                                                                              .collection('fawryRequests')
+                                                                              .document(DateTime.now().toString())
+                                                                              .setData({
+                                                                            'Id':
+                                                                                id,
+                                                                            'serviceNameEn':
+                                                                                documentSnapshot['name_en'],
+                                                                            'serviceNameAr':
+                                                                                documentSnapshot['name_ar'],
+                                                                            'phone':
+                                                                                currentUser.mobile,
+                                                                            'name':
+                                                                                currentUser.name,
+                                                                            'age':
+                                                                                currentUser.age,
+                                                                            'gender':
+                                                                                currentUser.gender,
+                                                                            'country':
+                                                                                currentUser.country,
+                                                                            'cost': userNation == 'مصر‎'
+                                                                                ? documentSnapshot['costEgy']
+                                                                                : documentSnapshot['costForg'],
+                                                                            'state':
+                                                                                0,
+                                                                            'collectionEn':
+                                                                                'Renal Biopsy',
+                                                                            'collectionAr':
+                                                                                'أخذ عينه من الكلي',
+                                                                            'date':
+                                                                                dateFormat.format(DateTime.now()),
+                                                                            'fawryId': output.replaceRange(
+                                                                                0,
+                                                                                72,
+                                                                                ''),
+                                                                            'about':
+                                                                                'service'
+                                                                          });
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                          Fluttertoast.showToast(
+                                                                              msg: translator.translate('successPay'),
+                                                                              toastLength: Toast.LENGTH_LONG,
+                                                                              gravity: ToastGravity.TOP,
+                                                                              timeInSecForIos: 5,
+                                                                              backgroundColor: Colors.green.withOpacity(0.6),
+                                                                              textColor: Colors.white,
+                                                                              fontSize: 20.0);
+                                                                        } else if (output
+                                                                            .contains('FawryFailed.php')) {
+                                                                          print(
+                                                                              'OUTPUT IS ................. $output');
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                          Fluttertoast.showToast(
+                                                                              msg: translator.translate('failedPay'),
+                                                                              toastLength: Toast.LENGTH_LONG,
+                                                                              gravity: ToastGravity.TOP,
+                                                                              timeInSecForIos: 5,
+                                                                              backgroundColor: Colors.red.withOpacity(0.6),
+                                                                              textColor: Colors.white,
+                                                                              fontSize: 20.0);
+                                                                        }
+                                                                      },
+                                                                      initialUrl:
+                                                                          "http://onlineconsultation.sphinxkc.com/FawryPayment.php?s_name=${documentSnapshot['name_en']}&s_price=$cost&OID=$id&cstmail=${currentUser.email}&cstPhone=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}&cstID=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}",
+                                                                      javascriptMode:
+                                                                          JavascriptMode
+                                                                              .unrestricted,
+                                                                    ),
+                                                                  ),
+                                                                );
+
+                                                                /*  print(
+                                                                    "YYY:http://onlineconsultation.sphinxkc.com/FawryPayment.php?s_name=${documentSnapshot['name_en']}&s_price=$cost&OID=$id&cstmail=${currentUser.email}&cstPhone=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}&cstID=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}"); */
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ],
                                                   ),
-                                                );
+                                                ).show(context);
                                                 Navigator.of(context).push(
                                                     MaterialPageRoute(
                                                         builder: (context) =>

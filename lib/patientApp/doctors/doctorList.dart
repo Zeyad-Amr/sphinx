@@ -175,48 +175,55 @@ class _DoctorListState extends State<DoctorList> {
                                                     .bodyText2
                                                     .copyWith(
                                                         fontWeight:
-                                                            FontWeight.bold))
+                                                            FontWeight.bold,
+                                                        fontSize: 15),
+                                              )
                                             : Text(
                                                 documentSnapshot['specialtyAr'],
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .bodyText2),
+                                                    .bodyText2
+                                                    .copyWith(fontSize: 15)),
                                         userNation == 'مصر‎'
                                             ? Padding(
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                         vertical: 8.0),
                                                 child: Text(
-                                                    translator.translate(
-                                                            'Ccost') +
-                                                        ' ' +
-                                                        documentSnapshot[
-                                                                'costEgy']
-                                                            .toString() +
-                                                        ' ' +
-                                                        translator
-                                                            .translate('L.E'),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText2),
+                                                  translator
+                                                          .translate('Ccost') +
+                                                      ' ' +
+                                                      documentSnapshot[
+                                                              'costEgy']
+                                                          .toString() +
+                                                      ' ' +
+                                                      translator
+                                                          .translate('L.E'),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText2
+                                                      .copyWith(fontSize: 14),
+                                                ),
                                               )
                                             : Padding(
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                         vertical: 8.0),
                                                 child: Text(
-                                                    translator.translate(
-                                                            'Ccost') +
-                                                        ' ' +
-                                                        documentSnapshot[
-                                                                'costForg']
-                                                            .toString() +
-                                                        ' ' +
-                                                        translator
-                                                            .translate('L.E'),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText2),
+                                                  translator
+                                                          .translate('Ccost') +
+                                                      ' ' +
+                                                      documentSnapshot[
+                                                              'costForg']
+                                                          .toString() +
+                                                      ' ' +
+                                                      translator
+                                                          .translate('L.E'),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText2
+                                                      .copyWith(fontSize: 14),
+                                                ),
                                               ),
                                       ],
                                     ),
@@ -225,13 +232,15 @@ class _DoctorListState extends State<DoctorList> {
                                             documentSnapshot['name_en'],
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6,
+                                                .headline6
+                                                .copyWith(fontSize: 18),
                                           )
                                         : Text(
                                             documentSnapshot['name_ar'],
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6,
+                                                .headline6
+                                                .copyWith(fontSize: 18),
                                           ),
                                     leading: Container(
                                       width: 60,

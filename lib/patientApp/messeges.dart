@@ -54,7 +54,7 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Text(
-                                 translator.translate('noItems'),
+                                translator.translate('noItems'),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6
@@ -86,41 +86,6 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: ListTile(
-                                  /*  trailing: RaisedButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                        builder: (context) =>
-                                            MessageDetailsScreen(
-                                          descriptionAr:
-                                              documentSnapshot['specialtyAr'],
-                                          descriptionEn:
-                                              documentSnapshot['specialtyEn'],
-                                          doctorNameEn:
-                                              documentSnapshot['DoctorNameEn'],
-                                          pateintName:
-                                              documentSnapshot['patientName'],
-                                          doctorName: translator
-                                                      .currentLanguage ==
-                                                  'en'
-                                              ? documentSnapshot['DoctorNameEn']
-                                              : documentSnapshot[
-                                                  'DoctorNameAr'],
-                                          imageUrl: documentSnapshot['imgUrl'],
-                                          doctorPhone:
-                                              documentSnapshot['DoctorPhone'],
-                                          pateintPhone:
-                                              documentSnapshot['patientPhone'],
-                                        ),
-                                      ));
-                                    },
-                                    child: Text(translator.translate('open')),
-                                    color: kPrimaryColor,
-                                    textColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                  ), */
                                   title: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -134,7 +99,8 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                                   .headline6
                                                   .copyWith(
                                                       fontWeight:
-                                                          FontWeight.bold),
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
                                             )
                                           : Text(
                                               documentSnapshot['DoctorNameAr'],
@@ -143,7 +109,8 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                                   .headline6
                                                   .copyWith(
                                                       fontWeight:
-                                                          FontWeight.bold),
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
                                             ),
                                     ],
                                   ),
@@ -159,8 +126,8 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                                   .textTheme
                                                   .bodyText1
                                                   .copyWith(
-                                                      color:
-                                                          kPrimaryLightColor),
+                                                      color: kPrimaryLightColor,
+                                                      fontSize: 14),
                                             )
                                           : Text(
                                               'كود الحجز: ' +
@@ -169,8 +136,8 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                                   .textTheme
                                                   .bodyText1
                                                   .copyWith(
-                                                      color:
-                                                          kPrimaryLightColor),
+                                                      color: kPrimaryLightColor,
+                                                      fontSize: 14),
                                             ),
                                       translator.currentLanguage == 'en'
                                           ? Text(
@@ -181,7 +148,8 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                                   .textTheme
                                                   .bodyText1
                                                   .copyWith(
-                                                      color: kPrimaryColor),
+                                                      color: kPrimaryColor,
+                                                      fontSize: 14),
                                             )
                                           : Text(
                                               'الموعد: ' +
@@ -191,73 +159,11 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                                   .textTheme
                                                   .bodyText1
                                                   .copyWith(
-                                                      color: kPrimaryColor),
+                                                      color: kPrimaryColor,
+                                                      fontSize: 14),
                                             ),
                                     ],
                                   ),
-                                  /* subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      
-                                      Text(
-                                        translator.translate('mob') +
-                                            ': ' +
-                                            documentSnapshot['patientPhone']
-                                                .toString()
-                                                .split('')
-                                                .getRange(2, 13)
-                                                .join()
-                                                .toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      ),
-                                      translator.currentLanguage == 'en'
-                                          ? Text(
-                                              'Country: ' +
-                                                  documentSnapshot['country'],
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1,
-                                            )
-                                          : Text(
-                                              'البلد: ' +
-                                                  documentSnapshot['country'],
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1,
-                                            ),
-                                      Text(
-                                        translator.translate('age') +
-                                            ': ' +
-                                            documentSnapshot['age'],
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      ),
-                                      documentSnapshot['gender'] == 'Male' ||
-                                              documentSnapshot['gender'] ==
-                                                  'ذكر'
-                                          ? Text(
-                                              translator.translate('gender') +
-                                                  ': ' +
-                                                  translator.translate('male'),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1,
-                                            )
-                                          : Text(
-                                              translator.translate('gender') +
-                                                  ': ' +
-                                                  translator
-                                                      .translate('female'),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1,
-                                            )
-                                    ],
-                                  ), */
                                   leading: Container(
                                     width: size.width * 0.08,
                                     height: size.height,
@@ -267,22 +173,6 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                       color: kPrimaryColor,
                                     ),
                                   ),
-                                  /*      trailing: Container(
-                                    width: size.width * 0.3,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          documentSnapshot['AppointmentDate'],
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6
-                                              .copyWith(
-                                                  color: kPrimaryLightColor),
-                                        ),
-                                      ],
-                                    ),
-                                  ), */
                                 ),
                               ),
                             ),
@@ -302,7 +192,7 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Text(
-                               translator.translate('noItems'),
+                              translator.translate('noItems'),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6

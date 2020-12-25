@@ -212,14 +212,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ],
               ),
             ),
+
             /*  RaisedButton(
-              child: Text('Test Payment'),
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => PaymentScreen(doctorName: ,),
-                ),
-              ),
-            ) */
+                child: Text('Test Payment'),
+                onPressed: () {
+                  String c =
+                      'http://onlineconsultation.sphinxkc.com/FawrySuccess.php?referenceNumber=98223913';
+
+                  var k = c.replaceRange(0, 72, '');
+                  print('OUTPUT IS $k');
+                }), */
           ],
         ),
       ),

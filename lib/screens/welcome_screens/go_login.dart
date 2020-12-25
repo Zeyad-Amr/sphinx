@@ -16,7 +16,7 @@ class GoLogin extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Positioned(
-              top: size.height * -0.3, //size.height *  -0.03
+              top: size.height * -0.23, //size.height *  -0.03
               child: Image.asset('assets/images/03.png'),
               width: size.width,
             ),
@@ -38,7 +38,7 @@ class GoLogin extends StatelessWidget {
                 ),
                 Image.asset(
                   'assets/icons/bo4.png',
-                  height: size.height * 0.3,
+                  height: size.height * 0.28,
                 ),
                 SizedBox(
                   height: size.height * 0.03,

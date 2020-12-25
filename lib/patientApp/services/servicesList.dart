@@ -97,9 +97,9 @@ class _ServiceListState extends State<ServiceList> {
                                             .textTheme
                                             .headline6
                                             .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            )),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                   ),
                                 ),
                               ],
@@ -176,9 +176,9 @@ class _ServiceListState extends State<ServiceList> {
                                             .textTheme
                                             .headline6
                                             .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            )),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                   ),
                                 ),
                               ],
@@ -255,9 +255,9 @@ class _ServiceListState extends State<ServiceList> {
                                             .textTheme
                                             .headline6
                                             .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            )),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                   ),
                                 ),
                               ],
@@ -334,9 +334,9 @@ class _ServiceListState extends State<ServiceList> {
                                             .textTheme
                                             .headline6
                                             .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            )),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                   ),
                                 ),
                               ],
@@ -413,9 +413,9 @@ class _ServiceListState extends State<ServiceList> {
                                             .textTheme
                                             .headline6
                                             .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            )),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                   ),
                                 ),
                               ],
@@ -492,9 +492,9 @@ class _ServiceListState extends State<ServiceList> {
                                             .textTheme
                                             .headline6
                                             .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            )),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 20)),
                                   ),
                                 ),
                               ],

@@ -135,7 +135,8 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                                                   .headline6
                                                   .copyWith(
                                                       fontWeight:
-                                                          FontWeight.bold),
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
                                             )
                                           : Text(
                                               documentSnapshot['DoctorNameAr'],
@@ -144,7 +145,8 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                                                   .headline6
                                                   .copyWith(
                                                       fontWeight:
-                                                          FontWeight.bold),
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
                                             ),
                                     ],
                                   ),
@@ -160,8 +162,8 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                                                   .textTheme
                                                   .bodyText1
                                                   .copyWith(
-                                                      color:
-                                                          kPrimaryLightColor),
+                                                      color: kPrimaryLightColor,
+                                                      fontSize: 14),
                                             )
                                           : Text(
                                               'كود الحجز: ' +
@@ -170,8 +172,8 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                                                   .textTheme
                                                   .bodyText1
                                                   .copyWith(
-                                                      color:
-                                                          kPrimaryLightColor),
+                                                      color: kPrimaryLightColor,
+                                                      fontSize: 14),
                                             ),
                                       translator.currentLanguage == 'en'
                                           ? Text(
@@ -182,7 +184,8 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                                                   .textTheme
                                                   .bodyText1
                                                   .copyWith(
-                                                      color: kPrimaryColor),
+                                                      color: kPrimaryColor,
+                                                      fontSize: 14),
                                             )
                                           : Text(
                                               'الموعد: ' +
@@ -192,7 +195,8 @@ class _AppointmentWidgetState extends State<AppointmentWidget> {
                                                   .textTheme
                                                   .bodyText1
                                                   .copyWith(
-                                                      color: kPrimaryColor),
+                                                      color: kPrimaryColor,
+                                                      fontSize: 14),
                                             ),
                                     ],
                                   ),

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:ndialog/ndialog.dart';
 import 'package:provider/provider.dart';
 import 'package:sphinx/components/constants.dart';
 import 'package:sphinx/providers/UserDataProvider.dart';
@@ -42,6 +44,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final DateFormat dateFormat = DateFormat('yyyy-MM-dd K:mm a');
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -59,7 +62,7 @@ class _DetailScreenState extends State<DetailScreen> {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: 30,
+                  height: size.width * 0.1,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -69,17 +72,15 @@ class _DetailScreenState extends State<DetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: BackButton(
-                            color: kWhiteColor,
-                          )),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: BackButton(
+                          color: kWhiteColor,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -96,7 +97,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.08,
+                  height: size.width * 0.1,
                 ),
                 Expanded(
                   child: Stack(
@@ -212,94 +213,355 @@ class _DetailScreenState extends State<DetailScreen> {
                                       style: TextStyle(fontSize: 25),
                                     ),
                                     onPressed: () {
+                                      ////////////////////////////Book Function ////////////////////
                                       String id = uniqueId();
                                       print(id);
-                                      /* 
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) => WebView(
-                                            onPageStarted: (input) {},
-                                            onPageFinished: (output) {
-                                              print(
-                                                  'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
-                                              print(output);
-                                              if (output
-                                                  .contains('NBESuccess.php')) { */
-                                      Firestore.instance
-                                          .collection('requests')
-                                          .document(DateTime.now().toString())
-                                          .setData({
-                                        'Id': id,
-                                        'name': currentUser.name,
-                                        'phone': currentUser.mobile,
-                                        'age': currentUser.age,
-                                        'gender': currentUser.gender,
-                                        'country': currentUser.country,
-                                        'DoctorPhone': widget.docMobile,
-                                        'DoctorNameEn': widget.docNameEn,
-                                        'DoctorNameAr': widget.docNameAr,
-                                        'specialtyAr': widget.descriptionAr,
-                                        'specialtyEn': widget.descriptionEn,
-                                        'cost': widget.cost,
-                                        'state': 0,
-                                        'date': DateTime.now().toString(),
-                                        'imgUrl': widget.imageUrl
-                                      });
-                                      Navigator.of(context).pop();
-                                      /*  Fluttertoast.showToast(
-                                                    msg: translator.translate(
-                                                        'successPay'),
-                                                    toastLength:
-                                                        Toast.LENGTH_LONG,
-                                                    gravity: ToastGravity.TOP,
-                                                    timeInSecForIos: 5,
-                                                    backgroundColor: Colors
-                                                        .green
-                                                        .withOpacity(0.6),
-                                                    textColor: Colors.white,
-                                                    fontSize: 20.0);
-                                              } else if (output
-                                                  .contains('NBEFailed.php')) {
-                                                print(
-                                                    'OUTPUT IS ................. $output');
-                                                Navigator.of(context).pop();
-                                                Fluttertoast.showToast(
-                                                    msg: translator
-                                                        .translate('failedPay'),
-                                                    toastLength:
-                                                        Toast.LENGTH_LONG,
-                                                    gravity: ToastGravity.TOP,
-                                                    timeInSecForIos: 5,
-                                                    backgroundColor: Colors.red
-                                                        .withOpacity(0.6),
-                                                    textColor: Colors.white,
-                                                    fontSize: 20.0);
-                                              } else if (output
-                                                  .contains('NBECancel.php')) {
-                                                print(
-                                                    'OUTPUT IS ................. $output');
-                                                Navigator.of(context).pop();
-                                                Fluttertoast.showToast(
-                                                    msg: translator.translate(
-                                                        'canceledPay'),
-                                                    toastLength:
-                                                        Toast.LENGTH_LONG,
-                                                    gravity: ToastGravity.TOP,
-                                                    timeInSecForIos: 5,
-                                                    backgroundColor: Colors.red
-                                                        .withOpacity(0.6),
-                                                    textColor: Colors.white,
-                                                    fontSize: 20.0);
-                                              }
-                                            },
-                                            initialUrl:
-                                                "https://onlineconsultation.sphinxkc.com/NBEPayment.php?s_name=${currentUser.name}&s_price=${widget.cost}&OID=$id",
-                                            javascriptMode:
-                                                JavascriptMode.unrestricted,
-                                          ),
+
+                                      DialogBackground(
+                                        color: Colors.black.withOpacity(.2),
+                                        blur: 0.5,
+                                        dialog: AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              side: BorderSide(
+                                                  color: Colors.grey)),
+                                          actions: <Widget>[
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
+                                                  FlatButton(
+                                                    child: Image.asset(
+                                                      'assets/icons/visa.png',
+                                                      width: size.width * 0.3,
+                                                    ),
+                                                    onPressed: () {
+                                                      /////////////////// Visa Payment ///////////////////////////
+
+                                                      Navigator.of(context)
+                                                          .push(
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              WebView(
+                                                            onPageStarted:
+                                                                (input) {},
+                                                            onPageFinished:
+                                                                (output) {
+                                                              print(
+                                                                  'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
+                                                              print(output);
+                                                              if (output.contains(
+                                                                  'NBESuccess.php')) {
+                                                                Firestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'requests')
+                                                                    .document(DateTime
+                                                                            .now()
+                                                                        .toString())
+                                                                    .setData({
+                                                                  'Id': id,
+                                                                  'name':
+                                                                      currentUser
+                                                                          .name,
+                                                                  'phone':
+                                                                      currentUser
+                                                                          .mobile,
+                                                                  'age':
+                                                                      currentUser
+                                                                          .age,
+                                                                  'gender':
+                                                                      currentUser
+                                                                          .gender,
+                                                                  'country':
+                                                                      currentUser
+                                                                          .country,
+                                                                  'DoctorPhone':
+                                                                      widget
+                                                                          .docMobile,
+                                                                  'DoctorNameEn':
+                                                                      widget
+                                                                          .docNameEn,
+                                                                  'DoctorNameAr':
+                                                                      widget
+                                                                          .docNameAr,
+                                                                  'specialtyAr':
+                                                                      widget
+                                                                          .descriptionAr,
+                                                                  'specialtyEn':
+                                                                      widget
+                                                                          .descriptionEn,
+                                                                  'cost': widget
+                                                                      .cost,
+                                                                  'state': 0,
+                                                                  'date': dateFormat
+                                                                      .format(DateTime
+                                                                          .now()),
+                                                                  'imgUrl': widget
+                                                                      .imageUrl
+                                                                });
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Fluttertoast.showToast(
+                                                                    msg: translator
+                                                                        .translate(
+                                                                            'successPay'),
+                                                                    toastLength:
+                                                                        Toast
+                                                                            .LENGTH_LONG,
+                                                                    gravity:
+                                                                        ToastGravity
+                                                                            .TOP,
+                                                                    timeInSecForIos:
+                                                                        5,
+                                                                    backgroundColor: Colors
+                                                                        .green
+                                                                        .withOpacity(
+                                                                            0.6),
+                                                                    textColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    fontSize:
+                                                                        20.0);
+                                                              } else if (output
+                                                                  .contains(
+                                                                      'NBEFailed.php')) {
+                                                                print(
+                                                                    'OUTPUT IS ................. $output');
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Fluttertoast.showToast(
+                                                                    msg: translator.translate(
+                                                                        'failedPay'),
+                                                                    toastLength:
+                                                                        Toast
+                                                                            .LENGTH_LONG,
+                                                                    gravity:
+                                                                        ToastGravity
+                                                                            .TOP,
+                                                                    timeInSecForIos:
+                                                                        5,
+                                                                    backgroundColor: Colors
+                                                                        .red
+                                                                        .withOpacity(
+                                                                            0.6),
+                                                                    textColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    fontSize:
+                                                                        20.0);
+                                                              } else if (output
+                                                                  .contains(
+                                                                      'NBECancel.php')) {
+                                                                print(
+                                                                    'OUTPUT IS ................. $output');
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Fluttertoast.showToast(
+                                                                    msg: translator.translate(
+                                                                        'canceledPay'),
+                                                                    toastLength:
+                                                                        Toast
+                                                                            .LENGTH_LONG,
+                                                                    gravity:
+                                                                        ToastGravity
+                                                                            .TOP,
+                                                                    timeInSecForIos:
+                                                                        5,
+                                                                    backgroundColor: Colors
+                                                                        .red
+                                                                        .withOpacity(
+                                                                            0.6),
+                                                                    textColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    fontSize:
+                                                                        20.0);
+                                                              }
+                                                            },
+                                                            initialUrl:
+                                                                "https://onlineconsultation.sphinxkc.com/NBEPayment.php?s_name=${widget.docNameEn}&s_price=${widget.cost}&OID=$id",
+                                                            javascriptMode:
+                                                                JavascriptMode
+                                                                    .unrestricted,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                  FlatButton(
+                                                    child: Image.asset(
+                                                      'assets/icons/fawry.png',
+                                                      width: size.width * 0.3,
+                                                    ),
+                                                    onPressed: () {
+                                                      /////////////////// Fawry Payment ///////////////////////////
+
+                                                      Navigator.of(context)
+                                                          .push(
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              WebView(
+                                                            onPageStarted:
+                                                                (input) {},
+                                                            onPageFinished:
+                                                                (output) {
+                                                              print(
+                                                                  'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
+                                                              print(output);
+                                                              if (output.contains(
+                                                                  'FawrySuccess.php')) {
+                                                                Firestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'fawryRequests')
+                                                                    .document(DateTime
+                                                                            .now()
+                                                                        .toString())
+                                                                    .setData({
+                                                                  'Id': id,
+                                                                  'name':
+                                                                      currentUser
+                                                                          .name,
+                                                                  'phone':
+                                                                      currentUser
+                                                                          .mobile,
+                                                                  'age':
+                                                                      currentUser
+                                                                          .age,
+                                                                  'gender':
+                                                                      currentUser
+                                                                          .gender,
+                                                                  'country':
+                                                                      currentUser
+                                                                          .country,
+                                                                  'DoctorPhone':
+                                                                      widget
+                                                                          .docMobile,
+                                                                  'DoctorNameEn':
+                                                                      widget
+                                                                          .docNameEn,
+                                                                  'DoctorNameAr':
+                                                                      widget
+                                                                          .docNameAr,
+                                                                  'specialtyAr':
+                                                                      widget
+                                                                          .descriptionAr,
+                                                                  'specialtyEn':
+                                                                      widget
+                                                                          .descriptionEn,
+                                                                  'cost': widget
+                                                                      .cost,
+                                                                  'state': 0,
+                                                                  'date': dateFormat
+                                                                      .format(DateTime
+                                                                          .now()),
+                                                                  'imgUrl': widget
+                                                                      .imageUrl,
+                                                                  'fawryId': output
+                                                                      .replaceRange(
+                                                                          0,
+                                                                          72,
+                                                                          ''),
+                                                                  'about':
+                                                                      'doctor'
+                                                                });
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Fluttertoast.showToast(
+                                                                    msg: translator
+                                                                        .translate(
+                                                                            'successPay'),
+                                                                    toastLength:
+                                                                        Toast
+                                                                            .LENGTH_LONG,
+                                                                    gravity:
+                                                                        ToastGravity
+                                                                            .TOP,
+                                                                    timeInSecForIos:
+                                                                        5,
+                                                                    backgroundColor: Colors
+                                                                        .green
+                                                                        .withOpacity(
+                                                                            0.6),
+                                                                    textColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    fontSize:
+                                                                        20.0);
+                                                              } else if (output
+                                                                  .contains(
+                                                                      'FawryFailed.php')) {
+                                                                print(
+                                                                    'OUTPUT IS ................. $output');
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Fluttertoast.showToast(
+                                                                    msg: translator.translate(
+                                                                        'failedPay'),
+                                                                    toastLength:
+                                                                        Toast
+                                                                            .LENGTH_LONG,
+                                                                    gravity:
+                                                                        ToastGravity
+                                                                            .TOP,
+                                                                    timeInSecForIos:
+                                                                        5,
+                                                                    backgroundColor: Colors
+                                                                        .red
+                                                                        .withOpacity(
+                                                                            0.6),
+                                                                    textColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    fontSize:
+                                                                        20.0);
+                                                              }
+                                                            },
+                                                            initialUrl:
+                                                                "http://onlineconsultation.sphinxkc.com/FawryPayment.php?s_name=${widget.docNameEn}&s_price=${widget.cost}&OID=$id&cstmail=${currentUser.email}&cstPhone=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}&cstID=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}",
+                                                            javascriptMode:
+                                                                JavascriptMode
+                                                                    .unrestricted,
+                                                          ),
+                                                        ),
+                                                      );
+
+                                                      /*  print(
+                                                                    "YYY:http://onlineconsultation.sphinxkc.com/FawryPayment.php?s_name=${documentSnapshot['name_en']}&s_price=$cost&OID=$id&cstmail=${currentUser.email}&cstPhone=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}&cstID=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}"); */
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                      ); */
-                                      print(id);
+                                      ).show(context);
                                     },
                                   ),
                                 ),
@@ -315,8 +577,8 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                       ),
                       Positioned(
-                        bottom: size.height * -0.12, //size.height *  -0.03
-                        right: size.width * -0.22,
+                        bottom: size.height * -0.18, //size.height *  -0.03
+                        right: size.width * -0.25,
                         child: Image.asset('assets/images/04.png'),
                         width: size.width * 0.7,
                       ),

@@ -465,7 +465,7 @@ class _MessageDetailsDoctorScreenState
                         ),
                       ),
                       Positioned(
-                        bottom: size.height * -0.2, //size.height *  -0.03
+                        bottom: size.height * -0.18, //size.height *  -0.03
                         right: size.width * -0.25,
                         child: Image.asset('assets/images/04.png'),
                         width: size.width * 0.7,

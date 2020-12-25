@@ -154,7 +154,12 @@
     "call":"Calling",
     "endConsult":"End Consultation",
     "ok":"Okay",
-    "loadingg":"Loading .."
+    "loadingg":"Loading ..",
+    "fawryReq":"Fawry",
+    "fawryId":"Fawry Code",
+    "send":"Send",
+    "sureDeletethis":"Are you sure you want to delete?",
+    "sureSendthis":"Are you sure you want to send?"
 
     
     

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:sphinx/adminApp/doctors/addDoctor.dart';
 import 'package:sphinx/components/constants.dart';
 
 import 'addService.dart';
@@ -22,7 +23,9 @@ class _ServicesListState extends State<ServicesList> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        title: Text(translator.translate('book_services')),
+        title: Text(translator.translate(translator.translate('doctors') +
+            ' & ' +
+            translator.translate('services'))),
       ),
       body: Container(
         height: size.height,
@@ -37,7 +40,88 @@ class _ServicesListState extends State<ServicesList> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 10.0, left: 5, right: 5, bottom: 10),
+                        top: 5.0, left: 5, right: 5, bottom: 5),
+                    child: Column(
+                      children: [
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => AddDoctor(),
+                              ),
+                            );
+                          },
+                          splashColor: Colors.grey,
+                          child: Container(
+                            height: size.width * 0.23,
+                            decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(0.0, 2.0),
+                                  blurRadius: 6.0,
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 50,
+                                    child: Image(
+                                      image: AssetImage(
+                                        'assets/icons/doctor.png',
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10,
+                                      right: 10,
+                                      top: 15.0,
+                                      bottom: 8),
+                                  child: Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: size.width * 0.55),
+                                    child: Text(translator.translate('doctors'),
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        maxLines: 1,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5
+                                            .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            )),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            /////////////////////////
+            ////////////////////////////////
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 5.0, left: 5, right: 5, bottom: 5),
                     child: Column(
                       children: [
                         FlatButton(
@@ -121,7 +205,7 @@ class _ServicesListState extends State<ServicesList> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 10.0, left: 5, right: 5, bottom: 10),
+                        top: 5.0, left: 5, right: 5, bottom: 5),
                     child: Column(
                       children: [
                         FlatButton(
@@ -206,7 +290,7 @@ class _ServicesListState extends State<ServicesList> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 10.0, left: 5, right: 5, bottom: 10),
+                        top: 5.0, left: 5, right: 5, bottom: 5),
                     child: Column(
                       children: [
                         FlatButton(
@@ -291,7 +375,7 @@ class _ServicesListState extends State<ServicesList> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 10.0, left: 5, right: 5, bottom: 10),
+                        top: 5.0, left: 5, right: 5, bottom: 5),
                     child: Column(
                       children: [
                         FlatButton(
@@ -376,7 +460,7 @@ class _ServicesListState extends State<ServicesList> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 10.0, left: 5, right: 5, bottom: 10),
+                        top: 5.0, left: 5, right: 5, bottom: 5),
                     child: Column(
                       children: [
                         FlatButton(
@@ -461,7 +545,7 @@ class _ServicesListState extends State<ServicesList> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 10.0, left: 5, right: 5, bottom: 10),
+                        top: 5.0, left: 5, right: 5, bottom: 5),
                     child: Column(
                       children: [
                         FlatButton(
