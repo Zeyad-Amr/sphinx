@@ -26,7 +26,7 @@ exports.newRequest = functions.firestore.document('requests/{requestId}').onCrea
         });
 
       
-        var payload = {notification: {title:'New Onilne Consultation Request' , body:snapshot.data().name +' has requested for an appointment' },
+        var payload = {notification: {title:'New Online Consultation Request' , body:snapshot.data().name +' has requested for an appointment' },
         data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
         const respond = await admin.messaging().sendToDevice(tokens,payload); 
     }
@@ -135,6 +135,32 @@ exports.EndAppointmentadmin = functions.firestore.document('appointments/{appoin
 
 
 
+
+
+
+
+exports.NotifyPatients = functions.firestore.document('NotifyPatients/{NotifyPatientsId}').onCreate
+(
+    async (snapshot,context)=>
+    {
+        var tokens=[];
+
+        const adminData =  db.collection('users');
+        const adminTokens = await adminData.get();
+        adminTokens.forEach(doc=>{
+
+            if(doc.data().info =='patient'){
+               if(doc.data().token !== ""){
+                tokens.push(doc.data().token);
+               }
+            }
+        });
+
+        var payload = {notification: {title:snapshot.data().title , body:snapshot.data().message },
+        data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
+        const respond = await admin.messaging().sendToDevice(tokens,payload); 
+    }
+);
 
 
 exports.newService = functions.firestore.document('BookedServices/{BookedServicesId}').onCreate

@@ -112,7 +112,7 @@
     "radiology":"Radiology",
     "medication":"Medication",
     "renalBiopsy":"Renal Biopsy",
-    "int_radiology":"Intervetion Radiology",
+    "hemodialysis":"Hemodialysis & PE",
     "otherServices":"Other Services",
     "labs":"Labs",
    
@@ -166,8 +166,13 @@
     "AppSetMessage":"Your consultation date have been set, check your appointments.",
     "AppEndMessage":"Your consultation has been ended.",
     "fawryMessage":"Pay the fees at the nearest Fawry branch, your fawry code is",
-    "bookServMessage":"Visit the center and get your service, your reservation code is"
+    "bookServMessage":"Visit the center and get your service, your reservation code is",
 
+    "sendNotification":"Send Notifications",
+    "title":"Title",
+    "nottitPls":"Please, Enter Notification Title",
+    "notmsgPls":"Please, Enter Notification Text",
+    "text":"Text"
     
     
 }

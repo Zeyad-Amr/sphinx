@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:ndialog/ndialog.dart';
 import 'package:provider/provider.dart';
 import 'package:sphinx/providers/UserDataProvider.dart';
 import 'package:sphinx/screens/chatRoom.dart';
@@ -139,146 +140,128 @@ class _MessageDetailsDoctorScreenState
                                             .copyWith(color: kWhiteColor),
                                       ),
                                       onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) =>
-                                              Dialog(
+                                        DialogBackground(
+                                          color: Colors.black.withOpacity(.2),
+                                          blur: 0.5,
+                                          dialog: AlertDialog(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(20),
                                             ),
-                                            child: Container(
-                                              height: 110,
-                                              margin: EdgeInsets.only(
-                                                  top: 25,
-                                                  bottom: 10,
-                                                  left: 30,
-                                                  right: 30),
-                                              child: Column(
-                                                children: [
-                                                  Text(
-                                                      translator.translate(
-                                                          'sureEndConsult'),
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      )),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        FlatButton(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  10),
-                                                          splashColor:
-                                                              Colors.grey,
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                          },
-                                                          child: Text(
-                                                            translator
-                                                                .translate(
-                                                                    'cancel'),
-                                                            style: TextStyle(
+                                            title: Column(
+                                              children: [
+                                                Text(
+                                                    translator.translate(
+                                                        'sureEndConsult'),
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                    )),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      FlatButton(
+                                                        padding:
+                                                            EdgeInsets.all(10),
+                                                        splashColor:
+                                                            Colors.grey,
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: Text(
+                                                          translator.translate(
+                                                              'cancel'),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 17),
+                                                        ),
+                                                        color: Colors.red,
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
+                                                            side: BorderSide(
                                                                 color: Colors
-                                                                    .white,
-                                                                fontSize: 17),
-                                                          ),
-                                                          color: Colors.red,
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          15),
-                                                              side: BorderSide(
-                                                                  color: Colors
-                                                                      .white)),
+                                                                    .white)),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      FlatButton(
+                                                        padding:
+                                                            EdgeInsets.all(10),
+                                                        splashColor:
+                                                            Colors.grey,
+                                                        onPressed: () {
+                                                          Firestore.instance
+                                                              .collection(
+                                                                  'appointments')
+                                                              .document(widget
+                                                                  .documentId)
+                                                              .updateData({
+                                                            'state': 1,
+                                                            'endDate': dateFormat
+                                                                .format(DateTime
+                                                                    .now())
+                                                          });
+                                                          Firestore.instance
+                                                              .collection(
+                                                                  'messages')
+                                                              .document(dateorderFormat
+                                                                  .format(DateTime
+                                                                      .now()))
+                                                              .setData({
+                                                            'patientName': widget
+                                                                .patientName,
+                                                            'patientPhone': widget
+                                                                .pateintPhone,
+                                                            'message':
+                                                                'AppEndMessage',
+                                                            'code': 'null',
+                                                            'serviceEn': widget
+                                                                .doctorNameEn,
+                                                            'serviceAr': widget
+                                                                .doctorNameAr,
+                                                            'date': dateorderFormat
+                                                                .format(DateTime
+                                                                    .now())
+                                                          });
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: Text(
+                                                          translator
+                                                              .translate('end'),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 17),
                                                         ),
-                                                        SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        FlatButton(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  10),
-                                                          splashColor:
-                                                              Colors.grey,
-                                                          onPressed: () {
-                                                            Firestore.instance
-                                                                .collection(
-                                                                    'appointments')
-                                                                .document(widget
-                                                                    .documentId)
-                                                                .updateData({
-                                                              'state': 1,
-                                                              'endDate': dateFormat
-                                                                  .format(
-                                                                      DateTime
-                                                                          .now())
-                                                            });
-                                                            Firestore.instance
-                                                                .collection(
-                                                                    'messages')
-                                                                .document(dateorderFormat
-                                                                    .format(DateTime
-                                                                        .now()))
-                                                                .setData({
-                                                              'patientName': widget
-                                                                  .patientName,
-                                                              'patientPhone': widget
-                                                                  .pateintPhone,
-                                                              'message':
-                                                                  'AppEndMessage',
-                                                              'code': 'null',
-                                                              'serviceEn': widget
-                                                                  .doctorNameEn,
-                                                              'serviceAr': widget
-                                                                  .doctorNameAr,
-                                                              'date': dateorderFormat
-                                                                  .format(
-                                                                      DateTime
-                                                                          .now())
-                                                            });
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                          },
-                                                          child: Text(
-                                                            translator
-                                                                .translate(
-                                                                    'end'),
-                                                            style: TextStyle(
+                                                        color: kPrimaryColor,
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
+                                                            side: BorderSide(
                                                                 color: Colors
-                                                                    .white,
-                                                                fontSize: 17),
-                                                          ),
-                                                          color: kPrimaryColor,
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          15),
-                                                              side: BorderSide(
-                                                                  color: Colors
-                                                                      .grey)),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                                    .grey)),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                        );
+                                        ).show(context);
                                       },
                                     ),
                                   ),

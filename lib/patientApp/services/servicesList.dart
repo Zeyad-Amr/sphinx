@@ -2,13 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/components/constants.dart';
-
+import 'hemodialysis.dart';
 import 'laBs.dart';
 import 'radiology.dart';
 import 'medication.dart';
 import 'renal_biopsy.dart';
 import 'other_services.dart';
-import 'intervetion_radiology.dart';
 
 class ServiceList extends StatefulWidget {
   @override
@@ -364,7 +363,7 @@ class _ServiceListState extends State<ServiceList> {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => IntRadiologyList(),
+                                builder: (context) => HemodialysisList(),
                               ),
                             );
                           },
@@ -392,7 +391,7 @@ class _ServiceListState extends State<ServiceList> {
                                     radius: 50,
                                     child: Image(
                                       image: AssetImage(
-                                        'assets/icons/radiology2.png',
+                                        'assets/icons/hemo.png',
                                       ),
                                       fit: BoxFit.cover,
                                     ),
@@ -405,7 +404,7 @@ class _ServiceListState extends State<ServiceList> {
                                     constraints: BoxConstraints(
                                         maxWidth: size.width * 0.5),
                                     child: Text(
-                                        translator.translate('int_radiology'),
+                                        translator.translate('hemodialysis'),
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
                                         maxLines: 2,

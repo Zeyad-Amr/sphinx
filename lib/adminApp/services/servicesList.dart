@@ -453,8 +453,8 @@ class _ServicesListAdminState extends State<ServicesListAdmin> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => AddService(
-                                  collection: 'int_radiology',
-                                  services: 'int_radiology',
+                                  collection: 'hemodialysis',
+                                  services: 'hemodialysis',
                                 ),
                               ),
                             );
@@ -483,7 +483,7 @@ class _ServicesListAdminState extends State<ServicesListAdmin> {
                                     radius: 50,
                                     child: Image(
                                       image: AssetImage(
-                                        'assets/icons/radiology2.png',
+                                        'assets/icons/hemo.png',
                                       ),
                                       fit: BoxFit.cover,
                                     ),
@@ -496,7 +496,7 @@ class _ServicesListAdminState extends State<ServicesListAdmin> {
                                     constraints: BoxConstraints(
                                         maxWidth: size.width * 0.5),
                                     child: Text(
-                                        translator.translate('int_radiology'),
+                                        translator.translate('hemodialysis'),
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
                                         maxLines: 2,

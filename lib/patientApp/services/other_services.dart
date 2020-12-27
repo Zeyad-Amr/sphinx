@@ -438,14 +438,10 @@ class _OtherServicesListState extends State<OtherServicesList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('successPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.green.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+
+                                                                          dialog(
+                                                                              'successPay',
+                                                                              Colors.green);
                                                                         } else if (output
                                                                             .contains('NBEFailed.php')) {
                                                                           print(
@@ -454,14 +450,9 @@ class _OtherServicesListState extends State<OtherServicesList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('failedPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.red.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+                                                                          dialog(
+                                                                              'failedPay',
+                                                                              Colors.red);
                                                                         } else if (output
                                                                             .contains('NBECancel.php')) {
                                                                           print(
@@ -470,14 +461,9 @@ class _OtherServicesListState extends State<OtherServicesList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('canceledPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.red.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+                                                                          dialog(
+                                                                              'canceledPay',
+                                                                              Colors.red);
                                                                         }
                                                                       },
                                                                       initialUrl:
@@ -583,14 +569,10 @@ class _OtherServicesListState extends State<OtherServicesList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('successPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.green.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+
+                                                                          dialog(
+                                                                              'successPay',
+                                                                              Colors.green);
                                                                         } else if (output
                                                                             .contains('FawryFailed.php')) {
                                                                           print(
@@ -599,14 +581,9 @@ class _OtherServicesListState extends State<OtherServicesList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('failedPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.red.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+                                                                          dialog(
+                                                                              'failedPay',
+                                                                              Colors.red);
                                                                         }
                                                                       },
                                                                       initialUrl:
@@ -653,6 +630,42 @@ class _OtherServicesListState extends State<OtherServicesList> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  dialog(String text, Color color) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => DialogBackground(
+        color: Colors.black.withOpacity(.2),
+        blur: 0.5,
+        dialog: AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+              side: BorderSide(color: Colors.grey)),
+          title: Text(
+            translator.translate(text),
+            style: Theme.of(context)
+                .textTheme
+                .headline5
+                .copyWith(color: color, fontWeight: FontWeight.bold),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                translator.translate('ok'),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    .copyWith(color: kPrimaryLightColor),
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+          ],
         ),
       ),
     );

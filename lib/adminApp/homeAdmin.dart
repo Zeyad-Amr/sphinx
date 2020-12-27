@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:ndialog/ndialog.dart';
 import 'package:sphinx/adminApp/fawryList.dart';
 import 'package:sphinx/adminApp/services/servicesList.dart';
 import 'package:sphinx/components/constants.dart';
@@ -18,6 +23,11 @@ class HomeWidgetAdmin extends StatefulWidget {
 }
 
 class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
+  DateFormat dateorderFormat = DateFormat('yyyyMMddkkmm');
+
+  String notifTitle;
+
+  String notifMessage;
   Items item1 = new Items(
     title: translator.translate('users'),
     img: "assets/icons/user.png",
@@ -46,10 +56,15 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
     img: "assets/icons/fawryw.png",
   );
 
+  Items item7 = new Items(
+    title: translator.translate('sendNotification'),
+    img: "assets/icons/sendNotif.png",
+  );
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    List<Items> myList = [item1, item2, item3, item4, item5, item6];
+    List<Items> myList = [item1, item2, item3, item4, item5, item6, item7];
 
     return Container(
       height: size.height,
@@ -128,6 +143,167 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
                               builder: (context) => UsersList(),
                             ),
                           );
+                        } else if (data.title ==
+                            translator.translate('sendNotification')) {
+                          return DialogBackground(
+                            color: Colors.black.withOpacity(.2),
+                            blur: 0.5,
+                            dialog: Builder(
+                              builder: (context) => AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    side: BorderSide(color: Colors.grey)),
+                                title: TextField(
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.deny(
+                                        RegExp('[/]')),
+                                  ],
+                                  decoration: InputDecoration(
+                                    labelText: translator.translate('title'),
+                                    labelStyle: TextStyle(
+                                        fontSize: 22, color: kPrimaryColor),
+                                  ),
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.black),
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      setState(() {
+                                        notifTitle = value;
+                                      });
+                                    }
+                                  },
+                                ),
+                                content: TextField(
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.deny(
+                                        RegExp('[/]')),
+                                  ],
+                                  decoration: InputDecoration(
+                                    labelText: translator.translate('text'),
+                                    labelStyle: TextStyle(
+                                        fontSize: 22, color: kPrimaryColor),
+                                  ),
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.black),
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      setState(() {
+                                        notifMessage = value;
+                                      });
+                                    }
+                                  },
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text(
+                                      translator.translate('cancel'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6
+                                          .copyWith(color: Colors.red),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  FlatButton(
+                                    child: Text(
+                                      translator.translate('send'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6
+                                          .copyWith(color: kPrimaryLightColor),
+                                    ),
+                                    onPressed: () {
+                                      if (notifTitle != null &&
+                                          notifMessage != null) {
+                                        DialogBackground(
+                                          color: Colors.black.withOpacity(.2),
+                                          blur: 0.5,
+                                          dialog: AlertDialog(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                side: BorderSide(
+                                                    color: Colors.grey)),
+                                            title: Text(translator
+                                                .translate('sureSendthis')),
+                                            actions: <Widget>[
+                                              FlatButton(
+                                                child: Text(
+                                                  translator
+                                                      .translate('cancel'),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline6
+                                                      .copyWith(
+                                                        color: Colors.red,
+                                                      ),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                              FlatButton(
+                                                child: Text(
+                                                  translator.translate('send'),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline6
+                                                      .copyWith(
+                                                        color:
+                                                            kPrimaryLightColor,
+                                                      ),
+                                                ),
+                                                onPressed: () {
+                                                  Firestore.instance
+                                                      .collection(
+                                                          'NotifyPatients')
+                                                      .document(dateorderFormat
+                                                          .format(
+                                                              DateTime.now()))
+                                                      .setData(
+                                                    {
+                                                      'title': notifTitle,
+                                                      'message': notifMessage,
+                                                    },
+                                                  );
+                                                  Navigator.of(context).pop();
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ).show(context);
+                                      } else if (notifTitle == null) {
+                                        return Fluttertoast.showToast(
+                                            msg: translator
+                                                .translate('nottitPls'),
+                                            toastLength: Toast.LENGTH_LONG,
+                                            gravity: ToastGravity.TOP,
+                                            timeInSecForIos: 5,
+                                            backgroundColor: Colors.red[600]
+                                                .withOpacity(0.9),
+                                            textColor: Colors.white,
+                                            fontSize: 20.0);
+                                      } else if (notifMessage == null) {
+                                        return Fluttertoast.showToast(
+                                            msg: translator
+                                                .translate('notmsgPls'),
+                                            toastLength: Toast.LENGTH_LONG,
+                                            gravity: ToastGravity.TOP,
+                                            timeInSecForIos: 5,
+                                            backgroundColor: Colors.red[600]
+                                                .withOpacity(0.9),
+                                            textColor: Colors.white,
+                                            fontSize: 20.0);
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ).show(context);
                         }
                       },
                       child: Container(
@@ -141,15 +317,19 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
                               data.img,
                               width: 80,
                             ),
-                            SizedBox(
-                              height: 14,
-                            ),
-                            Text(
-                              data.title,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 14.0, horizontal: 10),
+                              child: Text(
+                                data.title,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: false,
+                                maxLines: 2,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ],
                         ),

@@ -11,8 +11,8 @@ class User with ChangeNotifier {
       _age,
       _country,
       _userUID,
-      _info,
-      _token;
+      _info;
+     
   FirebaseUser _user;
   final fbm = FirebaseMessaging();
   String _countryCode;

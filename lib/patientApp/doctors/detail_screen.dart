@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:sphinx/components/constants.dart';
 import 'package:sphinx/providers/UserDataProvider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class DetailScreen extends StatefulWidget {
   final String docNameEn;
@@ -340,27 +339,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                 Navigator.of(
                                                                         context)
                                                                     .pop();
-                                                                Fluttertoast.showToast(
-                                                                    msg: translator
-                                                                        .translate(
-                                                                            'successPay'),
-                                                                    toastLength:
-                                                                        Toast
-                                                                            .LENGTH_LONG,
-                                                                    gravity:
-                                                                        ToastGravity
-                                                                            .TOP,
-                                                                    timeInSecForIos:
-                                                                        5,
-                                                                    backgroundColor: Colors
-                                                                        .green
-                                                                        .withOpacity(
-                                                                            0.6),
-                                                                    textColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    fontSize:
-                                                                        20.0);
+                                                                dialog(
+                                                                    'successPay',
+                                                                    Colors
+                                                                        .green);
                                                               } else if (output
                                                                   .contains(
                                                                       'NBEFailed.php')) {
@@ -372,26 +354,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                 Navigator.of(
                                                                         context)
                                                                     .pop();
-                                                                Fluttertoast.showToast(
-                                                                    msg: translator.translate(
-                                                                        'failedPay'),
-                                                                    toastLength:
-                                                                        Toast
-                                                                            .LENGTH_LONG,
-                                                                    gravity:
-                                                                        ToastGravity
-                                                                            .TOP,
-                                                                    timeInSecForIos:
-                                                                        5,
-                                                                    backgroundColor: Colors
-                                                                        .red
-                                                                        .withOpacity(
-                                                                            0.6),
-                                                                    textColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    fontSize:
-                                                                        20.0);
+                                                                dialog(
+                                                                    'failedPay',
+                                                                    Colors.red);
                                                               } else if (output
                                                                   .contains(
                                                                       'NBECancel.php')) {
@@ -403,26 +368,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                 Navigator.of(
                                                                         context)
                                                                     .pop();
-                                                                Fluttertoast.showToast(
-                                                                    msg: translator.translate(
-                                                                        'canceledPay'),
-                                                                    toastLength:
-                                                                        Toast
-                                                                            .LENGTH_LONG,
-                                                                    gravity:
-                                                                        ToastGravity
-                                                                            .TOP,
-                                                                    timeInSecForIos:
-                                                                        5,
-                                                                    backgroundColor: Colors
-                                                                        .red
-                                                                        .withOpacity(
-                                                                            0.6),
-                                                                    textColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    fontSize:
-                                                                        20.0);
+                                                                dialog(
+                                                                    'canceledPay',
+                                                                    Colors.red);
                                                               }
                                                             },
                                                             initialUrl:
@@ -549,16 +497,21 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                 Navigator.of(
                                                                         context)
                                                                     .pop();
-                                                                Fluttertoast.showToast(
+
+                                                                /////////////////////////////////////////////////////////////////////
+                                                                dialog(
+                                                                    'successPay',
+                                                                    Colors
+                                                                        .green);
+                                                                /*   Fluttertoast.showToast(
                                                                     msg: translator
                                                                         .translate(
                                                                             'successPay'),
                                                                     toastLength:
                                                                         Toast
                                                                             .LENGTH_LONG,
-                                                                    gravity:
-                                                                        ToastGravity
-                                                                            .TOP,
+                                                                    gravity: ToastGravity
+                                                                        .CENTER,
                                                                     timeInSecForIos:
                                                                         5,
                                                                     backgroundColor: Colors
@@ -569,7 +522,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                         Colors
                                                                             .white,
                                                                     fontSize:
-                                                                        20.0);
+                                                                        20.0); */
                                                               } else if (output
                                                                   .contains(
                                                                       'FawryFailed.php')) {
@@ -581,26 +534,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                 Navigator.of(
                                                                         context)
                                                                     .pop();
-                                                                Fluttertoast.showToast(
-                                                                    msg: translator.translate(
-                                                                        'failedPay'),
-                                                                    toastLength:
-                                                                        Toast
-                                                                            .LENGTH_LONG,
-                                                                    gravity:
-                                                                        ToastGravity
-                                                                            .TOP,
-                                                                    timeInSecForIos:
-                                                                        5,
-                                                                    backgroundColor: Colors
-                                                                        .red
-                                                                        .withOpacity(
-                                                                            0.6),
-                                                                    textColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    fontSize:
-                                                                        20.0);
+                                                                dialog(
+                                                                    'failedPay',
+                                                                    Colors.red);
                                                               }
                                                             },
                                                             initialUrl:
@@ -648,6 +584,42 @@ class _DetailScreenState extends State<DetailScreen> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  dialog(String text, Color color) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => DialogBackground(
+        color: Colors.black.withOpacity(.2),
+        blur: 0.5,
+        dialog: AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+              side: BorderSide(color: Colors.grey)),
+          title: Text(
+            translator.translate(text),
+            style: Theme.of(context)
+                .textTheme
+                .headline5
+                .copyWith(color: color, fontWeight: FontWeight.bold),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                translator.translate('ok'),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    .copyWith(color: kPrimaryLightColor),
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+          ],
         ),
       ),
     );

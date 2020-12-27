@@ -85,9 +85,9 @@ class _FawryListState extends State<FawryList> {
                                             documentSnapshot['name'],
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline5
+                                                .headline6
                                                 .copyWith(
-                                                    fontSize: 24,
+                                                    fontSize: 20,
                                                     fontWeight:
                                                         FontWeight.bold),
                                           ),
@@ -102,11 +102,10 @@ class _FawryListState extends State<FawryList> {
                                                     .toString(),
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6
+                                                .bodyText1
                                                 .copyWith(
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontSize: 18,
+                                                ),
                                           ),
                                           translator.currentLanguage == 'en'
                                               ? Text(
@@ -114,22 +113,20 @@ class _FawryListState extends State<FawryList> {
                                                       'serviceNameEn'],
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6
+                                                      .bodyText1
                                                       .copyWith(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold),
+                                                        fontSize: 18,
+                                                      ),
                                                 )
                                               : Text(
                                                   documentSnapshot[
                                                       'serviceNameAr'],
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6
+                                                      .bodyText1
                                                       .copyWith(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold),
+                                                        fontSize: 18,
+                                                      ),
                                                 ),
                                           Text(
                                             translator.translate('fawryId') +
@@ -137,10 +134,11 @@ class _FawryListState extends State<FawryList> {
                                                 documentSnapshot['fawryId'],
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6
+                                                .bodyText1
                                                 .copyWith(
-                                                    color: Colors.red,
-                                                    fontSize: 20),
+                                                  color: Colors.red,
+                                                  fontSize: 14,
+                                                ),
                                           ),
                                         ],
                                       ),
@@ -154,22 +152,24 @@ class _FawryListState extends State<FawryList> {
                                                       documentSnapshot['Id'],
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6
+                                                      .bodyText1
                                                       .copyWith(
-                                                          fontSize: 18,
-                                                          color:
-                                                              kPrimaryLightColor),
+                                                        color:
+                                                            kPrimaryLightColor,
+                                                        fontSize: 14,
+                                                      ),
                                                 )
                                               : Text(
                                                   'كود الحجز: ' +
                                                       documentSnapshot['Id'],
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6
+                                                      .bodyText1
                                                       .copyWith(
-                                                          fontSize: 18,
-                                                          color:
-                                                              kPrimaryLightColor),
+                                                        color:
+                                                            kPrimaryLightColor,
+                                                        fontSize: 14,
+                                                      ),
                                                 ),
                                           translator.currentLanguage == 'en'
                                               ? Text(
@@ -177,20 +177,22 @@ class _FawryListState extends State<FawryList> {
                                                       documentSnapshot['date'],
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6
+                                                      .bodyText1
                                                       .copyWith(
-                                                          fontSize: 18,
-                                                          color: kPrimaryColor),
+                                                        color: kPrimaryColor,
+                                                        fontSize: 14,
+                                                      ),
                                                 )
                                               : Text(
                                                   'الموعد: ' +
                                                       documentSnapshot['date'],
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6
+                                                      .bodyText1
                                                       .copyWith(
-                                                          fontSize: 18,
-                                                          color: kPrimaryColor),
+                                                        color: kPrimaryColor,
+                                                        fontSize: 14,
+                                                      ),
                                                 ),
                                         ],
                                       ),

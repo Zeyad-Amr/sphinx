@@ -15,12 +15,12 @@ import 'package:sphinx/screens/loading.dart';
 import 'package:sphinx/screens/noConnection.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class IntRadiologyList extends StatefulWidget {
+class HemodialysisList extends StatefulWidget {
   @override
-  _IntRadiologyListState createState() => _IntRadiologyListState();
+  _HemodialysisListState createState() => _HemodialysisListState();
 }
 
-class _IntRadiologyListState extends State<IntRadiologyList> {
+class _HemodialysisListState extends State<HemodialysisList> {
   TextEditingController editingController = TextEditingController();
   FirebaseUser user;
   String userNation;
@@ -40,7 +40,7 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
   initState() {
     if (translator.currentLanguage == 'en') {
       Firestore.instance
-          .collection('services_collections/collections/int_radiology')
+          .collection('services_collections/collections/hemodialysis')
           .orderBy('name_en')
           .getDocuments()
           .then((QuerySnapshot docs) {
@@ -55,7 +55,7 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
       });
     } else {
       Firestore.instance
-          .collection('services_collections/collections/int_radiology')
+          .collection('services_collections/collections/hemodialysis')
           .orderBy('name_ar')
           .getDocuments()
           .then((QuerySnapshot docs) {
@@ -97,7 +97,7 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
 
     if (translator.currentLanguage == 'en') {
       await Firestore.instance
-          .collection('services_collections/collections/int_radiology')
+          .collection('services_collections/collections/hemodialysis')
           .orderBy('name_en')
           .getDocuments()
           .then((QuerySnapshot docs) {
@@ -117,7 +117,7 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
       });
     } else if (translator.currentLanguage == 'ar') {
       await Firestore.instance
-          .collection('services_collections/collections/int_radiology')
+          .collection('services_collections/collections/hemodialysis')
           .orderBy('name_ar')
           .getDocuments()
           .then((QuerySnapshot docs) {
@@ -148,7 +148,7 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(translator.translate('int_radiology')),
+        title: Text(translator.translate('hemodialysis')),
       ),
       body: Container(
         height: size.height,
@@ -409,9 +409,9 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                                             'state':
                                                                                 0,
                                                                             'collectionEn':
-                                                                                'Intervetion Radiology',
+                                                                                'Hemodialysis & PE',
                                                                             'collectionAr':
-                                                                                'الإشعة التداخلية',
+                                                                                'الغسيل الدموي و فصل البلازمة',
                                                                             'date':
                                                                                 dateFormat.format(DateTime.now()),
                                                                           });
@@ -439,14 +439,9 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('successPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.green.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+                                                                          dialog(
+                                                                              'successPay',
+                                                                              Colors.green);
                                                                         } else if (output
                                                                             .contains('NBEFailed.php')) {
                                                                           print(
@@ -455,14 +450,9 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('failedPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.red.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+                                                                          dialog(
+                                                                              'failedPay',
+                                                                              Colors.red);
                                                                         } else if (output
                                                                             .contains('NBECancel.php')) {
                                                                           print(
@@ -471,14 +461,9 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('canceledPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.red.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+                                                                          dialog(
+                                                                              'canceledPay',
+                                                                              Colors.red);
                                                                         }
                                                                       },
                                                                       initialUrl:
@@ -546,9 +531,9 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                                             'state':
                                                                                 0,
                                                                             'collectionEn':
-                                                                                'Intervetion Radiology',
+                                                                                'Hemodialysis & PE',
                                                                             'collectionAr':
-                                                                                'الإشعة التداخلية',
+                                                                                'الغسيل الدموي و فصل البلازمة',
                                                                             'date':
                                                                                 dateFormat.format(DateTime.now()),
                                                                             'fawryId': output.replaceRange(
@@ -584,14 +569,9 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('successPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.green.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+                                                                          dialog(
+                                                                              'successPay',
+                                                                              Colors.green);
                                                                         } else if (output
                                                                             .contains('FawryFailed.php')) {
                                                                           print(
@@ -600,14 +580,9 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('failedPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.red.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+                                                                          dialog(
+                                                                              'failedPay',
+                                                                              Colors.red);
                                                                         }
                                                                       },
                                                                       initialUrl:
@@ -659,10 +634,39 @@ class _IntRadiologyListState extends State<IntRadiologyList> {
     );
   }
 
-  nav(context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => NoConnection()));
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => NoConnection()));
+  dialog(String text, Color color) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => DialogBackground(
+        color: Colors.black.withOpacity(.2),
+        blur: 0.5,
+        dialog: AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+              side: BorderSide(color: Colors.grey)),
+          title: Text(
+            translator.translate(text),
+            style: Theme.of(context)
+                .textTheme
+                .headline5
+                .copyWith(color: color, fontWeight: FontWeight.bold),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                translator.translate('ok'),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    .copyWith(color: kPrimaryLightColor),
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -437,14 +437,9 @@ class _LabsListState extends State<LabsList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('successPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.green.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+                                                                          dialog(
+                                                                              'successPay',
+                                                                              Colors.green);
                                                                         } else if (output
                                                                             .contains('NBEFailed.php')) {
                                                                           print(
@@ -453,14 +448,9 @@ class _LabsListState extends State<LabsList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('failedPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.red.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+                                                                          dialog(
+                                                                              'failedPay',
+                                                                              Colors.red);
                                                                         } else if (output
                                                                             .contains('NBECancel.php')) {
                                                                           print(
@@ -469,14 +459,9 @@ class _LabsListState extends State<LabsList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('canceledPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.red.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+                                                                          dialog(
+                                                                              'canceledPay',
+                                                                              Colors.red);
                                                                         }
                                                                       },
                                                                       initialUrl:
@@ -582,14 +567,9 @@ class _LabsListState extends State<LabsList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('successPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.green.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+                                                                          dialog(
+                                                                              'successPay',
+                                                                              Colors.green);
                                                                         } else if (output
                                                                             .contains('FawryFailed.php')) {
                                                                           print(
@@ -598,14 +578,9 @@ class _LabsListState extends State<LabsList> {
                                                                               .pop();
                                                                           Navigator.of(context)
                                                                               .pop();
-                                                                          Fluttertoast.showToast(
-                                                                              msg: translator.translate('failedPay'),
-                                                                              toastLength: Toast.LENGTH_LONG,
-                                                                              gravity: ToastGravity.TOP,
-                                                                              timeInSecForIos: 5,
-                                                                              backgroundColor: Colors.red.withOpacity(0.6),
-                                                                              textColor: Colors.white,
-                                                                              fontSize: 20.0);
+                                                                          dialog(
+                                                                              'failedPay',
+                                                                              Colors.red);
                                                                         }
                                                                       },
                                                                       initialUrl:
@@ -656,141 +631,40 @@ class _LabsListState extends State<LabsList> {
       ),
     );
   }
-}
 
-/* 
-Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        WebView(
-                                                      onPageStarted: (input) {},
-                                                      onPageFinished: (output) {
-                                                        print(
-                                                            'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
-                                                        print(output);
-                                                        if (output.contains(
-                                                            'NBESuccess.php')) {
-                                                          Firestore.instance
-                                                              .collection(
-                                                                  'BookedServices')
-                                                              .document(DateTime
-                                                                      .now()
-                                                                  .toString())
-                                                              .setData({
-                                                            'Id': id,
-                                                            'serviceNameEn':
-                                                                documentSnapshot[
-                                                                    'name_en'],
-                                                            'serviceNameAr':
-                                                                documentSnapshot[
-                                                                    'name_ar'],
-                                                            'phone': currentUser
-                                                                .mobile,
-                                                            'name': currentUser
-                                                                .name,
-                                                            'age':
-                                                                currentUser.age,
-                                                            'gender':
-                                                                currentUser
-                                                                    .gender,
-                                                            'country':
-                                                                currentUser
-                                                                    .country,
-                                                            'cost': userNation ==
-                                                                    'مصر‎'
-                                                                ? documentSnapshot[
-                                                                    'costEgy']
-                                                                : documentSnapshot[
-                                                                    'costForg'],
-                                                            'state': 0,
-                                                            'collectionEn':
-                                                                'Labs',
-                                                            'collectionAr':
-                                                                'التحاليل',
-                                                            'date': dateFormat
-                                                                .format(DateTime
-                                                                    .now()),
-                                                          });
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                          Fluttertoast.showToast(
-                                                              msg: translator
-                                                                  .translate(
-                                                                      'successPay'),
-                                                              toastLength: Toast
-                                                                  .LENGTH_LONG,
-                                                              gravity:
-                                                                  ToastGravity
-                                                                      .TOP,
-                                                              timeInSecForIos:
-                                                                  5,
-                                                              backgroundColor:
-                                                                  Colors.green
-                                                                      .withOpacity(
-                                                                          0.6),
-                                                              textColor:
-                                                                  Colors.white,
-                                                              fontSize: 20.0);
-                                                        } else if (output.contains(
-                                                            'NBEFailed.php')) {
-                                                          print(
-                                                              'OUTPUT IS ................. $output');
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                          Fluttertoast.showToast(
-                                                              msg: translator
-                                                                  .translate(
-                                                                      'failedPay'),
-                                                              toastLength: Toast
-                                                                  .LENGTH_LONG,
-                                                              gravity:
-                                                                  ToastGravity
-                                                                      .TOP,
-                                                              timeInSecForIos:
-                                                                  5,
-                                                              backgroundColor:
-                                                                  Colors.red
-                                                                      .withOpacity(
-                                                                          0.6),
-                                                              textColor:
-                                                                  Colors.white,
-                                                              fontSize: 20.0);
-                                                        } else if (output.contains(
-                                                            'NBECancel.php')) {
-                                                          print(
-                                                              'OUTPUT IS ................. $output');
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                          Fluttertoast.showToast(
-                                                              msg: translator
-                                                                  .translate(
-                                                                      'canceledPay'),
-                                                              toastLength: Toast
-                                                                  .LENGTH_LONG,
-                                                              gravity:
-                                                                  ToastGravity
-                                                                      .TOP,
-                                                              timeInSecForIos:
-                                                                  5,
-                                                              backgroundColor:
-                                                                  Colors.red
-                                                                      .withOpacity(
-                                                                          0.6),
-                                                              textColor:
-                                                                  Colors.white,
-                                                              fontSize: 20.0);
-                                                        }
-                                                      },
-                                                      initialUrl:
-                                                          "https://onlineconsultation.sphinxkc.com/NBEPayment.php?s_name=${documentSnapshot['name_en']}&s_price=$cost&OID=$id",
-                                                      javascriptMode:
-                                                          JavascriptMode
-                                                              .unrestricted,
-                                                    ),
-                                                  ),
-                                                );
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            LoadingScreen()));
-                                                             */
+  dialog(String text, Color color) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => DialogBackground(
+        color: Colors.black.withOpacity(.2),
+        blur: 0.5,
+        dialog: AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+              side: BorderSide(color: Colors.grey)),
+          title: Text(
+            translator.translate(text),
+            style: Theme.of(context)
+                .textTheme
+                .headline5
+                .copyWith(color: color, fontWeight: FontWeight.bold),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                translator.translate('ok'),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    .copyWith(color: kPrimaryLightColor),
+              ),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

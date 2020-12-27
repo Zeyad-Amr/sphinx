@@ -45,23 +45,32 @@ class _MyAppState extends State<MyApp> {
               ConnectivityService().connectionStatusController.stream,
         ),
       ],
-      child: ProgressDialog(
-        loadingText: translator.translate('loadingg'),
-        orientation: ProgressOrientation.vertical,
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates:
-              translator.delegates, // Android + iOS Delegates
-          locale: translator.locale, // Active locale
-          supportedLocales: translator.locals(), // Locals list
-          title: translator.translate('sphinx'),
-          theme: ThemeData(
-              primaryColor: kPrimaryColor,
-              scaffoldBackgroundColor: Colors.white,
-              textTheme: TextTheme(),
-              fontFamily: 'Tajawal'),
-          home: SplashScreen(),
-        ),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: translator.delegates, // Android + iOS Delegates
+        locale: translator.locale, // Active locale
+        supportedLocales: translator.locals(), // Locals list
+        title: translator.translate('sphinx'),
+        theme: ThemeData(
+            primaryColor: kPrimaryColor,
+            scaffoldBackgroundColor: Colors.white,
+            textTheme: TextTheme(),
+            fontFamily: 'Tajawal'),
+        builder: (BuildContext context, Widget child) {
+          return ProgressDialog(
+              loadingText: translator.translate('loadingg'),
+              orientation: ProgressOrientation.vertical,
+              child: GestureDetector(
+                onTap: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                },
+                child: child,
+              ));
+        },
+        home: SplashScreen(),
       ),
     );
   }
