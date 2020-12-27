@@ -37,7 +37,7 @@ class _AddDoctorState extends State<AddDoctor> {
   }) {
     CollectionReference doctor = Firestore.instance.collection('doctors');
     return doctor
-        .document(nameEn)
+        .document(phoneN)
         .setData({
           'name_en': nameEn,
           'name_ar': nameAr,
@@ -68,7 +68,7 @@ class _AddDoctorState extends State<AddDoctor> {
     CollectionReference doctor = Firestore.instance.collection('doctors');
 
     return doctor
-        .document(oldName)
+        .document(phoneN)
         .updateData({
           'name_en': nameEn,
           'name_ar': nameAr,
@@ -84,9 +84,9 @@ class _AddDoctorState extends State<AddDoctor> {
         .catchError((error) => print("Failed to updateeeeee user: $error"));
   }
 
-  deleteData(String name) {
+  deleteData(String phone, name) {
     DocumentReference documentReference =
-        Firestore.instance.collection("doctors").document(name);
+        Firestore.instance.collection("doctors").document(phone);
 
     documentReference.delete().whenComplete(() {
       return Fluttertoast.showToast(
@@ -653,6 +653,7 @@ class _AddDoctorState extends State<AddDoctor> {
                                                               },
                                                             ),
                                                             TextFormField(
+                                                              enabled: false,
                                                               initialValue:
                                                                   documentSnapshot[
                                                                           'mobile']
@@ -662,10 +663,9 @@ class _AddDoctorState extends State<AddDoctor> {
                                                                           2, 13)
                                                                       .join()
                                                                       .toString(),
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .number,
-                                                              maxLength: 11,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .grey),
                                                               decoration:
                                                                   InputDecoration(
                                                                 labelText: translator
@@ -676,12 +676,6 @@ class _AddDoctorState extends State<AddDoctor> {
                                                                   fontSize: 16,
                                                                 ),
                                                               ),
-                                                              onChanged: (val) {
-                                                                setState(() {
-                                                                  phone =
-                                                                      '+2$val';
-                                                                });
-                                                              },
                                                             ),
                                                             TextFormField(
                                                               inputFormatters: [
@@ -1069,6 +1063,8 @@ class _AddDoctorState extends State<AddDoctor> {
                                                                     Colors.grey,
                                                                 onPressed: () {
                                                                   deleteData(
+                                                                      documentSnapshot[
+                                                                          'mobile'],
                                                                       documentSnapshot[
                                                                           'name_en']);
                                                                   Navigator.of(
