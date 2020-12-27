@@ -3,7 +3,6 @@ import 'package:fancy_dialog/FancyAnimation.dart';
 import 'package:fancy_dialog/fancy_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:sphinx/components/constants.dart';

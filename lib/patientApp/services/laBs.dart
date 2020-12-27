@@ -11,7 +11,6 @@ import 'package:intl/intl.dart';
 import 'package:sphinx/providers/UserDataProvider.dart';
 import 'package:sphinx/screens/loading.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class LabsList extends StatefulWidget {
   @override
