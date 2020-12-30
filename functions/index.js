@@ -27,7 +27,7 @@ exports.newRequest = functions.firestore.document('requests/{requestId}').onCrea
 
       
         var payload = {notification: {title:'New Online Consultation Request' , body:snapshot.data().name +' has requested for an appointment' },
-        data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
+        data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'request'}}
         const respond = await admin.messaging().sendToDevice(tokens,payload); 
     }
 );
@@ -139,13 +139,14 @@ exports.EndAppointmentadmin = functions.firestore.document('appointments/{appoin
 
 
 
-exports.NotifyPatients = functions.firestore.document('NotifyPatients/{NotifyPatientsId}').onCreate
+exports.NotifyPatients = functions.firestore.document('Notifications/{NotificationsId}').onCreate
 (
     async (snapshot,context)=>
     {
         var tokens=[];
+        tokens.push('fG0HmY3eQF6j0mfyjlIMNv:APA91bF-AB1qavSWjwxiMgo6-J_1M2ndBAH1riR2kNUjSdL97cnZG42IcuNCz7xatOAivh8pqHfC6RlegOxLEHz-lAZS3m8K0U5AGoQTqbY-nocOQ129G4Z4uVZsrpCIKRFyOXx7N3sx');
 
-        const adminData =  db.collection('users');
+        /* const adminData =  db.collection('users');
         const adminTokens = await adminData.get();
         adminTokens.forEach(doc=>{
 
@@ -154,10 +155,10 @@ exports.NotifyPatients = functions.firestore.document('NotifyPatients/{NotifyPat
                 tokens.push(doc.data().token);
                }
             }
-        });
+        }); */
 
-        var payload = {notification: {title:snapshot.data().title , body:snapshot.data().message },
-        data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
+        var payload = {notification: {title:snapshot.data().titleEn , body:snapshot.data().messageEn },
+        data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'notification'}}
         const respond = await admin.messaging().sendToDevice(tokens,payload); 
     }
 );
@@ -179,7 +180,7 @@ exports.newService = functions.firestore.document('BookedServices/{BookedService
             }
             
         });
-        
+         
         var payload = {notification: {title:'New Service Reservation' , body:snapshot.data().name +' has reserved '+snapshot.data().serviceNameEn },
         data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
         const respond = await admin.messaging().sendToDevice(tokens,payload); 
@@ -218,7 +219,6 @@ exports.newChatMessage = functions.firestore.document('chatRooms/{chatRoomId}/ch
 (
     async (snapshot,context)=>
     {
-
         
         var tokens=[];
 
@@ -235,9 +235,12 @@ exports.newChatMessage = functions.firestore.document('chatRooms/{chatRoomId}/ch
             var messagefield = 'has sent an image to you';
         }
 
-      
         var payload = {notification: {title:snapshot.data().sendByName , body:messagefield },
-        data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'message'}}
+        data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'chat',
+        sendBy:snapshot.data().sendBy,
+        sendByName:snapshot.data().sendByName,
+        sendTo:snapshot.data().sendTo,
+        sendToName:snapshot.data().sendToName}}
         const respond = await admin.messaging().sendToDevice(tokens,payload); 
     }
 );

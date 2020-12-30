@@ -363,6 +363,10 @@ class _AddServiceState extends State<AddService> {
                                                                   .deny(RegExp(
                                                                       '[/]')),
                                                             ],
+                                                            /*  enabled: false,
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .grey), */
                                                             initialValue:
                                                                 documentSnapshot[
                                                                     'name_en'],

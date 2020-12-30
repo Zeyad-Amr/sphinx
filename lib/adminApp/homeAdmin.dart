@@ -1,11 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:ndialog/ndialog.dart';
 import 'package:sphinx/adminApp/fawryList.dart';
+import 'package:sphinx/adminApp/notification/addNotification.dart';
 import 'package:sphinx/adminApp/services/servicesList.dart';
 import 'package:sphinx/components/constants.dart';
 import 'bookedServicesList.dart';
@@ -133,7 +130,7 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
                             translator.translate('requests')) {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => RequestsList(),
+                              builder: (context) => RequestsListAdmin(),
                             ),
                           );
                         } else if (data.title ==
@@ -145,165 +142,11 @@ class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
                           );
                         } else if (data.title ==
                             translator.translate('sendNotification')) {
-                          return DialogBackground(
-                            color: Colors.black.withOpacity(.2),
-                            blur: 0.5,
-                            dialog: Builder(
-                              builder: (context) => AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                    side: BorderSide(color: Colors.grey)),
-                                title: TextField(
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.deny(
-                                        RegExp('[/]')),
-                                  ],
-                                  decoration: InputDecoration(
-                                    labelText: translator.translate('title'),
-                                    labelStyle: TextStyle(
-                                        fontSize: 22, color: kPrimaryColor),
-                                  ),
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.black),
-                                  onChanged: (value) {
-                                    if (value != null) {
-                                      setState(() {
-                                        notifTitle = value;
-                                      });
-                                    }
-                                  },
-                                ),
-                                content: TextField(
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.deny(
-                                        RegExp('[/]')),
-                                  ],
-                                  decoration: InputDecoration(
-                                    labelText: translator.translate('text'),
-                                    labelStyle: TextStyle(
-                                        fontSize: 22, color: kPrimaryColor),
-                                  ),
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.black),
-                                  onChanged: (value) {
-                                    if (value != null) {
-                                      setState(() {
-                                        notifMessage = value;
-                                      });
-                                    }
-                                  },
-                                ),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    child: Text(
-                                      translator.translate('cancel'),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6
-                                          .copyWith(color: Colors.red),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  FlatButton(
-                                    child: Text(
-                                      translator.translate('send'),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6
-                                          .copyWith(color: kPrimaryLightColor),
-                                    ),
-                                    onPressed: () {
-                                      if (notifTitle != null &&
-                                          notifMessage != null) {
-                                        DialogBackground(
-                                          color: Colors.black.withOpacity(.2),
-                                          blur: 0.5,
-                                          dialog: AlertDialog(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                side: BorderSide(
-                                                    color: Colors.grey)),
-                                            title: Text(translator
-                                                .translate('sureSendthis')),
-                                            actions: <Widget>[
-                                              FlatButton(
-                                                child: Text(
-                                                  translator
-                                                      .translate('cancel'),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline6
-                                                      .copyWith(
-                                                        color: Colors.red,
-                                                      ),
-                                                ),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                              FlatButton(
-                                                child: Text(
-                                                  translator.translate('send'),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline6
-                                                      .copyWith(
-                                                        color:
-                                                            kPrimaryLightColor,
-                                                      ),
-                                                ),
-                                                onPressed: () {
-                                                  Firestore.instance
-                                                      .collection(
-                                                          'NotifyPatients')
-                                                      .document(dateorderFormat
-                                                          .format(
-                                                              DateTime.now()))
-                                                      .setData(
-                                                    {
-                                                      'title': notifTitle,
-                                                      'message': notifMessage,
-                                                    },
-                                                  );
-                                                  Navigator.of(context).pop();
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ).show(context);
-                                      } else if (notifTitle == null) {
-                                        return Fluttertoast.showToast(
-                                            msg: translator
-                                                .translate('nottitPls'),
-                                            toastLength: Toast.LENGTH_LONG,
-                                            gravity: ToastGravity.TOP,
-                                            timeInSecForIos: 5,
-                                            backgroundColor: Colors.red[600]
-                                                .withOpacity(0.9),
-                                            textColor: Colors.white,
-                                            fontSize: 20.0);
-                                      } else if (notifMessage == null) {
-                                        return Fluttertoast.showToast(
-                                            msg: translator
-                                                .translate('notmsgPls'),
-                                            toastLength: Toast.LENGTH_LONG,
-                                            gravity: ToastGravity.TOP,
-                                            timeInSecForIos: 5,
-                                            backgroundColor: Colors.red[600]
-                                                .withOpacity(0.9),
-                                            textColor: Colors.white,
-                                            fontSize: 20.0);
-                                      }
-                                    },
-                                  ),
-                                ],
-                              ),
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => AddNotification(),
                             ),
-                          ).show(context);
+                          );
                         }
                       },
                       child: Container(

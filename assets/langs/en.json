@@ -172,7 +172,16 @@
     "title":"Title",
     "nottitPls":"Please, Enter Notification Title",
     "notmsgPls":"Please, Enter Notification Text",
-    "text":"Text"
+    "text":"Text",
+    "notifications":"Notifications",
+    "newNotif":"New Notification",
+    "titleEn":"Title in English",
+    "titleAr":"Title in Arabic",
+    "txtEn":"Text in English",
+    "txtAr":"Text in Arabic",
+    "completeNotif":"Please ,Enter Notification Details",
+    "link":"Link",
+    "invalidLink":"Invalid Link"
     
     
 }

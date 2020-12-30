@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/components/constants.dart';
 
-class RequestsList extends StatefulWidget {
+class RequestsListAdmin extends StatefulWidget {
   @override
-  _RequestsListState createState() => _RequestsListState();
+  _RequestsListAdminState createState() => _RequestsListAdminState();
 }
 
-class _RequestsListState extends State<RequestsList> {
+class _RequestsListAdminState extends State<RequestsListAdmin> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

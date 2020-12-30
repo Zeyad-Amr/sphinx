@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:sphinx/patientApp/notifications.dart';
 import 'package:sphinx/patientApp/profile.dart';
 import 'package:sphinx/components/constants.dart';
 import '../accountScreens/../patientApp/appointments.dart';
@@ -26,7 +27,7 @@ class _AccountPageState extends State<AccountPage> {
   int indexContainer;
   @override
   void initState() {
-    indexContainer = 0;
+    indexContainer = 2;
     super.initState();
   }
 
@@ -76,32 +77,36 @@ class _AccountPageState extends State<AccountPage> {
       //Start of Body...............................
       body: indexContainer == 0
           ? // Home Container
-          HomeWidget()
+          MessegesWidget()
           : indexContainer == 1
               ? // Messeges Container
-              MessegesWidget()
+              AppointmentWidget()
               : indexContainer == 2
                   ? // My Appointment Container
-                  AppointmentWidget()
+                  HomeWidget()
                   : indexContainer == 3
                       ? // Profile Conatiner
-                      Profile1Widget(
-                          firebaseAuth: _firebaseAuth,
-                          user: widget.user,
-                        )
-                      : HomeWidget(),
+                      NotificationsWidget()
+                      : indexContainer == 4
+                          ? // My Appointment Container
+                          Profile1Widget(
+                              firebaseAuth: _firebaseAuth,
+                              user: widget.user,
+                            )
+                          : HomeWidget(),
       //End of Body......................
-      //Start of bottomNaviagationBar ....
+      //Start of bottomNaviagationBar ......
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.grey[200],
         height: 60,
         animationDuration: Duration(milliseconds: 300),
-        index: 0,
+        index: 2,
         animationCurve: Curves.easeInOutCubic,
         items: <Widget>[
-          Icon(Icons.home, size: 30, color: kPrimaryColor),
           Icon(Icons.message, size: 30, color: kPrimaryColor),
           Icon(Icons.date_range, size: 30, color: kPrimaryColor),
+          Icon(Icons.home, size: 30, color: kPrimaryColor),
+          Icon(Icons.notifications, size: 30, color: kPrimaryColor),
           Icon(Icons.portrait, size: 30, color: kPrimaryColor),
         ],
         onTap: (index) {

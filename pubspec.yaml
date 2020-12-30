@@ -55,6 +55,7 @@ dependencies:
   flutter_ringtone_player: ^2.0.0
   ndialog: ^3.1.0
   flutter_progress_dialog: ^0.1.0
+  url_launcher: ^5.7.10
 
   
 

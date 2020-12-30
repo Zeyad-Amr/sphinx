@@ -6,23 +6,31 @@ import 'package:provider/provider.dart';
 import 'package:sphinx/components/constants.dart';
 import 'package:sphinx/providers/UserDataProvider.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class MessegesWidget extends StatefulWidget {
-  const MessegesWidget({
+class NotificationsWidget extends StatefulWidget {
+  const NotificationsWidget({
     Key key,
   }) : super(key: key);
 
   @override
-  _MessegesWidgetState createState() => _MessegesWidgetState();
+  _NotificationsWidgetState createState() => _NotificationsWidgetState();
 }
 
-class _MessegesWidgetState extends State<MessegesWidget> {
+class _NotificationsWidgetState extends State<NotificationsWidget> {
   ScrollController _scrollController;
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
     Timer(Duration(milliseconds: 200), scrollToBottom);
+  }
+
+  _launchURL(url) async {
+    if (url == "null") {
+    } else if (await canLaunch(url) == true) {
+      await launch(url);
+    } else if (await canLaunch(url) == false) {}
   }
 
   void scrollToBottom() {
@@ -57,16 +65,14 @@ class _MessegesWidgetState extends State<MessegesWidget> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-            child: Text(translator.translate('messages'),
+            child: Text(translator.translate('notifications'),
                 style: Theme.of(context).textTheme.headline6),
           ),
           Expanded(
             child: Consumer<User>(
               builder: (context, currentUser, child) => StreamBuilder(
-                stream: Firestore.instance
-                    .collection("messages")
-                    .where('patientPhone', isEqualTo: currentUser.mobile)
-                    .snapshots(),
+                stream:
+                    Firestore.instance.collection("Notifications").snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     Timer(Duration(milliseconds: 500), scrollToBottom);
@@ -122,7 +128,7 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                     children: [
                                       translator.currentLanguage == 'en'
                                           ? Text(
-                                              documentSnapshot['serviceEn'],
+                                              documentSnapshot['titleEn'],
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline6
@@ -132,7 +138,7 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                                       fontSize: 20),
                                             )
                                           : Text(
-                                              documentSnapshot['serviceAr'],
+                                              documentSnapshot['titleAr'],
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline6
@@ -147,37 +153,46 @@ class _MessegesWidgetState extends State<MessegesWidget> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      documentSnapshot['code'] != 'null'
-                                          ? Text(
-                                              translator.translate(
-                                                      documentSnapshot[
-                                                          'message']) +
-                                                  ' ' +
-                                                  documentSnapshot['code'],
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1
-                                                  .copyWith(
-                                                      color: kPrimaryLightColor,
-                                                      fontSize: 14),
+                                      translator.currentLanguage == 'en'
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                _launchURL(
+                                                    documentSnapshot['link']);
+                                              },
+                                              child: Text(
+                                                documentSnapshot['messageEn'],
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith(
+                                                        color:
+                                                            kPrimaryLightColor,
+                                                        fontSize: 14),
+                                              ),
                                             )
-                                          : Text(
-                                              translator.translate(
-                                                  documentSnapshot['message']),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1
-                                                  .copyWith(
-                                                      color: kPrimaryLightColor,
-                                                      fontSize: 14),
-                                            )
+                                          : GestureDetector(
+                                              onTap: () {
+                                                _launchURL(
+                                                    documentSnapshot['link']);
+                                              },
+                                              child: Text(
+                                                documentSnapshot['messageAr'],
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith(
+                                                        color:
+                                                            kPrimaryLightColor,
+                                                        fontSize: 14),
+                                              ),
+                                            ),
                                     ],
                                   ),
                                   leading: Container(
                                     width: size.width * 0.08,
                                     height: size.height,
                                     child: Icon(
-                                      Icons.message,
+                                      Icons.notifications,
                                       size: 40,
                                       color: kPrimaryColor,
                                     ),
