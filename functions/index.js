@@ -144,9 +144,9 @@ exports.NotifyPatients = functions.firestore.document('Notifications/{Notificati
     async (snapshot,context)=>
     {
         var tokens=[];
-        tokens.push('fG0HmY3eQF6j0mfyjlIMNv:APA91bF-AB1qavSWjwxiMgo6-J_1M2ndBAH1riR2kNUjSdL97cnZG42IcuNCz7xatOAivh8pqHfC6RlegOxLEHz-lAZS3m8K0U5AGoQTqbY-nocOQ129G4Z4uVZsrpCIKRFyOXx7N3sx');
+       
 
-        /* const adminData =  db.collection('users');
+         const adminData =  db.collection('users');
         const adminTokens = await adminData.get();
         adminTokens.forEach(doc=>{
 
@@ -155,7 +155,7 @@ exports.NotifyPatients = functions.firestore.document('Notifications/{Notificati
                 tokens.push(doc.data().token);
                }
             }
-        }); */
+        }); 
 
         var payload = {notification: {title:snapshot.data().titleEn , body:snapshot.data().messageEn },
         data: {click_action: 'FLUTTER_NOTIFICATION_CLICK', message: 'notification'}}

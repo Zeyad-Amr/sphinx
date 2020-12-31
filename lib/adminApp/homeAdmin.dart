@@ -20,8 +20,6 @@ class HomeWidgetAdmin extends StatefulWidget {
 }
 
 class _HomeWidgetAdminState extends State<HomeWidgetAdmin> {
-  DateFormat dateorderFormat = DateFormat('yyyyMMddkkmm');
-
   String notifTitle;
 
   String notifMessage;

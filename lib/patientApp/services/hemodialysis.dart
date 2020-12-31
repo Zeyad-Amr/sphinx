@@ -141,7 +141,7 @@ class _HemodialysisListState extends State<HemodialysisList> {
   @override
   Widget build(BuildContext context) {
     final DateFormat dateFormat = DateFormat('yyyy-MM-dd K:mm a');
-    final DateFormat dateorderFormat = DateFormat('yyyyMMddkkmm');
+    final DateFormat dateorderFormat = DateFormat('yyyyMMddkkmmss');
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,

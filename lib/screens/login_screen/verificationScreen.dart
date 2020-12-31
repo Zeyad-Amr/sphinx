@@ -259,7 +259,7 @@ class _OTPScreenState extends State<OTPScreen> {
     //  Change country code.................
 
     await _firebaseAuth.verifyPhoneNumber(
-        phoneNumber: "+2${widget.mobileNumber}",
+        phoneNumber: widget.mobileNumber,
         timeout: const Duration(seconds: 5),
         verificationCompleted: verificationCompleted,
         verificationFailed: verificationFailed,

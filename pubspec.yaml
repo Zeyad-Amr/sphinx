@@ -56,6 +56,7 @@ dependencies:
   ndialog: ^3.1.0
   flutter_progress_dialog: ^0.1.0
   url_launcher: ^5.7.10
+  intl_phone_number_input: ^0.6.0
 
   
 

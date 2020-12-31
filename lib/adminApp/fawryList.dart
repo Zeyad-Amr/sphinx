@@ -14,7 +14,7 @@ class _FawryListState extends State<FawryList> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final DateFormat dateorderFormat = DateFormat('yyyyMMddkkmm');
+    final DateFormat dateorderFormat = DateFormat('yyyyMMddkkmmss');
 
     return Scaffold(
       appBar: AppBar(

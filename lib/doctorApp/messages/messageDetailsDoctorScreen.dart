@@ -42,7 +42,7 @@ class MessageDetailsDoctorScreen extends StatefulWidget {
 class _MessageDetailsDoctorScreenState
     extends State<MessageDetailsDoctorScreen> {
   final DateFormat dateFormat = DateFormat('yyyy-MM-dd K:mm a');
-  final DateFormat dateorderFormat = DateFormat('yyyyMMddkkmm');
+  final DateFormat dateorderFormat = DateFormat('yyyyMMddkkmmss');
 
   @override
   Widget build(BuildContext context) {

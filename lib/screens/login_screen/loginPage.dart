@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/components/constants.dart';
 import 'package:sphinx/components/roundedButton.dart';
@@ -15,22 +16,28 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _phoneNumberController = TextEditingController();
   bool isValid = false;
+  String phone;
+
+  /* final TextEditingController _phoneNumberController = TextEditingController(); */
 
   Future<Null> validate(StateSetter updateState) async {
-    print("in validate : ${_phoneNumberController.text.length}");
-    if (_phoneNumberController.text.length == 11) {
+    if (formKey.currentState.validate() == true) {
       updateState(() {
         isValid = true;
       });
-    } else if (_phoneNumberController.text.length != 11) {
+    } else if (formKey.currentState.validate() == false) {
       updateState(() {
         isValid = false;
       });
     }
   }
 
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final TextEditingController controller = TextEditingController();
+  String initialCountry = 'EG';
+  PhoneNumber number = PhoneNumber(isoCode: 'EG');
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -95,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   translator.translate('loginPage 2'),
                                   style: Theme.of(context).textTheme.subtitle1,
                                 ),
-                                TextFormField(
+                                /*  TextFormField(
                                   autofocus: true,
                                   controller: _phoneNumberController,
                                   keyboardType: TextInputType.phone,
@@ -113,15 +120,69 @@ class _LoginScreenState extends State<LoginScreen> {
                                       : TextAlign.end,
                                   textAlignVertical: TextAlignVertical.center,
                                   style: TextStyle(fontWeight: FontWeight.bold),
-                                  decoration: translator.currentLanguage == 'en'
-                                      ? InputDecoration(
+                                  decoration: InputDecoration(
+                                    hintText: translator
+                                        .translate('loginPage hintText'),
+                                    prefix: CountryCodePicker(
+                                      onChanged: print,
+                                      initialSelection: 'Eg',
+                                      favorite: [],
+                                      showCountryOnly: false,
+                                      showOnlyCountryWhenClosed: false,
+                                      alignLeft: false,
+                                    ),
+                                    prefixIcon: Icon(
+                                      Icons.phone_android,
+                                      color: kPrimaryColor,
+                                    ),
+                                    prefixStyle: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .copyWith(fontWeight: FontWeight.bold),
+                                    suffixIcon: isValid
+                                        ? Icon(Icons.done)
+                                        : Icon(Icons.error, color: Colors.red),
+                                  ),
+                                  autovalidateMode: AutovalidateMode.always,
+                                  autocorrect: false,
+                                  maxLengthEnforced: true,
+                                  onChanged: (text) {
+                                    validate(state);
+                                  },
+                                ), */
+
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Form(
+                                      key: formKey,
+                                      child: InternationalPhoneNumberInput(
+                                        onInputChanged: (PhoneNumber number) {
+                                          print(number.phoneNumber);
+                                          validate(state);
+                                          setState(() {
+                                            phone = number.phoneNumber;
+                                          });
+                                        },
+                                        onInputValidated: (bool value) {
+                                          setState(() {
+                                            isValid = value;
+                                          });
+                                        },
+                                        validator: (val) {
+                                          return !formKey.currentState
+                                                  .validate()
+                                              ? translator
+                                                  .translate('loginPage label')
+                                              : '';
+                                        },
+                                        spaceBetweenSelectorAndTextField: 0,
+                                        selectorConfig: SelectorConfig(
+                                          selectorType: PhoneInputSelectorType
+                                              .BOTTOM_SHEET,
+                                        ),
+                                        inputDecoration: InputDecoration(
                                           hintText: translator
                                               .translate('loginPage hintText'),
-                                          prefixText: '+2   ',
-                                          prefixIcon: Icon(
-                                            Icons.phone_android,
-                                            color: kPrimaryColor,
-                                          ),
                                           prefixStyle: Theme.of(context)
                                               .textTheme
                                               .bodyText1
@@ -131,32 +192,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ? Icon(Icons.done)
                                               : Icon(Icons.error,
                                                   color: Colors.red),
-                                        )
-                                      : InputDecoration(
-                                          hintText: translator
-                                              .translate('loginPage hintText'),
-                                          suffixText: '   +2',
-                                          suffixIcon: Icon(
-                                            Icons.phone_android,
-                                            color: kPrimaryColor,
-                                          ),
-                                          suffixStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1
-                                              .copyWith(
-                                                  fontWeight: FontWeight.bold),
-                                          prefixIcon: isValid
-                                              ? Icon(Icons.done)
-                                              : Icon(Icons.error,
-                                                  color: Colors.red),
                                         ),
-                                  autovalidateMode: AutovalidateMode.always,
-                                  autocorrect: false,
-                                  maxLengthEnforced: true,
-                                  onChanged: (text) {
-                                    validate(state);
-                                  },
-                                ),
+                                        ignoreBlank: false,
+                                        autoValidateMode:
+                                            AutovalidateMode.disabled,
+                                        selectorTextStyle:
+                                            TextStyle(color: Colors.black),
+                                        initialValue: number,
+                                        textFieldController: controller,
+                                        formatInput: false,
+                                        keyboardType: TextInputType.number,
+                                        inputBorder: UnderlineInputBorder(),
+                                        onSaved: (PhoneNumber number) {
+                                          print('On Saved: $number');
+                                        },
+                                      )),
+                                )
                               ],
                             ),
                             SizedBox(
@@ -167,13 +218,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               children: [
                                 RoundedButton(
                                   press: () {
+                                    print('lllll  ${number.phoneNumber}');
+
                                     if (isValid) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => OTPScreen(
-                                              mobileNumber:
-                                                  _phoneNumberController.text,
+                                              mobileNumber: phone,
                                             ),
                                           ));
                                     } else {

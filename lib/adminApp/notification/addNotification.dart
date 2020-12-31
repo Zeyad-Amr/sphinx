@@ -14,7 +14,7 @@ class AddNotification extends StatefulWidget {
 }
 
 class _AddNotificationState extends State<AddNotification> {
-  DateFormat dateorderFormat = DateFormat('yyyyMMddkkmm');
+  DateFormat dateorderFormat = DateFormat('yyyyMMddkkmmss');
   String titleEn, titleAr, messageEn, messageAr, linkUrl;
 
   Future<void> addNotifications(
@@ -296,6 +296,7 @@ class _AddNotificationState extends State<AddNotification> {
                                               titleAr = null;
                                               messageAr = null;
                                               messageEn = null;
+                                              linkUrl = null;
 
                                               Navigator.of(context).pop();
                                             },

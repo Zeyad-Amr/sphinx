@@ -14,7 +14,7 @@
     "agreeToTerms": "By Continuing, you agree to Terms & Conditions",
     "loginPage 1": "Enter your mobile number, you will",
     "loginPage 2": "receive a 6 digit code to verify",
-    "loginPage label": "Please enter a valid 11 digit phone number",
+    "loginPage label": "invalid phone number",
     "loginPage hintText": "Enter your mobile number",
     "verify": "Verify",
     "login": "Login",
