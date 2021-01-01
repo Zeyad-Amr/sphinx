@@ -50,7 +50,10 @@ class _AppointmentsListState extends State<AppointmentsList> {
         width: double.infinity,
         color: Colors.grey[200],
         child: StreamBuilder(
-          stream: Firestore.instance.collection("appointments").snapshots(),
+          stream: Firestore.instance
+              .collection("appointments")
+              .orderBy('AppointmentDate', descending: true)
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data.documents.length == 0) {

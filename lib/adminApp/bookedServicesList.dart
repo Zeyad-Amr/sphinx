@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:ndialog/ndialog.dart';
 import 'package:sphinx/components/constants.dart';
 
 class BookedServices extends StatefulWidget {
@@ -23,7 +24,7 @@ class _BookedServicesState extends State<BookedServices> {
         child: StreamBuilder(
           stream: Firestore.instance
               .collection("BookedServices")
-              .where('state', isEqualTo: 0)
+              .orderBy('state')
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -64,6 +65,9 @@ class _BookedServicesState extends State<BookedServices> {
                     return Padding(
                         padding: const EdgeInsets.all(1.0),
                         child: Card(
+                          color: documentSnapshot['state'] == 0
+                              ? Colors.white
+                              : Colors.red[100],
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
@@ -212,6 +216,175 @@ class _BookedServicesState extends State<BookedServices> {
                                   Icons.date_range,
                                   size: 40,
                                   color: kPrimaryColor,
+                                ),
+                              ),
+                              trailing: Container(
+                                height: 70,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    IconButton(
+                                        icon: CircleAvatar(
+                                          radius: 14,
+                                          backgroundColor: kPrimaryColor,
+                                          child: Icon(
+                                            Icons.more_vert,
+                                            color: Colors.white,
+                                            size: 18,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          DialogBackground(
+                                            color: Colors.black.withOpacity(.2),
+                                            blur: 0.5,
+                                            dialog: AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                  side: BorderSide(
+                                                      color: Colors.grey)),
+                                              title: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  FlatButton(
+                                                    padding: EdgeInsets.all(10),
+                                                    splashColor: Colors.grey,
+                                                    color: Colors.red,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
+                                                            side: BorderSide(
+                                                                color: Colors
+                                                                    .white)),
+                                                    child: Text(
+                                                      translator
+                                                          .translate('cancel'),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline6
+                                                          .copyWith(
+                                                            color: Colors.white,
+                                                          ),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  ),
+                                                  FlatButton(
+                                                    padding: EdgeInsets.all(10),
+                                                    splashColor: Colors.grey,
+                                                    color: kPrimaryColor,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
+                                                            side: BorderSide(
+                                                                color: Colors
+                                                                    .white)),
+                                                    child: Text(
+                                                      translator
+                                                          .translate('end'),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline6
+                                                          .copyWith(
+                                                              color:
+                                                                  Colors.white),
+                                                    ),
+                                                    onPressed: () {
+                                                      DialogBackground(
+                                                        color: Colors.black
+                                                            .withOpacity(.2),
+                                                        blur: 0.5,
+                                                        dialog: AlertDialog(
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          15),
+                                                              side: BorderSide(
+                                                                  color: Colors
+                                                                      .grey)),
+                                                          title: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Text(translator
+                                                                .translate(
+                                                                    'sureEnd')),
+                                                          ),
+                                                          actions: <Widget>[
+                                                            FlatButton(
+                                                              child: Text(
+                                                                  translator
+                                                                      .translate(
+                                                                          'cancel'),
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .headline6
+                                                                      .copyWith(
+                                                                        color: Colors
+                                                                            .red,
+                                                                      )),
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                            ),
+                                                            FlatButton(
+                                                              child: Text(
+                                                                translator
+                                                                    .translate(
+                                                                        'end'),
+                                                                style: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .headline6
+                                                                    .copyWith(
+                                                                        color:
+                                                                            kPrimaryLightColor),
+                                                              ),
+                                                              onPressed: () {
+                                                                Firestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'BookedServices')
+                                                                    .document(
+                                                                        documentSnapshot
+                                                                            .documentID)
+                                                                    .updateData({
+                                                                  'state': 1
+                                                                });
+
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ).show(context);
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ).show(context);
+                                        }),
+                                  ],
                                 ),
                               ),
                             ),

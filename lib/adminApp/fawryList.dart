@@ -281,9 +281,15 @@ class _FawryListState extends State<FawryList> {
                                                                       side: BorderSide(
                                                                           color:
                                                                               Colors.grey)),
-                                                                  title: Text(translator
-                                                                      .translate(
-                                                                          'sureDeletethis')),
+                                                                  title:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child: Text(
+                                                                        translator
+                                                                            .translate('sureDeletethis')),
+                                                                  ),
                                                                   actions: <
                                                                       Widget>[
                                                                     FlatButton(
@@ -384,9 +390,15 @@ class _FawryListState extends State<FawryList> {
                                                                       side: BorderSide(
                                                                           color:
                                                                               Colors.grey)),
-                                                                  title: Text(translator
-                                                                      .translate(
-                                                                          'sureSendthis')),
+                                                                  title:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child: Text(
+                                                                        translator
+                                                                            .translate('sureSendthis')),
+                                                                  ),
                                                                   actions: <
                                                                       Widget>[
                                                                     FlatButton(
@@ -696,9 +708,15 @@ class _FawryListState extends State<FawryList> {
                                                                       side: BorderSide(
                                                                           color:
                                                                               Colors.grey)),
-                                                                  title: Text(translator
-                                                                      .translate(
-                                                                          'sureDeletethis')),
+                                                                  title:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child: Text(
+                                                                        translator
+                                                                            .translate('sureDeletethis')),
+                                                                  ),
                                                                   actions: <
                                                                       Widget>[
                                                                     FlatButton(
@@ -798,9 +816,15 @@ class _FawryListState extends State<FawryList> {
                                                                       side: BorderSide(
                                                                           color:
                                                                               Colors.grey)),
-                                                                  title: Text(translator
-                                                                      .translate(
-                                                                          'sureSendthis')),
+                                                                  title:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child: Text(
+                                                                        translator
+                                                                            .translate('sureSendthis')),
+                                                                  ),
                                                                   actions: <
                                                                       Widget>[
                                                                     FlatButton(

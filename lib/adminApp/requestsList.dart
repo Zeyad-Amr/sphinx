@@ -130,12 +130,7 @@ class _RequestsListAdminState extends State<RequestsListAdmin> {
                                 Text(
                                   translator.translate('mob') +
                                       ': ' +
-                                      documentSnapshot['phone']
-                                          .toString()
-                                          .split('')
-                                          .getRange(2, 13)
-                                          .join()
-                                          .toString(),
+                                      documentSnapshot['phone'],
                                   style: Theme.of(context).textTheme.bodyText1,
                                 ),
                                 translator.currentLanguage == 'en'
