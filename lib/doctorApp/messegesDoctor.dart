@@ -152,11 +152,7 @@ class _MessegesWidgetDoctorState extends State<MessegesWidgetDoctor> {
                                         translator.translate('mob') +
                                             ': ' +
                                             documentSnapshot['patientPhone']
-                                                .toString()
-                                                .split('')
-                                                .getRange(2, 13)
-                                                .join()
-                                                .toString(),
+                                              ,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1,

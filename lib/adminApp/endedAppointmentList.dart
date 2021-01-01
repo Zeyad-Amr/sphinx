@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+/* /*  */import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/components/constants.dart';
@@ -272,3 +272,4 @@ class _EndedAppointmentsListState extends State<EndedAppointmentsList> {
     );
   }
 }
+ */

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sphinx"
+    package="com.sphinx.kidney.care.center.app"
     xmlns:tools="http://schemas.android.com/tools">
     
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that

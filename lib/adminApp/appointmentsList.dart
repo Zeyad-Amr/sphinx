@@ -204,12 +204,7 @@ class _AppointmentsListState extends State<AppointmentsList> {
                                 Text(
                                   translator.translate('mob') +
                                       ': ' +
-                                      documentSnapshot['patientPhone']
-                                          .toString()
-                                          .split('')
-                                          .getRange(2, 13)
-                                          .join()
-                                          .toString(),
+                                      documentSnapshot['patientPhone'],
                                   style: Theme.of(context).textTheme.bodyText1,
                                 ),
                                 translator.currentLanguage == 'en'

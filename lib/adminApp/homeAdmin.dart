@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:sphinx/adminApp/fawryList.dart';
 import 'package:sphinx/adminApp/notification/addNotification.dart';

@@ -181,7 +181,7 @@
     "txtAr":"Text in Arabic",
     "completeNotif":"Please ,Enter Notification Details",
     "link":"Link",
-    "invalidLink":"Invalid Link"
-    
+    "invalidLink":"Invalid Link",
+    "notvalidinCountry":"Fawry isn't available in your country"
     
 }

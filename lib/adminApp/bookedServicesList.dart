@@ -150,12 +150,7 @@ class _BookedServicesState extends State<BookedServices> {
                                   Text(
                                     translator.translate('mob') +
                                         ': ' +
-                                        documentSnapshot['phone']
-                                            .toString()
-                                            .split('')
-                                            .getRange(2, 13)
-                                            .join()
-                                            .toString(),
+                                        documentSnapshot['phone'],
                                     style:
                                         Theme.of(context).textTheme.bodyText1,
                                   ),

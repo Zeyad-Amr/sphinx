@@ -247,7 +247,10 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                         print(currentUser.email);
                                         print(currentUser.name);
                                         print(
-                                            '${widget.doctorPhone.toString().split('').getRange(2, 13).join().toString()}_${widget.pateintPhone.toString().split('').getRange(2, 13).join().toString()}');
+                                            '${widget.doctorPhone}_${widget.pateintPhone}'
+                                                .replaceAll(
+                                                    new RegExp(r'[^\w\s]+'),
+                                                    ''));
                                         Firestore.instance
                                             .collection('videoCalls')
                                             .document(
@@ -260,7 +263,10 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                           "callToName": widget.doctorName,
                                           "callByName": widget.pateintName,
                                           "callId":
-                                              '${widget.doctorPhone.toString().split('').getRange(2, 13).join().toString()}_${widget.pateintPhone.toString().split('').getRange(2, 13).join().toString()}'
+                                              '${widget.doctorPhone}_${widget.pateintPhone}'
+                                                  .replaceAll(
+                                                      new RegExp(r'[^\w\s]+'),
+                                                      '')
                                         });
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
@@ -270,7 +276,11 @@ class _MessageDetailsScreenState extends State<MessageDetailsScreen> {
                                                   'Online Consultation',
                                               nameText: currentUser.name,
                                               roomText:
-                                                  '${widget.doctorPhone.toString().split('').getRange(2, 13).join().toString()}_${widget.pateintPhone.toString().split('').getRange(2, 13).join().toString()}',
+                                                  '${widget.doctorPhone}_${widget.pateintPhone}'
+                                                      .replaceAll(
+                                                          new RegExp(
+                                                              r'[^\w\s]+'),
+                                                          ''),
                                             ),
                                           ),
                                         );

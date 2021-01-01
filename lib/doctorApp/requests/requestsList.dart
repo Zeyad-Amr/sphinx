@@ -67,11 +67,7 @@ class _RequestsListState extends State<RequestsList> {
                                     translator.translate('mob') +
                                         ': ' +
                                         documentSnapshot['phone']
-                                            .toString()
-                                            .split('')
-                                            .getRange(2, 13)
-                                            .join()
-                                            .toString(),
+                                           ,
                                     style:
                                         Theme.of(context).textTheme.bodyText1,
                                   ),

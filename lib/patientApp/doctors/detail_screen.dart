@@ -391,119 +391,122 @@ class _DetailScreenState extends State<DetailScreen> {
                                                     onPressed: () {
                                                       /////////////////// Fawry Payment ///////////////////////////
 
-                                                      Navigator.of(context)
-                                                          .push(
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              WebView(
-                                                            onPageStarted:
-                                                                (input) {},
-                                                            onPageFinished:
-                                                                (output) {
-                                                              print(
-                                                                  'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
-                                                              print(output);
-                                                              if (output.contains(
-                                                                  'FawrySuccess.php')) {
-                                                                Firestore
-                                                                    .instance
-                                                                    .collection(
-                                                                        'fawryRequests')
-                                                                    .document(
-                                                                        dateorderFormat
-                                                                            .format(DateTime.now()))
-                                                                    .setData({
-                                                                  'Id': id,
-                                                                  'name':
-                                                                      currentUser
-                                                                          .name,
-                                                                  'phone':
-                                                                      currentUser
-                                                                          .mobile,
-                                                                  'age':
-                                                                      currentUser
-                                                                          .age,
-                                                                  'gender':
-                                                                      currentUser
-                                                                          .gender,
-                                                                  'country':
-                                                                      currentUser
-                                                                          .country,
-                                                                  'DoctorPhone':
-                                                                      widget
-                                                                          .docMobile,
-                                                                  'DoctorNameEn':
-                                                                      widget
-                                                                          .docNameEn,
-                                                                  'DoctorNameAr':
-                                                                      widget
-                                                                          .docNameAr,
-                                                                  'specialtyAr':
-                                                                      widget
-                                                                          .descriptionAr,
-                                                                  'specialtyEn':
-                                                                      widget
-                                                                          .descriptionEn,
-                                                                  'cost': widget
-                                                                      .cost,
-                                                                  'state': 0,
-                                                                  'date': dateFormat
-                                                                      .format(DateTime
-                                                                          .now()),
-                                                                  'imgUrl': widget
-                                                                      .imageUrl,
-                                                                  'fawryId': output
-                                                                      .replaceRange(
-                                                                          0,
-                                                                          72,
-                                                                          ''),
-                                                                  'about':
-                                                                      'doctor'
-                                                                });
-                                                                Firestore
-                                                                    .instance
-                                                                    .collection(
-                                                                        'messages')
-                                                                    .document(
-                                                                        dateorderFormat
-                                                                            .format(DateTime.now()))
-                                                                    .setData({
-                                                                  'patientName':
-                                                                      currentUser
-                                                                          .name,
-                                                                  'patientPhone':
-                                                                      currentUser
-                                                                          .mobile,
-                                                                  'message':
-                                                                      'fawryMessage',
-                                                                  'code': output
-                                                                      .replaceRange(
-                                                                          0,
-                                                                          72,
-                                                                          ''),
-                                                                  'serviceEn':
-                                                                      widget
-                                                                          .docNameEn,
-                                                                  'serviceAr':
-                                                                      widget
-                                                                          .docNameAr,
-                                                                  'date': dateorderFormat
-                                                                      .format(DateTime
-                                                                          .now())
-                                                                });
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
+                                                      if (currentUser.country ==
+                                                          'مصر‎') {
+                                                        Navigator.of(context)
+                                                            .push(
+                                                          MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    WebView(
+                                                              onPageStarted:
+                                                                  (input) {},
+                                                              onPageFinished:
+                                                                  (output) {
+                                                                print(
+                                                                    'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
+                                                                print(output);
+                                                                if (output.contains(
+                                                                    'FawrySuccess.php')) {
+                                                                  Firestore
+                                                                      .instance
+                                                                      .collection(
+                                                                          'fawryRequests')
+                                                                      .document(
+                                                                          dateorderFormat
+                                                                              .format(DateTime.now()))
+                                                                      .setData({
+                                                                    'Id': id,
+                                                                    'name':
+                                                                        currentUser
+                                                                            .name,
+                                                                    'phone':
+                                                                        currentUser
+                                                                            .mobile,
+                                                                    'age':
+                                                                        currentUser
+                                                                            .age,
+                                                                    'gender':
+                                                                        currentUser
+                                                                            .gender,
+                                                                    'country':
+                                                                        currentUser
+                                                                            .country,
+                                                                    'DoctorPhone':
+                                                                        widget
+                                                                            .docMobile,
+                                                                    'DoctorNameEn':
+                                                                        widget
+                                                                            .docNameEn,
+                                                                    'DoctorNameAr':
+                                                                        widget
+                                                                            .docNameAr,
+                                                                    'specialtyAr':
+                                                                        widget
+                                                                            .descriptionAr,
+                                                                    'specialtyEn':
+                                                                        widget
+                                                                            .descriptionEn,
+                                                                    'cost': widget
+                                                                        .cost,
+                                                                    'state': 0,
+                                                                    'date': dateFormat
+                                                                        .format(
+                                                                            DateTime.now()),
+                                                                    'imgUrl': widget
+                                                                        .imageUrl,
+                                                                    'fawryId': output
+                                                                        .replaceRange(
+                                                                            0,
+                                                                            72,
+                                                                            ''),
+                                                                    'about':
+                                                                        'doctor'
+                                                                  });
+                                                                  Firestore
+                                                                      .instance
+                                                                      .collection(
+                                                                          'messages')
+                                                                      .document(
+                                                                          dateorderFormat
+                                                                              .format(DateTime.now()))
+                                                                      .setData({
+                                                                    'patientName':
+                                                                        currentUser
+                                                                            .name,
+                                                                    'patientPhone':
+                                                                        currentUser
+                                                                            .mobile,
+                                                                    'message':
+                                                                        'fawryMessage',
+                                                                    'code': output
+                                                                        .replaceRange(
+                                                                            0,
+                                                                            72,
+                                                                            ''),
+                                                                    'serviceEn':
+                                                                        widget
+                                                                            .docNameEn,
+                                                                    'serviceAr':
+                                                                        widget
+                                                                            .docNameAr,
+                                                                    'date': dateorderFormat
+                                                                        .format(
+                                                                            DateTime.now())
+                                                                  });
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
 
-                                                                /////////////////////////////////////////////////////////////////////
-                                                                dialog(
-                                                                    'successPay',
-                                                                    Colors
-                                                                        .green);
-                                                                /*   Fluttertoast.showToast(
+                                                                  /////////////////////////////////////////////////////////////////////
+                                                                  dialog(
+                                                                      'successPay',
+                                                                      Colors
+                                                                          .green);
+                                                                  /*   Fluttertoast.showToast(
                                                                     msg: translator
                                                                         .translate(
                                                                             'successPay'),
@@ -523,30 +526,36 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                             .white,
                                                                     fontSize:
                                                                         20.0); */
-                                                              } else if (output
-                                                                  .contains(
-                                                                      'FawryFailed.php')) {
-                                                                print(
-                                                                    'OUTPUT IS ................. $output');
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                dialog(
-                                                                    'failedPay',
-                                                                    Colors.red);
-                                                              }
-                                                            },
-                                                            initialUrl:
-                                                                "http://onlineconsultation.sphinxkc.com/FawryPayment.php?s_name=${widget.docNameEn}&s_price=${widget.cost}&OID=$id&cstmail=${currentUser.email}&cstPhone=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}&cstID=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}",
-                                                            javascriptMode:
-                                                                JavascriptMode
-                                                                    .unrestricted,
+                                                                } else if (output
+                                                                    .contains(
+                                                                        'FawryFailed.php')) {
+                                                                  print(
+                                                                      'OUTPUT IS ................. $output');
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                  dialog(
+                                                                      'failedPay',
+                                                                      Colors
+                                                                          .red);
+                                                                }
+                                                              },
+                                                              initialUrl:
+                                                                  "http://onlineconsultation.sphinxkc.com/FawryPayment.php?s_name=${widget.docNameEn}&s_price=${widget.cost}&OID=$id&cstmail=${currentUser.email}&cstPhone=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}&cstID=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}",
+                                                              javascriptMode:
+                                                                  JavascriptMode
+                                                                      .unrestricted,
+                                                            ),
                                                           ),
-                                                        ),
-                                                      );
+                                                        );
+                                                      } else {
+                                                        dialog(
+                                                            'notvalidinCountry',
+                                                            Colors.red);
+                                                      }
 
                                                       /*  print(
                                                                     "YYY:http://onlineconsultation.sphinxkc.com/FawryPayment.php?s_name=${documentSnapshot['name_en']}&s_price=$cost&OID=$id&cstmail=${currentUser.email}&cstPhone=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}&cstID=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}"); */

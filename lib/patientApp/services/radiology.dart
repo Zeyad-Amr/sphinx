@@ -484,114 +484,78 @@ class _RadiologyListState extends State<RadiologyList> {
                                                               ),
                                                               onPressed: () {
                                                                 /////////////////// Fawry Payment ///////////////////////////
-
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .push(
-                                                                  MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            WebView(
-                                                                      onPageStarted:
-                                                                          (input) {},
-                                                                      onPageFinished:
-                                                                          (output) {
-                                                                        print(
-                                                                            'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
-                                                                        print(
-                                                                            output);
-                                                                        if (output
-                                                                            .contains('FawrySuccess.php')) {
-                                                                          Firestore
-                                                                              .instance
-                                                                              .collection('fawryRequests')
-                                                                              .document(dateorderFormat.format(DateTime.now()))
-                                                                              .setData({
-                                                                            'Id':
-                                                                                id,
-                                                                            'serviceNameEn':
-                                                                                documentSnapshot['name_en'],
-                                                                            'serviceNameAr':
-                                                                                documentSnapshot['name_ar'],
-                                                                            'phone':
-                                                                                currentUser.mobile,
-                                                                            'name':
-                                                                                currentUser.name,
-                                                                            'age':
-                                                                                currentUser.age,
-                                                                            'gender':
-                                                                                currentUser.gender,
-                                                                            'country':
-                                                                                currentUser.country,
-                                                                            'cost': userNation == 'مصر‎'
-                                                                                ? documentSnapshot['costEgy']
-                                                                                : documentSnapshot['costForg'],
-                                                                            'state':
-                                                                                0,
-                                                                            'collectionEn':
-                                                                                'Radiology',
-                                                                            'collectionAr':
-                                                                                'الإشعة',
-                                                                            'date':
-                                                                                dateFormat.format(DateTime.now()),
-                                                                            'fawryId': output.replaceRange(
-                                                                                0,
-                                                                                72,
-                                                                                ''),
-                                                                            'about':
-                                                                                'service'
-                                                                          });
-                                                                          Firestore
-                                                                              .instance
-                                                                              .collection('messages')
-                                                                              .document(dateorderFormat.format(DateTime.now()))
-                                                                              .setData({
-                                                                            'patientName':
-                                                                                currentUser.name,
-                                                                            'patientPhone':
-                                                                                currentUser.mobile,
-                                                                            'message':
-                                                                                'fawryMessage',
-                                                                            'code': output.replaceRange(
-                                                                                0,
-                                                                                72,
-                                                                                ''),
-                                                                            'serviceEn':
-                                                                                documentSnapshot['name_en'],
-                                                                            'serviceAr':
-                                                                                documentSnapshot['name_ar'],
-                                                                            'date':
-                                                                                dateorderFormat.format(DateTime.now())
-                                                                          });
-                                                                          Navigator.of(context)
-                                                                              .pop();
-                                                                          Navigator.of(context)
-                                                                              .pop();
-                                                                          dialog(
-                                                                              'successPay',
-                                                                              Colors.green);
-                                                                        } else if (output
-                                                                            .contains('FawryFailed.php')) {
+                                                                if (currentUser
+                                                                        .country ==
+                                                                    'مصر‎') {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .push(
+                                                                    MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              WebView(
+                                                                        onPageStarted:
+                                                                            (input) {},
+                                                                        onPageFinished:
+                                                                            (output) {
                                                                           print(
-                                                                              'OUTPUT IS ................. $output');
-                                                                          Navigator.of(context)
-                                                                              .pop();
-                                                                          Navigator.of(context)
-                                                                              .pop();
-                                                                          dialog(
-                                                                              'failedPay',
-                                                                              Colors.red);
-                                                                        }
-                                                                      },
-                                                                      initialUrl:
-                                                                          "http://onlineconsultation.sphinxkc.com/FawryPayment.php?s_name=${documentSnapshot['name_en']}&s_price=$cost&OID=$id&cstmail=${currentUser.email}&cstPhone=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}&cstID=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}",
-                                                                      javascriptMode:
-                                                                          JavascriptMode
-                                                                              .unrestricted,
+                                                                              'Paaaayymmeeeeeeeeeeeeeeeeeeeeeeent');
+                                                                          print(
+                                                                              output);
+                                                                          if (output
+                                                                              .contains('FawrySuccess.php')) {
+                                                                            Firestore.instance.collection('fawryRequests').document(dateorderFormat.format(DateTime.now())).setData({
+                                                                              'Id': id,
+                                                                              'serviceNameEn': documentSnapshot['name_en'],
+                                                                              'serviceNameAr': documentSnapshot['name_ar'],
+                                                                              'phone': currentUser.mobile,
+                                                                              'name': currentUser.name,
+                                                                              'age': currentUser.age,
+                                                                              'gender': currentUser.gender,
+                                                                              'country': currentUser.country,
+                                                                              'cost': userNation == 'مصر‎' ? documentSnapshot['costEgy'] : documentSnapshot['costForg'],
+                                                                              'state': 0,
+                                                                              'collectionEn': 'Radiology',
+                                                                              'collectionAr': 'الإشعة',
+                                                                              'date': dateFormat.format(DateTime.now()),
+                                                                              'fawryId': output.replaceRange(0, 72, ''),
+                                                                              'about': 'service'
+                                                                            });
+                                                                            Firestore.instance.collection('messages').document(dateorderFormat.format(DateTime.now())).setData({
+                                                                              'patientName': currentUser.name,
+                                                                              'patientPhone': currentUser.mobile,
+                                                                              'message': 'fawryMessage',
+                                                                              'code': output.replaceRange(0, 72, ''),
+                                                                              'serviceEn': documentSnapshot['name_en'],
+                                                                              'serviceAr': documentSnapshot['name_ar'],
+                                                                              'date': dateorderFormat.format(DateTime.now())
+                                                                            });
+                                                                            Navigator.of(context).pop();
+                                                                            Navigator.of(context).pop();
+                                                                            dialog('successPay',
+                                                                                Colors.green);
+                                                                          } else if (output
+                                                                              .contains('FawryFailed.php')) {
+                                                                            print('OUTPUT IS ................. $output');
+                                                                            Navigator.of(context).pop();
+                                                                            Navigator.of(context).pop();
+                                                                            dialog('failedPay',
+                                                                                Colors.red);
+                                                                          }
+                                                                        },
+                                                                        initialUrl:
+                                                                            "http://onlineconsultation.sphinxkc.com/FawryPayment.php?s_name=${documentSnapshot['name_en']}&s_price=$cost&OID=$id&cstmail=${currentUser.email}&cstPhone=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}&cstID=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}",
+                                                                        javascriptMode:
+                                                                            JavascriptMode.unrestricted,
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                );
-
+                                                                  );
+                                                                } else {
+                                                                  dialog(
+                                                                      'notvalidinCountry',
+                                                                      Colors
+                                                                          .red);
+                                                                }
                                                                 /*  print(
                                                                     "YYY:http://onlineconsultation.sphinxkc.com/FawryPayment.php?s_name=${documentSnapshot['name_en']}&s_price=$cost&OID=$id&cstmail=${currentUser.email}&cstPhone=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}&cstID=${currentUser.mobile.toString().split('').getRange(2, 13).join().toString()}"); */
                                                               },

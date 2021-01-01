@@ -182,7 +182,8 @@
     "txtAr":"النص بالعربية",
     "completeNotif":"من فضلك ادخل تفاصيل الإشعار",
     "link":"الرابط",
-    "invalidLink":"رابط غير صالح"
+    "invalidLink":"رابط غير صالح",
+    "notvalidinCountry":"فوري غير متوفر في بلدك"
 
 
 
