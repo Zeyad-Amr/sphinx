@@ -409,7 +409,7 @@ class _HemodialysisListState extends State<HemodialysisList> {
                                                                             'collectionEn':
                                                                                 'Hemodialysis & PE',
                                                                             'collectionAr':
-                                                                                'الغسيل الدموي و فصل البلازمة',
+                                                                                'الغسيل الكلوي الدموي وفصل البلازما',
                                                                             'date':
                                                                                 dateFormat.format(DateTime.now()),
                                                                           });
@@ -516,7 +516,7 @@ class _HemodialysisListState extends State<HemodialysisList> {
                                                                               'cost': userNation == 'مصر‎' ? documentSnapshot['costEgy'] : documentSnapshot['costForg'],
                                                                               'state': 0,
                                                                               'collectionEn': 'Hemodialysis & PE',
-                                                                              'collectionAr': 'الغسيل الدموي و فصل البلازمة',
+                                                                              'collectionAr': 'الغسيل الكلوي الدموي وفصل البلازما',
                                                                               'date': dateFormat.format(DateTime.now()),
                                                                               'fawryId': output.replaceRange(0, 72, ''),
                                                                               'about': 'service'
