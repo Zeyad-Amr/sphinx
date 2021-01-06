@@ -41,7 +41,6 @@ dependencies:
   connectivity: ^0.4.9+2
   email_validator: '^1.0.0'
   fancy_dialog: ^1.0.3
-  image_downloader: ^0.19.2
   firebase_storage: ^3.1.5
   path: ^1.6.4
   image_picker: ^0.6.6+1
