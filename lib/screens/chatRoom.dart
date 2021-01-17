@@ -452,11 +452,7 @@ class MessageTile extends StatelessWidget {
                           topLeft: Radius.circular(23),
                           topRight: Radius.circular(23),
                           bottomRight: Radius.circular(23)),
-                  gradient: LinearGradient(
-                    colors: sendByMe
-                        ? [Colors.grey[800], Colors.grey[600]]
-                        : [kPrimaryLightColor, kPrimaryColor],
-                  )),
+                  color: sendByMe ? Colors.grey[800] : kPrimaryLightColor),
               child: Text(
                 message,
                 textAlign: TextAlign.start,
@@ -482,11 +478,7 @@ class MessageTile extends StatelessWidget {
                           topLeft: Radius.circular(23),
                           topRight: Radius.circular(23),
                           bottomRight: Radius.circular(23)),
-                  gradient: LinearGradient(
-                    colors: sendByMe
-                        ? [Colors.grey[800], Colors.grey[600]]
-                        : [kPrimaryLightColor, kPrimaryColor],
-                  )),
+                  color: sendByMe ? Colors.grey[800] : kPrimaryLightColor),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: GestureDetector(

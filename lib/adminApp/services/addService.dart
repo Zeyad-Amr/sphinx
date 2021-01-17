@@ -66,7 +66,7 @@ class _AddServiceState extends State<AddService> {
           msg: '$name ' + translator.translate('deleteSuccess'),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.TOP,
-          timeInSecForIos: 5,
+          timeInSecForIosWeb: 5,
           backgroundColor: Colors.red[600].withOpacity(0.9),
           textColor: Colors.white,
           fontSize: 20.0);
@@ -224,7 +224,7 @@ class _AddServiceState extends State<AddService> {
                                                   'completeServiceData'),
                                               toastLength: Toast.LENGTH_LONG,
                                               gravity: ToastGravity.TOP,
-                                              timeInSecForIos: 5,
+                                              timeInSecForIosWeb: 5,
                                               backgroundColor:
                                                   Colors.black.withOpacity(0.6),
                                               textColor: Colors.white,

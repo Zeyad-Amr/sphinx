@@ -690,7 +690,7 @@ void showToastData(String messege, Color color) {
       msg: messege,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.TOP,
-      timeInSecForIos: 5,
+      timeInSecForIosWeb: 5,
       backgroundColor: color,
       textColor: Colors.white,
       fontSize: 20.0);

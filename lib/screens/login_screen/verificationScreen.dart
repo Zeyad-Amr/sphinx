@@ -4,10 +4,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:sphinx/components/constants.dart';
-import 'package:sphinx/components/otp_input.dart';
 import 'package:sphinx/components/roundedButton.dart';
 import 'package:sphinx/providers/UserDataProvider.dart';
 import 'package:sphinx/services/app.dart';
+import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 
 class OTPScreen extends StatefulWidget {
   final String mobileNumber;
@@ -23,16 +23,11 @@ class OTPScreen extends StatefulWidget {
 
 class _OTPScreenState extends State<OTPScreen> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
-  /// Control the input text field.
-  TextEditingController _pinEditingController = TextEditingController();
-
-  /// Decorate the outside of the Pin.
-  PinDecoration _pinDecoration =
-      UnderlineDecoration(enteredColor: Colors.black, hintText: '      ');
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   bool isCodeSent = false;
   String _verificationId;
+  String otp;
 
   @override
   void initState() {
@@ -114,34 +109,55 @@ class _OTPScreenState extends State<OTPScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 40),
+                            vertical: 15, horizontal: 5),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            //OTP Container
-                            Container(
-                              width: size.width * 0.7, //0.12
-                              height: size.height * 0.06,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              //OTP Container
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 5),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    //OTP Container
+                                    Container(
+                                      width: size.width * 0.7, //0.12
+                                      height: size.height * 0.08,
 
-                              child: Center(
-                                child: PinInputTextField(
-                                  pinLength: 6,
-                                  decoration: _pinDecoration,
-                                  controller: _pinEditingController,
-                                  autoFocus: true,
-                                  textInputAction: TextInputAction.done,
-                                  onSubmit: (pin) {
-                                    if (pin.length == 6) {
-                                      _onFormSubmitted();
-                                    } else {
-                                      showToast("Invalid OTP", Colors.red);
-                                    }
-                                  },
+                                      child: Center(
+                                        child: PinCodeFields(
+                                          autofocus: true,
+                                          keyboardType: TextInputType.number,
+                                          borderColor: kPrimaryColor,
+                                          fieldWidth: 7,
+                                          length: 6,
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .headline4
+                                              .copyWith(color: kPrimaryColor),
+                                          animationDuration:
+                                              const Duration(milliseconds: 100),
+                                          animationCurve: Curves.easeInOut,
+                                          switchInAnimationCurve: Curves.easeIn,
+                                          switchOutAnimationCurve:
+                                              Curves.easeOut,
+                                          animation: Animations.SlideInDown,
+                                          onComplete: (output) {
+                                            setState(() {
+                                              otp = output;
+                                            });
+
+                                            print(output);
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ]),
                       ),
                       SizedBox(
                         height: size.height * 0.01,
@@ -151,7 +167,7 @@ class _OTPScreenState extends State<OTPScreen> {
                         children: [
                           RoundedButton(
                             press: () {
-                              if (_pinEditingController.text.length == 6) {
+                              if (otp.length == 6) {
                                 _onFormSubmitted();
                               } else {
                                 showToast("Invalid OTP", Colors.red);
@@ -190,7 +206,7 @@ class _OTPScreenState extends State<OTPScreen> {
         msg: message,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
-        timeInSecForIos: 5,
+        timeInSecForIosWeb: 5,
         backgroundColor: color,
         textColor: Colors.white,
         fontSize: 16.0);
@@ -270,8 +286,7 @@ class _OTPScreenState extends State<OTPScreen> {
 // Phone Verification Completed on Manually Submission........................
   void _onFormSubmitted() async {
     AuthCredential _authCredential = PhoneAuthProvider.getCredential(
-        verificationId: _verificationId, smsCode: _pinEditingController.text);
-
+        verificationId: _verificationId, smsCode: otp);
     User userModel;
     userModel = Provider.of<User>(context, listen: false);
     _firebaseAuth

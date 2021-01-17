@@ -71,7 +71,7 @@ class _AddNotificationState extends State<AddNotification> {
           msg: '$name ' + translator.translate('deleteSuccess'),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.TOP,
-          timeInSecForIos: 5,
+          timeInSecForIosWeb: 5,
           backgroundColor: Colors.red[600].withOpacity(0.9),
           textColor: Colors.white,
           fontSize: 20.0);
@@ -87,7 +87,7 @@ class _AddNotificationState extends State<AddNotification> {
           msg: translator.translate('invalidLink'),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.TOP,
-          timeInSecForIos: 5,
+          timeInSecForIosWeb: 5,
           backgroundColor: Colors.red[600].withOpacity(0.9),
           textColor: Colors.white,
           fontSize: 20.0);
@@ -310,7 +310,7 @@ class _AddNotificationState extends State<AddNotification> {
                                             .translate('completeNotif'),
                                         toastLength: Toast.LENGTH_LONG,
                                         gravity: ToastGravity.TOP,
-                                        timeInSecForIos: 5,
+                                        timeInSecForIosWeb: 5,
                                         backgroundColor:
                                             Colors.red[600].withOpacity(0.9),
                                         textColor: Colors.white,

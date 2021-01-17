@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:jitsi_meet/feature_flag/feature_flag.dart';
 import 'package:jitsi_meet/feature_flag/feature_flag_enum.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
 import 'package:jitsi_meet/jitsi_meeting_listener.dart';
@@ -31,6 +32,8 @@ class _VideoCallState extends State<VideoCall> {
         onConferenceWillJoin: _onConferenceWillJoin,
         onConferenceJoined: _onConferenceJoined,
         onConferenceTerminated: _onConferenceTerminated,
+        onPictureInPictureWillEnter: _onPictureInPictureWillEnter,
+        onPictureInPictureTerminated: _onPictureInPictureTerminated,
         onError: _onError));
     _joinMeeting();
   }
@@ -44,65 +47,7 @@ class _VideoCallState extends State<VideoCall> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          /* child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              /*  SizedBox(
-                height: size.height * 0.1,
-              ),
-              CheckboxListTile(
-                title: Text("Audio Only"),
-                value: isAudioOnly,
-                onChanged: _onAudioOnlyChanged,
-              ),
-              SizedBox(
-                height: 16.0,
-              ),
-              CheckboxListTile(
-                title: Text("Audio Muted"),
-                value: isAudioMuted,
-                onChanged: _onAudioMutedChanged,
-              ),
-              SizedBox(
-                height: 16.0,
-              ),
-              CheckboxListTile(
-                title: Text("Video Muted"),
-                value: isVideoMuted,
-                onChanged: _onVideoMutedChanged,
-              ), */
-              Divider(
-                height: 48.0,
-                thickness: 2.0,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                height: MediaQuery.of(context).size.height * 0.08,
-                child: FlatButton.icon(
-                  label: Text(
-                    "Video Call",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        .copyWith(color: Colors.white),
-                  ),
-                  icon: Icon(Icons.video_call, color: Colors.white),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  color: kPrimaryColor,
-                  textColor: Colors.white,
-                  onPressed: () {},
-                ),
-              ),
-              SizedBox(
-                height: 48.0,
-              ),
-            ],
-          ),
-        ), */
-          ),
+      body: Container(),
     );
   }
 
@@ -132,19 +77,19 @@ class _VideoCallState extends State<VideoCall> {
       // Enable or disable any feature flag here
       // If feature flag are not provided, default values will be used
       // Full list of feature flags (and defaults) available in the README
-      Map<FeatureFlagEnum, bool> featureFlags = {
-        FeatureFlagEnum.WELCOME_PAGE_ENABLED: false,
-      };
-
+      FeatureFlag featureFlag = FeatureFlag();
+      featureFlag.welcomePageEnabled = false;
       // Here is an example, disabling features for each platform
       if (Platform.isAndroid) {
         // Disable ConnectionService usage on Android to avoid issues (see README)
-        featureFlags[FeatureFlagEnum.CALL_INTEGRATION_ENABLED] = false;
+        featureFlag.callIntegrationEnabled = false;
       } else if (Platform.isIOS) {
         // Disable PIP on iOS as it looks weird
-        featureFlags[FeatureFlagEnum.PIP_ENABLED] = false;
+        featureFlag.pipEnabled = false;
       }
 
+//uncomment to modify video resolution
+      featureFlag.resolution = FeatureFlagVideoResolution.MD_RESOLUTION;
       // Define meetings options here
       var options = JitsiMeetingOptions()
         ..room = widget.roomText
@@ -155,7 +100,7 @@ class _VideoCallState extends State<VideoCall> {
         ..audioOnly = false
         ..audioMuted = false
         ..videoMuted = false
-        ..featureFlags.addAll(featureFlags);
+        ..featureFlag = featureFlag;
 
       debugPrint("JitsiMeetingOptions: $options");
       await JitsiMeet.joinMeeting(
@@ -166,6 +111,10 @@ class _VideoCallState extends State<VideoCall> {
           debugPrint("${options.room} joined with message: $message");
         }, onConferenceTerminated: ({message}) {
           debugPrint("${options.room} terminated with message: $message");
+        }, onPictureInPictureWillEnter: ({message}) {
+          debugPrint("${options.room} entered PIP mode with message: $message");
+        }, onPictureInPictureTerminated: ({message}) {
+          debugPrint("${options.room} exited PIP mode with message: $message");
         }),
         // by default, plugin default constraints are used
         //roomNameConstraints: new Map(), // to disable all constraints
@@ -194,11 +143,20 @@ class _VideoCallState extends State<VideoCall> {
 
   void _onConferenceJoined({message}) {
     debugPrint("_onConferenceJoined broadcasted with message: $message");
-    Navigator.of(context).pop();
   }
 
   void _onConferenceTerminated({message}) {
     debugPrint("_onConferenceTerminated broadcasted with message: $message");
+  }
+
+  void _onPictureInPictureWillEnter({message}) {
+    debugPrint(
+        "_onPictureInPictureWillEnter broadcasted with message: $message");
+  }
+
+  void _onPictureInPictureTerminated({message}) {
+    debugPrint(
+        "_onPictureInPictureTerminated broadcasted with message: $message");
   }
 
   _onError(error) {
